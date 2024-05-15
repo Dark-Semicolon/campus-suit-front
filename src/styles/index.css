@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue-color-primary) #fff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--blue-color-primary);
+  border-radius: 14px;
+  border: 3px solid #fff;
+}
+
+body {
+  /* default opacity of 1, if animation is not supported */
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.01;
+  }
+  1% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+:root {
+  /* Yellow Color Shades */
+  --yellow-color-primary: #ffaa00;
+  --yellow-color-light: #fffaec;
+
+  /* Gray Color Shades */
+  --gray-color-primary: #7a869a;
+  --gray-color-light: #c1c7d0;
+
+  /* Red Color Shades */
+  --red-color-primary: #ff0000;
+  --red-color-light: #fff1f1;
+
+  /* Background Color */
+  --background-color: #f9fafc;
+
+  /* Blue Color Shades */
+  --blue-color-primary: #172b4d;
+  --blue-color-light: #42526e;
+  --blue-color-dark: #040721;
+
+  /* Mint Green Color Shades */
+  --mint-green-color-primary: #14abbd;
+  --mint-green-color-light: #ecf8fa;
+
+  /* Black Color */
+  --black-color: #1f1f20;
+
+  /* White Color */
+  --white-color: #ffffff;
+
+  /* Active State Colors */
+  --active-navLink-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-size: revert;
+  font-weight: revert;
+}

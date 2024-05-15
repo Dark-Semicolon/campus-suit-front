@@ -1,0 +1,108 @@
+{
+  "users": {
+    "name": "المستخدمين",
+    "permissions": {
+      "read:users": "قراءة المستخدمين",
+      "create:users": "إنشاء مستخدمين",
+      "update:users": "تحديث المستخدمين",
+      "delete:users": "حذف المستخدمين",
+      "activate:users": "تفعيل المستخدمين",
+      "read:users:permissions": "قراءة صلاحيات المستخدمين",
+      "associate:users:permissions": "ربط صلاحيات المستخدمين",
+      "associate:users:roles": "ربط أدوار المستخدمين"
+    }
+  },
+  "permissions": {
+    "name": "الصلاحيات",
+    "permissions": {
+      "read:permissions": "قراءة الصلاحيات"
+    }
+  },
+  "roles": {
+    "name": "الأدوار",
+    "permissions": {
+      "read:roles": "قراءة الأدوار",
+      "create:roles": "إنشاء أدوار",
+      "update:roles": "تحديث الأدوار",
+      "delete:roles": "حذف الأدوار"
+    }
+  },
+  "courses": {
+    "name": "الوحدات",
+    "permissions": {
+      "read:courses": "قراءة الوحدات",
+      "create:courses": "إنشاء الوحدات",
+      "update:courses": "تحديث الوحدات",
+      "delete:courses": "حذف الوحدات"
+    }
+  },
+  "course-lectures": {
+    "name": "الحصص",
+    "permissions": {
+      "read:course:lectures": "قراءة الحصص",
+      "create:course:lectures": "إنشاء الحصص",
+      "update:course:lectures": "تحديث الحصص",
+      "delete:course:lectures": "حذف الحصص",
+      "create:course:lecture:vouchers": "إنشاء قسائم الحصص"
+    }
+  },
+  "course-lecture-materials": {
+    "name": "ملفات الحصص",
+    "permissions": {
+      "read:course:lecture:materials": "قراءة ملفات الحصص",
+      "create:course:lecture:materials": "إنشاء ملفات الحصص",
+      "update:course:lecture:materials": "تحديث ملفات الحصص",
+      "delete:course:lecture:materials": "حذف ملفات الحصص"
+    }
+  },
+  "course-lecture-items": {
+    "name": "محتوي الحصص",
+    "permissions": {
+      "read:course:lecture:items": "قراءة محتوي الحصص",
+      "create:course:lecture:items": "إنشاء محتوي الحصص",
+      "update:course:lecture:items": "تحديث محتوي الحصص",
+      "delete:course:lecture:items": "حذف محتوي الحصص"
+    }
+  },
+  "course-lecture-video-views": {
+    "name": "مشاهدات فيديو الحصص",
+    "permissions": {
+      "read:course:lecture:video:views": "قراءة مشاهدات فيديو الحصص",
+      "update:course:lecture:video:views": "تحديث مشاهدات فيديو الحصص"
+    }
+  },
+  "course-lecture-quiz-questions": {
+    "name": "أسئلة اختبار الحصص",
+    "permissions": {
+      "read:course:lecture:quiz:quiestions": "قراءة أسئلة اختبار الحصص",
+      "create:course:lecture:quiz:quiestions": "إنشاء أسئلة اختبار الحصص",
+      "update:course:lecture:quiz:quiestions": "تحديث أسئلة اختبار الحصص",
+      "delete:course:lecture:quiz:quiestions": "حذف أسئلة اختبار الحصص"
+    }
+  },
+  "course-lecture-quiz-question-options": {
+    "name": "خيارات أسئلة اختبار الحصص",
+    "permissions": {
+      "read:course:lecture:quiz:quiestion:options": "قراءة خيارات أسئلة اختبار الحصص",
+      "create:course:lecture:quiz:quiestion:options": "إنشاء خيارات أسئلة اختبار الحصص",
+      "update:course:lecture:quiz:quiestion:options": "تحديث خيارات أسئلة اختبار الحصص",
+      "delete:course:lecture:quiz:quiestion:options": "حذف خيارات أسئلة اختبار الحصص"
+    }
+  },
+  "course-lecture-quiz-attempts": {
+    "name": "محاولات اختبار الحصص",
+    "permissions": {
+      "read:course:lecture:quiz:attempts": "قراءة محاولات اختبار الحصص"
+    }
+  },
+  "offers": {
+    "name": "العروض",
+    "permissions": {
+      "read:offers": "قراءة العروض",
+      "create:offers": "إنشاء عروض",
+      "update:offers": "تحديث العروض",
+      "delete:offers": "حذف العروض",
+      "create:offer:vouchers": "إنشاء قسائم العروض"
+    }
+  }
+}

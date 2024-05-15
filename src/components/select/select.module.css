@@ -1,0 +1,123 @@
+/* select.module.css */
+
+/* Styles for the select element */
+.input-group {
+  position: relative;
+}
+
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000; /* Change color as needed */
+}
+
+.select {
+  height: 56px;
+  /* border: solid 2px #f5f5f7; */
+  border: solid 2px var(--gray-color-primary);
+  border-radius: 10px;
+  background-color: #f5f5f7;
+  padding: 15px;
+  /* font-size: 16px; */
+  color: #050505;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding-right: 45px;
+  padding-left: 45px;
+}
+
+.select:focus {
+  outline: none;
+  border: solid 2px var(--gray-color-primary);
+  background-color: var(--white-color);
+}
+
+/* select error */
+.select-error {
+  border: solid 2px var(--red-color-primary);
+  color: var(--red-color-primary);
+}
+.select-error:focus {
+  border: solid 2px var(--red-color-primary);
+  color: var(--red-color-primary);
+}
+
+.select:focus + .user-label,
+.select:focus-within + .user-label {
+  transform: translate(20px, -170%) scale(0.9);
+  background-color: var(--white-color);
+  padding: 0 0.2em;
+  color: #000000;
+  border-radius: 8px;
+}
+
+.select-typed {
+  height: 56px;
+  outline: none;
+  border: solid 2px var(--gray-color-primary);
+  /* background-color: var(--white-color); */
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 14px;
+  color: #050505;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding-right: 45px;
+  padding-left: 45px;
+}
+.select-typed-error {
+  height: 56px;
+  outline: none;
+  border: solid 2px var(--red-color-primary);
+  background-color: var(--white-color);
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 16px;
+  color: #050505;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding-right: 45px;
+  padding-left: 45px;
+}
+
+.user-label {
+  position: absolute;
+  right: 43px;
+  z-index: 9;
+  top: 50%;
+  font-size: 14px;
+  transform: translateY(-50%);
+  color: var(--gray-color-primary);
+  pointer-events: none;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* .user-label-error {
+  top: 50%;
+} */
+
+.user-label-typed {
+  transform: translate(20px, -170%) scale(0.9);
+  background-color: var(--white-color);
+  padding: 0 0.2em;
+  color: #000000;
+}
+/* .user-label-typed-focus {
+  color: var(--red-color-primary);
+} */
+
+@media (max-width: 1536px) {
+  .user-label {
+    right: 34px;
+    /* transform: translateY(-36%); */
+    /* font-size: 15px; */
+  }
+}
