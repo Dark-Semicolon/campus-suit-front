@@ -14,7 +14,7 @@ export function useResetPassword() {
   } = useMutation({
     mutationFn: resetPasswordApi,
     onSuccess: () => {
-      toast.success("تم تغيير كلمة السر بنجاح");
+      toast.success("The password has been changed successfully");
 
       navigate("/login", { replace: true });
     },

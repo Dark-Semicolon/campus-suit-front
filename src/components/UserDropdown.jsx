@@ -16,7 +16,7 @@ function UserDropdown({ admin = false }) {
   const { logout } = useLogout();
   const { user } = useUser();
 
-  const image = user?.data?.attributes?.image;
+  const image = user?.attributes?.image;
 
   const items = [
     {
@@ -43,7 +43,7 @@ function UserDropdown({ admin = false }) {
             <AvatarComponent
               image={
                 image
-                  ? `${STORAGE_LINK}/images/users/${image}`
+                  ? `${STORAGE_LINK}/${image}`
                   : "images/userPlaceholder.png"
               }
             />
@@ -72,7 +72,7 @@ function UserDropdown({ admin = false }) {
             to="admin/dashboard"
             className="block w-full font-semibold text-medium"
           >
-            Uni Panal
+            Controal Panal
           </Link>
         </DropdownItem>
 

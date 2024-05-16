@@ -15,15 +15,15 @@ function PersonalInputs({
 
         <CustomInput
           type="name"
-          label="full name"
+          label="Full name"
           size="lg"
-          color={errors?.name ? "danger" : "y"}
-          className="w-4/5 text-black"
+          isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
+          className="w-4/5"
           defaultValue={defaultValue[0]}
           errorMessage={
             errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]
           }
-          disabled={isPending || updating}
+          isDisabled={isPending || updating}
           register={register("name", {
             required: "user name is required",
           })}
@@ -31,16 +31,16 @@ function PersonalInputs({
 
         <CustomInput
           type="email"
-          label="email"
+          label="Email"
           size="lg"
-          color={errors?.email ? "danger" : ""}
-          className="w-4/5 text-black"
+          isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
+          className="w-4/5 "
           defaultValue={defaultValue[1]}
           errorMessage={
             errors?.email?.message ||
             ApiError?.response?.data?.errors?.email?.[0]
           }
-          disabled={isPending || updating}
+          isDisabled={isPending || updating}
           register={register("email", {
             required: "email is required",
           })}

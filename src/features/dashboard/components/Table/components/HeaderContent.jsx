@@ -56,7 +56,7 @@ function HeaderContent({
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="text-black text-md">المجموع {totalRows || 0} صف</span>
+        <span className="font-medium text-blue-color-primary text-md">Number of {totalRows || 0} rows</span>
 
         <ItemPearPage rowsNumber={rowsNumber} onChange={onRowsPerPageChange} />
       </div>

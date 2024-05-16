@@ -1,5 +1,5 @@
 import { IoCallOutline } from "react-icons/io5";
-import EducationInputs from "../../../authentication/signup/components/EducationInputs";
+// import EducationInputs from "../../../authentication/signup/components/EducationInputs";
 import Input from "../../../../components/input/Input";
 import CustomSelect from "../../../../components/select/CustomSelect";
 
@@ -83,7 +83,7 @@ function StudentData({
           { value: "female", text: "انثي" },
         ]}
       />
-      <EducationInputs
+      {/* <EducationInputs
         isRequired={isRequired}
         watch={watch}
         edit={edit}
@@ -92,7 +92,7 @@ function StudentData({
         errors={errors}
         ApiError={ApiError}
         register={register}
-      />
+      /> */}
     </>
   );
 }

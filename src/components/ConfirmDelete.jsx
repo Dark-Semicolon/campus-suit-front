@@ -11,8 +11,11 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
         </span>
       </h4>
       <p className="text-gray-500">
-        هل أنت متأكد أنك تريد حذف هذا
-        {resourceName} نهائيا؟ لا يمكن التراجع عن هذا الإجراء.
+        Are you sure you want to delete this permanently?
+        <span className="py-1 font-semibold">
+          {resourceName}
+        </span>
+        This action cannot be undone.
       </p>
 
       <div className="flex justify-end gap-3">
@@ -22,7 +25,7 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
           disabled={disabled}
           onClick={onCloseModal}
         >
-          <p className="px-2">إلغاء</p>
+          <p className="px-2">Cancel</p>
         </Button>
         <Button
           type="customized"
@@ -32,7 +35,7 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
         >
           <span className="flex">
             <MdDelete className=" text-md text-white-color" />
-            <p className="px-2">حذف</p>
+            <p className="px-2">Delete</p>
           </span>
         </Button>
       </div>

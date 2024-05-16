@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Input from "@/components/input/Input";
 import StudentData from "./StudentData";
 import { useUpdateUser } from "../hooks/useUpdateUser";
-import MainDataInputs from "../../../authentication/signup/components/MainDataInputs";
+// import MainDataInputs from "../../../authentication/signup/components/MainDataInputs";
 
 function EditMemberForm({ onCloseModal, rowData }) {
   const [editStudentCheck, setEditStudentCheck] = useState(false);
@@ -142,14 +142,14 @@ function EditMemberForm({ onCloseModal, rowData }) {
             }
           />
 
-          <MainDataInputs
+          {/* <MainDataInputs
             edit={true}
             register={register}
             isPending={isUpdating}
             errors={errors}
             ApiError={ApiError}
             getValues={getValues}
-          />
+          /> */}
         </div>
 
         <div className="flex-col space-y-4">

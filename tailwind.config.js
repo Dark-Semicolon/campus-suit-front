@@ -27,8 +27,10 @@ export default {
       },
       height: { screen: "100dvh" },
       backgroundImage: {
-        login: "url('/images/loginScreen.svg')",
-        signUp: "url('/images/signup.svg')",
+        login: "url('/images/login.svg')",
+        forgotPassword: "url('/images/ForgotPassword.svg')",
+        cheekEmail: "url('/images/cheekEmail.svg')",
+        signUp: "url('/images/Signup.png')",
         hero: "url('/images/courses/heroBgw.svg')",
       },
     },

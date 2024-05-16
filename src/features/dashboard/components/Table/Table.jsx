@@ -71,7 +71,7 @@ function Table({
       bottomContentPlacement="outside"
       classNames={{
         wrapper: "max-h-[700px]",
-        th: "text-right rounded-none",
+        th: "text-left rounded-none",
         table: `focus-visible:outline-none ${isloading && "h-80"}`,
         td: `max-w-72 py-3 ${selectionMode !== "none" && "cursor-pointer"}`,
       }}
@@ -97,9 +97,9 @@ function Table({
         )}
       </TableHeader>
       <TableBody
-        emptyContent={isloading ? null : "لا توجد نتائج"}
+        emptyContent={isloading ? null : "No Results"}
         isLoading={isloading}
-        loadingContent={<Spinner color="warning" labelColor="warning" />}
+        loadingContent={<Spinner color="primary" labelColor="primary" />}
         items={rows || []}
       >
         {(row) => (

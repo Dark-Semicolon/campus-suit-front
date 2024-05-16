@@ -40,7 +40,6 @@ function Pagination({ className, total, paginationKey = "page", data }) {
         prev: "rotate-180",
         next: "rotate-180",
         item: "w-4",
-        // base: "w-auto",
       }}
     />
   );

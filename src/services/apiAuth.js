@@ -5,13 +5,7 @@ import { API_WEB } from "../utils/constants";
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
 //signup
-export async function signup({
-  name,
-  email,
-  password,
-  password_confirmation,
-  studentData: { gender, phone, parent_phone, grade, city, school },
-}) {
+export async function signup({ name, email, password, password_confirmation }) {
   await csrf();
 
   const response = await axios.post("/register", {
@@ -19,7 +13,6 @@ export async function signup({
     email,
     password,
     password_confirmation,
-    studentData: { gender, phone, parent_phone, grade, city, school },
   });
 
   if (response.status !== 204) {
@@ -59,12 +52,7 @@ export async function forgetPassword({ email }) {
 }
 
 //resetPassword
-export async function resetPassword({
-  token,
-  email,
-  password,
-  password_confirmation,
-}) {
+export async function resetPassword({ token, email, password, password_confirmation }) {
   await csrf();
 
   const response = await axios.post("/reset-password", {
@@ -269,13 +257,7 @@ export async function getUserQuizResults({
 }
 
 //updat user data
-export async function updateUserData({
-  name,
-  email,
-  password,
-  passwordConfirmation,
-  image,
-}) {
+export async function updateUserData({ name, email, password, passwordConfirmation, image }) {
   await csrf();
 
   const userData = {

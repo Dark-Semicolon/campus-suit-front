@@ -7,8 +7,8 @@ function Signup() {
     <main className="container mx-auto">
       <AuthLayout
         image="bg-signUp"
-        title="إنشاء حساب"
-        description="ادخل بياناتك بشكل صحيح للحصول علي افضل تجربه داخل الموقع"
+        title="Sign up"
+        description="Enter your data correctly to get the best experience on the site"
       >
         <SignupForm />
         <HaveAccount />

@@ -86,9 +86,9 @@ function ProfileSidebar() {
             alt="user image"
             radius="md"
             src={
-              user?.data?.attributes?.image === null
+              user?.attributes?.image === null
                 ? "/images/userPlaceholder.png"
-                : `${STORAGE_LINK}/images/users/${user?.data?.attributes?.image}`
+                : `${STORAGE_LINK}/${user?.attributes?.image}`
             }
             className="mt-3"
           />
@@ -105,7 +105,7 @@ function ProfileSidebar() {
           />
         )}
         <p className="py-4 text-xl font-bold text-center text-blue-color-primary">
-          {user?.data?.attributes?.name}
+          {user?.attributes?.name}
         </p>
 
         <ProfileCard list={list} />

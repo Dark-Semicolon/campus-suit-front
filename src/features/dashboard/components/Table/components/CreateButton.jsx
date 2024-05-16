@@ -8,7 +8,7 @@ function CreateButton({ addRow }) {
     return (
       <Btn type="primary" className="rounded-lg" to={addRow.to}>
         <span className="flex items-center justify-center gap-1">
-          إضافه
+          Create
           <FaPlus />
         </span>
       </Btn>
@@ -23,7 +23,7 @@ function CreateButton({ addRow }) {
             endContent={<FaPlus />}
             size="md"
           >
-            إضافه
+            Create
           </Button>
         </Modal.Open>
         <Modal.Window name="addRow">{addRow.row}</Modal.Window>

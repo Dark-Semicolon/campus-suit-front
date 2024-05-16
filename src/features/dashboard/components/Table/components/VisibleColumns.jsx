@@ -9,9 +9,9 @@ function VisibleColumns({ visibleColumns, setVisibleColumns, headers }) {
                     endContent={<FaChevronDown className="text-small" />}
                     size="md"
                     variant="flat"
-                    className="font-medium text-md"
+                    className="font-medium text-md text-blue-color-primary"
                 >
-                    الصفوف
+                    Columns
                 </Button>
             </DropdownTrigger>
             <DropdownMenu

@@ -1,3 +1,4 @@
+import { API_ADMIN, API_URL, API_WEB } from '../../utils/constants';
 import { useState } from 'react';
 
 import axios from '../../lib/axios';
@@ -9,7 +10,6 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import toast from 'react-hot-toast';
-import { API_URL } from '../../utils/constants';
 
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
@@ -27,7 +27,7 @@ function Fileponds({ source, filePath, imageToken, className, inTime = false }) 
             const formData = new FormData();
             formData.append(options.name, file, file.name);
 
-            const response = await axios.post('/api/filepond', formData, {
+            const response = await axios.post(`${API_WEB}/filepond`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -55,7 +55,7 @@ function Fileponds({ source, filePath, imageToken, className, inTime = false }) 
             // Fetch CSRF token
             await csrf();
 
-            await axios.delete(`/api/filepond`, { data: uniqueFileId });
+            await axios.delete(`${API_ADMIN}/filepond`, { data: uniqueFileId });
 
             load();
         } catch (err) {
@@ -104,7 +104,7 @@ function Fileponds({ source, filePath, imageToken, className, inTime = false }) 
                 allowImagePreview={true}
                 allowFilePoster={true}
                 server={{
-                    url: `${API_URL}/api/filepond`,
+                    url: `${API_URL}/filepond`,
                     process: handleProcessFile,
                     revert: handleRevertFile, // Delete function
                     load: source && handleLoadFile

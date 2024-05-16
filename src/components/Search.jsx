@@ -25,7 +25,7 @@ function Search({ placeholder, setSearchValue }) {
                 base: "w-full sm:max-w-[44%]",
                 inputWrapper: "border-1",
             }}
-            placeholder={placeholder || "بحث"}
+            placeholder={placeholder || "Search"}
             size="sm"
             startContent={<FaSearch className="text-default-300 me-2 " />}
             variant="bordered"

@@ -14,7 +14,7 @@ export function useLogout() {
   } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      toast.success("تم تسجيل الخروج بنجاح");
+      toast.success("You have successfully logged out");
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
@@ -22,7 +22,7 @@ export function useLogout() {
       navigate("/"); // Redirect to login page of home page
     },
     onError: () => {
-      toast.error("هناك خطأ ما حاول مرة أخرى في وقت لاحق");
+      toast.error("Something went wrong. Try again later");
     },
   });
 

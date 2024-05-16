@@ -1,74 +1,68 @@
 import { useForm } from "react-hook-form";
-import { MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import AuthLayout from "@/layouts/Auth/AuthLayout";
-import Input from "@/components/input/Input";
 import Button from "@/components/Button";
 import { useForgetPassword } from "../hooks/useForgetPassword";
+import CustomInput from "@/components/CustomInput";
 
 function ForgetPasswordForm() {
-  const { register, formState, handleSubmit } = useForm();
-  const { errors } = formState;
-
   const navigate = useNavigate();
+
+  const { register, formState: { errors }, handleSubmit } = useForm();
 
   const { isPending, forgetPassword, error: ApiError } = useForgetPassword();
 
   function onSubmit(data) {
     const { email } = data;
-    if (!email) return;
-
     forgetPassword({ email });
   }
 
   return (
     <AuthLayout
-      image="bg-login"
-      title="نسيت كلمة السر"
-      description="أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك"
+      image="bg-forgotPassword"
+      title="Forgot your password"
+      description="Enter your email address and we will send you a link to reset your password"
       className="py-14"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Email */}
-        <Input
-          className="py-2"
+      <form onSubmit={handleSubmit(onSubmit)} className="w-[70%]">
+
+        <CustomInput
           type="email"
+          label="Email"
           name="email"
-          id="email"
+          size="lg"
           disabled={isPending}
-          label="البريد الإلكتروني*"
-          size="full"
-          icon={
-            <MdOutlineEmail className="absolute top-[24px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
+          isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
+          errorMessage={
+            errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]
           }
-          register={register("email", {
-            required: "هذه الخانة مطلوبه",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "يرجى كتابة عنوان بريد إلكتروني صالح",
-            },
-          })}
-          error={
-            errors?.email?.message ||
-            ApiError?.response?.data?.errors?.email?.[0]
+          register={
+            register("email", {
+              required: 'Email is required',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Please write a valid email address",
+              },
+            })
           }
         />
 
-        <div className="flex w-full gap-5 py-4">
+
+        <div className="flex w-full gap-5 py-5">
           <Button type="primary" className="w-1/2" disabled={isPending}>
-            التالي
+            Next
           </Button>
 
           <Button
             type="bordered"
-            className="w-1/2 rounded-full border-blue-color-light text-blue-color-light hover:text-yellow-600 hover:border-yellow-600"
+            className="w-1/2 rounded-full border-blue-color-light text-blue-color-light"
             onClick={(e) => {
               e.preventDefault();
               navigate(-1, { replace: true });
             }}
           >
-            عودة
+            Back
           </Button>
         </div>
       </form>

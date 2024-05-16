@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/hooks/useUser";
-import SpinnerFullPage from "./../components/loadingPage/SpinnerFullPage";
 import ErrorPage from "../components/errorPage/ErrorPage";
+import LoaderPage from "../components/LoaderPage";
 
 function HasAnyIdentity({ children, hasIdentities = [] }) {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function HasAnyIdentity({ children, hasIdentities = [] }) {
   //   [isAuthenticated, identities, hasIdentities, navigate]
   // );
 
-  if (isPending) return <SpinnerFullPage />;
+  if (isPending) return <LoaderPage />;
 
   if (!isAuthenticated && !isPending) navigate("/login");
 

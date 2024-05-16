@@ -1,11 +1,11 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { MdOutlineEmail } from "react-icons/md";
 
 import AuthLayout from "@/layouts/Auth/AuthLayout";
-import Input from "@/components/input/Input";
-import PasswordInput from "@/components/input/PasswordInput";
+
 import Button from "@/components/Button";
+import CustomInput from "../../../components/CustomInput";
+
 import { useResetPassword } from "../hooks/useResetPassword";
 
 function ResetPasswordForm() {
@@ -27,83 +27,76 @@ function ResetPasswordForm() {
   }
 
   return (
-    <AuthLayout title="تغيير كلمه السر" description="ادخل كلمة السر الجديده">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout image='bg-forgotPassword' title="change Password" description="Enter the new password">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-5">
         {/* Email */}
-        <Input
-          className="py-2"
+        <CustomInput
           type="email"
+          label="Email"
           name="email"
-          // disabled={email}
-          label="البريد الإلكتروني*"
+          size="lg"
+          className="w-4/5"
           defaultValue={email}
-          size="full"
-          icon={
-            <MdOutlineEmail className="absolute top-[24px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
+          disabled={isPending}
+          isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
+          errorMessage={
+            errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]
           }
-          register={register("email", {
-            required: "هذه الخانة مطلوبه",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "يرجى كتابة عنوان بريد إلكتروني صالح",
-            },
-          })}
-          error={
-            errors?.email?.message ||
-            ApiError?.response?.data?.errors?.email?.[0]
+          register={
+            register("email", {
+              required: 'Email is required',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Please write a valid email address",
+              },
+            })
           }
         />
 
-        {/* Password */}
-        <PasswordInput
-          className="py-2"
-          label="كلمة السر"
-          name="password"
-          disabled={isPending}
-          error={
-            errors?.password?.message ||
-            ApiError?.response?.data?.errors?.password?.[0]
-          }
-          size="full"
+
+
+        <CustomInput
+          type="password"
+          label="New password"
+          size="lg"
+          color={errors?.password || ApiError?.response?.data?.errors?.password?.[0]}
+          isDisabled={isPending}
+          className="w-4/5"
+          errorMessage={errors?.password?.message}
           register={register("password", {
-            required: "هذه الخانة مطلوبه",
             pattern: {
               value:
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
               message:
-                "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك حرف كبير وحرف صغير ورقم واحد وحرف خاص واحد.",
+                "The password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.",
             },
           })}
         />
-
-        {/* PasswordConfirmaion */}
-        <PasswordInput
-          className="py-2"
-          label="تأكيد كلمة السر"
-          disabled={isPending}
-          name="password_confirmation"
-          error={
-            errors?.password_confirmation?.message ||
-            ApiError?.response?.data?.errors?.password_confirmation?.[0]
-          }
-          size="full"
+        {/* password confirmation */}
+        <CustomInput
+          type="password"
+          label="Confirm password"
+          size="lg"
+          isDisabled={isPending}
+          isError={errors?.password_confirmation || ApiError?.response?.data?.errors?.password_confirmation?.[0]}
+          className="w-4/5"
+          errorMessage={errors?.password_confirmation?.message}
           register={register("password_confirmation", {
-            required: "هذه الخانة مطلوبه",
             validate: {
               validate: (value) =>
                 value !== getValues().password
-                  ? "كلمة المرور وتأكيد كلمة المرور غير متطابقين."
+                  ? "The password and password confirmation do not match."
                   : true,
             },
           })}
         />
-        <div className="w-full py-3">
+        <div className="w-4/5 py-3">
           <Button
             type="primary"
             className="w-full leading-8"
             disabled={isPending}
           >
-            تسجيل
+            Change
           </Button>
         </div>
       </form>

@@ -18,8 +18,8 @@ import Auth from "./middleware/Auth";
 import Guest from "./middleware/Guest";
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
-import SpinnerFullPage from "./components/loadingPage/SpinnerFullPage";
 import ErrorPage from "./components/errorPage/ErrorPage";
+import LoaderPage from "./components/LoaderPage";
 
 import Home from "./pages/web/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -60,7 +60,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <BrowserRouter>
-            <Suspense fallback={<SpinnerFullPage />}>
+            <Suspense fallback={<LoaderPage />}>
               <Routes>
                 <Route
                   path="*"

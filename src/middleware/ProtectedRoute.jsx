@@ -1,6 +1,6 @@
 import usePermission from './../hooks/usePermission';
 import ErrorPage from '../components/errorPage/ErrorPage';
-import SpinnerFullPage from '../components/loadingPage/SpinnerFullPage';
+import LoaderPage from '../components/LoaderPage';
 
 
 // Custom Route component that handles permission checks
@@ -8,7 +8,7 @@ function ProtectedRoute({ children, permissions, allRequired }) {
     const { canAny, canAll, isPending } = usePermission();
 
     if (isPending)
-        return <SpinnerFullPage />
+        return <LoaderPage />
 
     // if not the all permissions are required
     if (!allRequired && canAny(permissions))

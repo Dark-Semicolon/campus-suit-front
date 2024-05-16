@@ -13,7 +13,7 @@ export function useUpdateUserData() {
   } = useMutation({
     mutationFn: updateUserDataApi,
     onSuccess: () => {
-      toast.success("تم التعديل بنجاح");
+      toast.success("Personal data has been updated successfully");
 
       queryClient.invalidateQueries({
         queryKey: ["user"],

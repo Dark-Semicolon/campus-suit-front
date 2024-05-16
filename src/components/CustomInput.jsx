@@ -7,7 +7,9 @@ function CustomInput({
   lable,
   size = "lg",
   isError,
+  isDisabled,
   errorMessage,
+  endContent,
   register,
   className,
   ...props
@@ -21,10 +23,11 @@ function CustomInput({
       type={type === "password" ? (isVisible ? "text" : "password") : type}
       label={lable}
       size={size}
-      color={isError ? "danger" : ""}
+      color={isError && "danger"}
       className={`text-black ${className}`}
       errorMessage={errorMessage}
-      endContent={
+      isDisabled={isDisabled}
+      endContent={endContent ||
         type === "password" && (
           <button
             className="focus:outline-none"
@@ -38,6 +41,11 @@ function CustomInput({
             )}
           </button>
         )
+      }
+      classNames={
+        {
+          errorMessage: 'pt-2 text-sm'
+        }
       }
       {...props}
       {...register}

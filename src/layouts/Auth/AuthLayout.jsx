@@ -11,15 +11,9 @@ function AuthLayout({
 }) {
   return (
     <div className="flex items-center justify-center min-h-screen xl:justify-between ">
-      <div className="relative self-start hidden w-1/2 h-screen xl:block">
-        <div
-          className={`h-full bg-center bg-no-repeat w-4/5 bg-contain ${image} mx-auto`}
-        ></div>
-      </div>
-
       <div className="flex flex-col items-center justify-center flex-grow w-3/5 2xl:w-1/2">
-        <Link to="/">
-          <Logo width="120px" />
+        <Link to="/" className="mb-10">
+          <Logo width="250px" />
         </Link>
         <TitleAndDesc
           title={title}
@@ -27,6 +21,12 @@ function AuthLayout({
           className={className}
         />
         {children}
+      </div>
+
+      <div className="relative self-start hidden w-1/2 h-screen xl:block">
+        <div
+          className={`h-full bg-center bg-no-repeat w-4/5 bg-contain ${image} mx-auto`}
+        ></div>
       </div>
     </div>
   );

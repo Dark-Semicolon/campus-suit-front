@@ -14,7 +14,7 @@ export function useSignup() {
   } = useMutation({
     mutationFn: signupApi,
     onSuccess: () => {
-      toast.success("تم تسجيل الحساب بنجاح");
+      toast.success("Account has been successfully registered");
 
       queryClient.invalidateQueries({ active: true });
 

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/hooks/useUser";
 import { useEffect } from "react";
-import SpinnerFullPage from "./../components/loadingPage/SpinnerFullPage";
+import LoaderPage from './../components/LoaderPage';
 
 function Auth({ children }) {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Auth({ children }) {
     [isAuthenticated, navigate, isPending, isActive]
   );
 
-  if (isPending) return <SpinnerFullPage />;
+  if (isPending) return <LoaderPage />;
 
   return children;
 }

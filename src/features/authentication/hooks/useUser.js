@@ -19,11 +19,11 @@ export function useUser() {
   if (isSuccess) {
     isAuthenticated = user ? true : false;
 
-    isActive = user?.data?.attributes.status;
+    isActive = user?.data?.attributes?.status;
   }
 
   return {
-    user,
+    user: user?.data,
     isPending,
     isError,
     isAuthenticated,

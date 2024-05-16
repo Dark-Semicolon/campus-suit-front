@@ -8,8 +8,8 @@ function AlertWarning() {
                 justifyContent: 'center',
 
             }}>
-                <AlertTitle>تحذير</AlertTitle>
-                هذا الحساب غير مفعل قد تكون غير قادر علي التفاعل علي المنصة بالرجاء التواصل مع الدعم
+                <AlertTitle>warning</AlertTitle>
+                This account is inactive. You may be unable to interact on the platform. Please contact support
             </Alert>
         </div>
     )

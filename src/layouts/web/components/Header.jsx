@@ -17,11 +17,11 @@ function Header({ className }) {
     <nav
       className={`${!isProfileRoute && "absolute top-0 left-0 right-0"
         } flex justify-between px-2 text-center md:px-5 w-100 z-30 ${isProfileRoute && "bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] "
-        } ${className} `}
+        } ${className} py-6`}
     >
       <header className="flex">
         <Link to="/" aria-description="link to the home page" className="w-20 md:w-full">
-          <Logo width={`${isProfileRoute ? "60" : "100"}`} />
+          <Logo width={`${isProfileRoute ? "80" : "80"}`} />
         </Link>
       </header>
 

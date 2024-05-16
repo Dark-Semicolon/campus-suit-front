@@ -1,6 +1,6 @@
 import { BsPerson } from "react-icons/bs";
 import Input from "@/components/input/Input";
-import MainDataInputs from "../../../authentication/signup/components/MainDataInputs";
+// import MainDataInputs from "../../../authentication/signup/components/MainDataInputs";
 
 function RequiredInputs({
   register,
@@ -73,14 +73,14 @@ function RequiredInputs({
         error={errors?.lastName?.message}
       />
 
-      <MainDataInputs
+      {/* <MainDataInputs
         isRequired={isRequired}
         register={register}
         isPending={isPending}
         errors={errors}
         ApiError={ApiError}
         getValues={getValues}
-      />
+      /> */}
     </>
   );
 }

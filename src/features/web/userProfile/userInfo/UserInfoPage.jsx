@@ -8,38 +8,26 @@ import { useUser } from "../../../authentication/hooks/useUser";
 import HeroLinks from "@/components/HeroLinks";
 import Button from "@/components/Button";
 import PersonalInputs from "./components/PersonalInputs";
-import CustomInput from "../../../../components/CustomInput";
+import CustomInput from "@/components/CustomInput";
 
 function UserInfoPage() {
   const [isUpdateInputs, setIsUpdateInputs] = useState(true);
-
   const { user } = useUser();
-
-  const { name, email } = user.data.attributes;
+  const { name, email } = user.attributes;
 
   const { updateUser, error: ApiError, isUpdating } = useUpdateUserData();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-    setValue,
-    reset,
-  } = useForm({});
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, reset, } = useForm({});
+
   function onSubmit(data) {
     const { name, email, password, passwordConfirmation } = data;
-    //handled data for API
-
+    console.log(data);
     const updateUserData = {
-      ...(name.trim() !== "" && { name }),
-      ...(email.trim() !== "" && { email }),
-      ...(password && { password }),
-      ...(passwordConfirmation && { passwordConfirmation }),
+      name, email, password, passwordConfirmation
     };
     //Send The Form Data To The API
     updateUser(
-      { ...updateUserData },
+      updateUserData,
       {
         onSuccess: () => {
           setIsUpdateInputs(true);
@@ -62,6 +50,7 @@ function UserInfoPage() {
           ]}
         />
       </div>
+
       <div className="flex flex-col w-full">
         <Tabs
           aria-label="Options"
@@ -73,8 +62,10 @@ function UserInfoPage() {
             tab: "p-6 rounded-md",
           }}
         >
+
+          {/* change user info form */}
           <Tab
-            key="photos"
+            key="personal"
             title="personal info"
             className="bg-white text-white-color "
           >
@@ -116,11 +107,14 @@ function UserInfoPage() {
                     </Button>
                   )}
                 </div>
+
               </form>
             </div>
           </Tab>
+
+          {/* change Password form */}
           <Tab
-            key="music"
+            key="password"
             title="password"
             className="bg-white text-white-color"
           >
@@ -129,13 +123,13 @@ function UserInfoPage() {
               className="flex flex-col items-center justify-center gap-5 py-5 md:p-10"
             >
               {/* Password */}
-
               <CustomInput
                 type="password"
-                label="new password"
+                label="New password"
                 size="lg"
-                color={errors?.password ? "danger" : ""}
-                className="w-4/5 text-black "
+                color={errors?.password || ApiError?.response?.data?.errors?.password?.[0]}
+                isDisabled={isUpdating}
+                className="w-4/5"
                 errorMessage={errors?.password?.message}
                 register={register("password", {
                   pattern: {
@@ -146,13 +140,15 @@ function UserInfoPage() {
                   },
                 })}
               />
+
               {/* password confirmation */}
               <CustomInput
                 type="password"
-                label="confirm password"
+                label="Confirm password"
                 size="lg"
-                color={errors?.passwordConfirmation ? "danger" : ""}
-                className="w-4/5 text-black"
+                isDisabled={isUpdating}
+                isError={errors?.password_confirmation || ApiError?.response?.data?.errors?.passwordConfirmation?.[0]}
+                className="w-4/5"
                 errorMessage={errors?.passwordConfirmation?.message}
                 register={register("passwordConfirmation", {
                   validate: {

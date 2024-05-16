@@ -27,7 +27,7 @@ export const ExportToExcel = ({ apiData, fileName }) => {
       onClick={() => exportToCSV(apiData, fileName)}
       name="download material item button"
     >
-      <FaDownload className="text-lg text-white " /> تنزيل الأكواد
+      <FaDownload className="text-lg text-white " /> Dowunload
     </Button>
   );
 };
