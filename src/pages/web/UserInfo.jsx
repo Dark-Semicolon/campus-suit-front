@@ -1,7 +1,7 @@
-import UserInfoPage from "../../features/web/userProfile/userInfo/UserInfoPage";
+import UserInfoPage from "../../features/uniAdmin/userProfile/userInfo/UserInfoPage";
 
 function UserInfo() {
-  return <UserInfoPage />;
+    return <UserInfoPage />;
 }
 
 export default UserInfo;
