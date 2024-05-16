@@ -30,9 +30,7 @@ export default function HeroLinks({ separator = "/", pages, isHero = false }) {
           </Link>
         );
       })}
-      <Typography className="text-yellow-color-primary">
-        {pages[0].name}
-      </Typography>
+      <Typography className="text-blue-color-light">{pages[0].name}</Typography>
     </Breadcrumbs>
   );
 }

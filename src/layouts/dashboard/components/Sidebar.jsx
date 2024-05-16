@@ -76,14 +76,11 @@ function Sidebar({ mobileNavOpen, setMobileNavOpen }) {
           isOpen ? "w-80" : "w-20"
         } md:block fixed md:relative z-50 bg-white text-gray-color-primary duration-300 flex-col shadow-[rgba(0,_0,_0,_0.2)_0px_60px_40px_-7px] `}
       >
-        <button
-          onClick={() => setIsOpen((open) => !open)}
-          className="relative"
-        >
+        <button onClick={() => setIsOpen((open) => !open)} className="relative">
           {isOpen ? (
-            <IoIosArrowDropright className="absolute z-10 text-4xl transition-all bg-white rounded-full cursor-pointer right-64 top-16 text-yellow-color-primary" />
+            <IoIosArrowDropright className="absolute z-10 text-4xl transition-all bg-white rounded-full cursor-pointer right-64 top-16 text-blue-color-light" />
           ) : (
-            <IoIosArrowDropleft className="absolute z-10 text-4xl transition-all bg-white rounded-full cursor-pointer right-14 top-16 text-yellow-color-primary" />
+            <IoIosArrowDropleft className="absolute z-10 text-4xl transition-all bg-white rounded-full cursor-pointer right-14 top-16 text-blue-color-light" />
           )}
         </button>
 
@@ -99,14 +96,13 @@ function Sidebar({ mobileNavOpen, setMobileNavOpen }) {
             <Link
               to="/"
               aria-description="link to the home page"
-              className={`w-fit h-28 items-center justify-center ${isOpen ? " flex " : " hidden"}`}
+              className={`w-fit h-28 items-center justify-center ${
+                isOpen ? " flex " : " hidden"
+              }`}
             >
               <Logo width="80" />
             </Link>
-            <SidebarLinks
-              list={filteredList}
-              isOpen={isOpen}
-            />
+            <SidebarLinks list={filteredList} isOpen={isOpen} />
           </div>
         </div>
       </aside>

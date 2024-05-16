@@ -18,7 +18,7 @@ export default {
         },
         "red-color": { primary: "#FF0000", light: "#FFF1F1" },
         "background-color": "#F9FAFC",
-        "blue-color": { primary: "#172B4D", light: "#42526E", dark: "#040721" },
+        "blue-color": { primary: "#172B4D", light: "#4E74F9", dark: "#040721" },
         "mint-green-color": { primary: "#14ABBD", light: "#ECF8FA" },
         "black-color": "#1F1F20",
         "white-color": "#ffffff",

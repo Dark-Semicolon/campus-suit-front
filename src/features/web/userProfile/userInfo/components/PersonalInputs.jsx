@@ -1,83 +1,49 @@
-import { BsPerson } from "react-icons/bs";
-import Input from "@/components/input/Input";
+import CustomInput from "../../../../../components/CustomInput";
 
-function PersonalInputs({ register, updating, isPending, errors, ApiError }) {
+function PersonalInputs({
+  register,
+  updating,
+  isPending,
+  errors,
+  ApiError,
+  defaultValue,
+}) {
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:flex lg:justify-center lg:items-center">
+      <div className="flex flex-col items-center justify-center gap-4 lg:justify-center lg:items-center">
         {/* FirstName */}
-        <Input
-          edit={true}
-          type="text"
-          id="firstName"
-          name="firstName"
-          disabled={isPending || updating}
-          label="الإسم الأول*"
-          size="halfWidth"
-          icon={
-            <BsPerson className="absolute top-[17px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
+
+        <CustomInput
+          type="name"
+          label="full name"
+          size="lg"
+          color={errors?.name ? "danger" : "y"}
+          className="w-4/5 text-black"
+          defaultValue={defaultValue[0]}
+          errorMessage={
+            errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]
           }
-          register={register("firstName", {
-            required: "برجاء إدخال الأسم الأول ",
+          disabled={isPending || updating}
+          register={register("name", {
+            required: "user name is required",
           })}
-          error={errors?.firstName?.message}
         />
 
-        {/* SecondName */}
-        <Input
-          edit={true}
-          type="text"
-          name="secondName"
-          id="secondName"
-          disabled={isPending || updating}
-          label="الإسم الثاني*"
-          size="halfWidth"
-          icon={
-            <BsPerson className="absolute top-[17px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
-          }
-          register={register("secondName", {
-            required: "برجاء إدخال الأسم الثاني ",
-          })}
-          error={errors?.secondName?.message}
-        />
-      </div>
-
-      {/* LastName */}
-      <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:flex lg:justify-center lg:items-center">
-        <Input
-          edit={true}
-          type="text"
-          name="lastName"
-          id="lastName"
-          disabled={isPending || updating}
-          label="الإسم الأخير*"
-          size="halfWidth"
-          icon={
-            <BsPerson className="absolute top-[17px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
-          }
-          register={register("lastName", {
-            required: "برجاء إدخال الأسم الأخير ",
-          })}
-          error={errors?.lastName?.message}
-        />
-        <Input
-          edit={true}
-          type="text"
-          name="email"
-          id="email"
-          disabled={isPending || updating}
-          label="الأيميل*"
-          size="halfWidth"
-          icon={
-            <BsPerson className="absolute top-[17px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
-          }
-          register={register("email", {
-            required: "برجاء إدخال الإيميل ",
-          })}
-          error={
+        <CustomInput
+          type="email"
+          label="email"
+          size="lg"
+          color={errors?.email ? "danger" : ""}
+          className="w-4/5 text-black"
+          defaultValue={defaultValue[1]}
+          errorMessage={
             errors?.email?.message ||
             ApiError?.response?.data?.errors?.email?.[0]
           }
+          disabled={isPending || updating}
+          register={register("email", {
+            required: "email is required",
+          })}
         />
       </div>
     </>

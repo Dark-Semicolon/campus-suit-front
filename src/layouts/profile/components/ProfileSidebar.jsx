@@ -2,7 +2,6 @@ import { Image, Spinner } from "@nextui-org/react";
 import { IoClose, IoStatsChart } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 import { HiOutlineVideoCamera } from "react-icons/hi";
-import { GoChecklist } from "react-icons/go";
 
 import ProfileCard from "./ProfileCard";
 import { useUser } from "../../../features/authentication/hooks/useUser";
@@ -46,35 +45,28 @@ function ProfileSidebar() {
       </div>
     );
 
-  const grade = user?.data?.relationships?.studentData?.attributes?.grade;
-
   const list = [
     {
-      name: "البيانات الشخصيه",
+      name: "Profile",
       icon: <IoPersonOutline className="text-2xl font-semibold" />,
       to: "/user/profile",
     },
     {
-      name: "احصائياتي",
+      name: "Statistics",
       icon: <IoStatsChart className="text-2xl font-semibold" />,
       to: "/user/stats",
     },
     {
-      name: "حصصي",
+      name: "subscriptions",
       icon: <HiOutlineVideoCamera className="text-2xl font-semibold" />,
-      to: "/user/lectures",
-    },
-    {
-      name: "نتائج الأختبارات",
-      icon: <GoChecklist className="text-2xl font-semibold" />,
-      to: "/user/quizzesResults",
+      to: "/user/subscriptions",
     },
   ];
 
   return (
     <div className="flex-col bg-white rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-full lg:w-[500px]">
-      <p className="py-6 text-xl font-bold text-center border-b-2 text-blue-color-primary">
-        الملف الشخصي
+      <p className="py-6 text-xl font-bold text-center capitalize border-b-2 text-blue-color-primary">
+        My Profile
       </p>
 
       <div className="flex flex-col items-center justify-center md:p-8">
@@ -103,27 +95,17 @@ function ProfileSidebar() {
         )}
         {!editImage ? (
           <TbEdit
-            className="relative text-3xl font-bold cursor-pointer text-yellow-color-primary left-24 bottom-6"
+            className="relative text-3xl font-bold cursor-pointer text-blue-color-light left-24 bottom-6"
             onClick={() => setEditImage(true)}
           />
         ) : (
           <IoClose
-            className="relative text-3xl font-bold cursor-pointer text-yellow-color-primary left-28 bottom-2"
+            className="relative text-3xl font-bold cursor-pointer text-blue-color-light left-28 bottom-2"
             onClick={() => setEditImage(false)}
           />
         )}
         <p className="py-4 text-xl font-bold text-center text-blue-color-primary">
           {user?.data?.attributes?.name}
-        </p>
-
-        <p className="pb-5 text-sm font-medium text-center text-gray-color-primary">
-          {grade === 1
-            ? "الصف الاول الثانوي"
-            : grade === 2
-            ? "الصف الثاني الثانوي"
-            : grade === 3
-            ? "الصف الثالث الثانوي"
-            : "مسؤل"}
         </p>
 
         <ProfileCard list={list} />

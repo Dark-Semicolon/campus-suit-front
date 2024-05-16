@@ -40,18 +40,18 @@ function UserLecturesPage() {
     return (
       <>
         <div className="pt-3 space-y-5">
-
           <h2 className="text-xl md:text-3xl text-blue-color-primary">
-            الحصص  <span className="text-yellow-color-primary">الخاصة </span>
+            الحصص <span className="text-blue-color-light">الخاصة </span>
           </h2>
-          <HeroLinks pages={[
-            { name: 'حصصي', link: `user/lectures` },
-            { name: "الصفحة الرئيسية", link: "/" },
-            { name: "الملف الشخصي", link: "/user/profile" },
-          ]} />
+          <HeroLinks
+            pages={[
+              { name: "حصصي", link: `user/lectures` },
+              { name: "الصفحة الرئيسية", link: "/" },
+              { name: "الملف الشخصي", link: "/user/profile" },
+            ]}
+          />
         </div>
         <div className="flex flex-col items-center justify-center gap-4 h-dvh">
-
           <span>
             <HiOutlineVideoCamera className="text-4xl" />
           </span>
@@ -68,15 +68,16 @@ function UserLecturesPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="pt-3 pb-10 space-y-5">
-
         <h2 className="text-xl md:text-3xl text-blue-color-primary">
-          الحصص  <span className="text-yellow-color-primary">الخاصة </span>
+          الحصص <span className="text-blue-color-light">الخاصة </span>
         </h2>
-        <HeroLinks pages={[
-          { name: 'حصصي', link: `user/lectures` },
-          { name: "الصفحة الرئيسية", link: "/" },
-          { name: "الملف الشخصي", link: "/user/profile" },
-        ]} />
+        <HeroLinks
+          pages={[
+            { name: "حصصي", link: `user/lectures` },
+            { name: "الصفحة الرئيسية", link: "/" },
+            { name: "الملف الشخصي", link: "/user/profile" },
+          ]}
+        />
       </div>
 
       <div className="flex-grow">

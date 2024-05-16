@@ -78,10 +78,10 @@ export async function resetPassword({
 }
 
 //getCurrentUser
-export async function getCurrentUser(parameters) {
+export async function getCurrentUser() {
   await csrf();
 
-  const response = await axios.get(`${API_WEB}/user?${parameters}`);
+  const response = await axios.get(`${API_WEB}/user`);
 
   if (response.status === 200) return response.data;
 
@@ -274,7 +274,6 @@ export async function updateUserData({
   email,
   password,
   passwordConfirmation,
-  studentData,
   image,
 }) {
   await csrf();
@@ -287,15 +286,12 @@ export async function updateUserData({
     image,
   };
 
-  // Check if studentData is defined and not empty
-  if (studentData && Object.keys(studentData).length > 0) {
-    userData.studentData = studentData;
-  }
   const filteredUserData = Object.fromEntries(
     Object.entries(userData).filter(
       ([, value]) => value !== undefined && value !== null && value !== ""
     )
   );
+
   const response = await axios.patch(`${API_WEB}/user`, filteredUserData);
   if (response.status >= 200 && response.status < 300) {
     return response.data;

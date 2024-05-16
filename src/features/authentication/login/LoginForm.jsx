@@ -2,19 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Checkbox } from "@nextui-org/react";
-import { MdOutlineEmail } from "react-icons/md";
 
 import { useLogin } from "../hooks/useLogin";
 
 import AuthLayout from "@/layouts/Auth/AuthLayout";
 
-import Input from "@/components/input/Input";
-import PasswordInput from "@/components/input/PasswordInput";
 import Button from "@/components/Button";
+import CustomInput from "../../../components/CustomInput";
 
 function LoginForm() {
-  const [remember, setRemember] = useState(false)
-  const { login, isPending } = useLogin();
+  const [remember, setRemember] = useState(false);
+  const { login, isPending, error: ApiError } = useLogin();
   const {
     register,
     formState: { errors },
@@ -39,76 +37,80 @@ function LoginForm() {
   return (
     <AuthLayout
       image="bg-login"
-      title="تسجيل الدخول"
-      description="ادخل علي حسابك بإدخال رقم الهاتف و كلمة المرور المسجل بهم من قبل"
+      title="Log in"
+      description="Log in with your registered phone number and password."
       className="py-7"
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center"
+        className="flex flex-col justify-center gap-4 w4/5 md:w-1/2"
       >
         {/* Email */}
-        <Input
-          className="py-2"
+
+        <CustomInput
           type="email"
-          name="email"
-          id="email"
-          disable={"false"}
-          label="البريد الإلكتروني*"
-          size="full"
-          icon={
-            <MdOutlineEmail className="absolute top-[24px] right-[10px] text-xl 2xl:text-[25px] text-gray-color-primary" />
+          label="email"
+          size="lg"
+          color={errors?.email ? "danger" : ""}
+          className="w-full text-black"
+          errorMessage={
+            errors?.email?.message ||
+            ApiError?.response?.data?.errors?.email?.[0]
           }
+          disabled={isPending}
           register={register("email", {
-            required: "هذه الخانة مطلوبه",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "يرجى كتابة عنوان بريد إلكتروني صالح",
-            },
+            required: "email is required",
           })}
-          error={errors?.email?.message}
         />
 
         {/* Password */}
-        <PasswordInput
-          className="py-2"
-          label="كلمة السر"
-          name="password"
-          error={errors?.password?.message}
-          size="full"
+        <CustomInput
+          type="password"
+          label="password"
+          size="lg"
+          color={errors?.password ? "danger" : ""}
+          className="w-full text-black "
+          errorMessage={
+            errors?.password?.message ||
+            ApiError?.response?.data?.errors?.password?.[0]
+          }
           register={register("password", {
-            required: "هذه الخانة مطلوبه",
+            required: "password is required",
           })}
         />
 
-        <Checkbox color="success" className="py-3" onChange={() => setRemember((remember) => !remember)}>
-          <span className="px-3 text-blue-color-primary">
-            تذكرني
-          </span>
+        <Checkbox
+          color="primary"
+          className="py-3"
+          onChange={() => setRemember((remember) => !remember)}
+        >
+          <span className="px-3 text-blue-color-primary">Remember me</span>
         </Checkbox>
 
-        <div className="w-full py-3">
+        <div className="py-3 ">
           <Button
             type="primary"
             disabled={isPending}
             className="w-full leading-7"
           >
-            {!isPending ? "تسجيل" : "...جاري التسجيل"}
+            {!isPending ? "Login" : "Login..."}
           </Button>
         </div>
       </form>
 
       <div className="pt-5 text-center text-blue-color-primary">
         <div className="py-2">
-          <span>ليس لديك حساب؟</span>
+          <span>New to CampusSuit ?</span>
           <Link to="/signup" className="px-2 text-mint-green-color-primary">
-            إنشاء حساب
+            Sign up now
           </Link>
         </div>
-        <div className="py-2 text-blue-color-primary">
-          <span>هل نسيت كلمة السر؟</span>
-          <Link to="/forgetpassword" className="px-2 text-mint-green-color-primary">
-            إنشاء كلمة سر جديدة
+        <div className="py-2">
+          <Link
+            to="/forgetpassword"
+            className="px-2 text-mint-green-color-primary"
+          >
+            Forget password?
           </Link>
         </div>
       </div>

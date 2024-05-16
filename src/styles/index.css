@@ -33,6 +33,15 @@ body {
   animation-duration: 0.5s;
 }
 
+input:-webkit-autofill:hover,
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px #f4f4f5 inset !important;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0.01;
@@ -50,7 +59,7 @@ body {
 
 :root {
   /* Yellow Color Shades */
-  --yellow-color-primary: #ffaa00;
+  --blue-color-light: #ffaa00;
   --yellow-color-light: #fffaec;
 
   /* Gray Color Shades */

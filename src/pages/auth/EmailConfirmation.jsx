@@ -17,7 +17,7 @@ function EmailConfirmation() {
 لإعادة تعيين كلمة المرور الخاصة بك ${email}`}
           className="py-2"
         >
-          <p className="text-yellow-color-primary">{email}</p>
+          <p className="text-blue-color-light">{email}</p>
         </AuthLayout>
       </main>
     </>

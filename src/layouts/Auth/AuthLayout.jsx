@@ -1,5 +1,5 @@
 import TitleAndDesc from "./components/TitleAndDesc";
-import Logo from './../../components/Logo';
+import Logo from "./../../components/Logo";
 import { Link } from "react-router-dom";
 
 function AuthLayout({
@@ -17,8 +17,8 @@ function AuthLayout({
         ></div>
       </div>
 
-      <div className="flex flex-col items-center justify-center w-3/5 2xl:w-1/2">
-        <Link to='/'>
+      <div className="flex flex-col items-center justify-center flex-grow w-3/5 2xl:w-1/2">
+        <Link to="/">
           <Logo width="120px" />
         </Link>
         <TitleAndDesc

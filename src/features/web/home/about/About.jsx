@@ -30,9 +30,7 @@ function About() {
             to="/redeem"
             className="w-40 mt-3 font-semibold leading-8 text-center"
           >
-            <span className="text-xl font-semibold text-blue-color-primary">
-              احجز الأن
-            </span>
+            <span className="text-xl font-semibold text-white">احجز الأن</span>
           </Button>
         </div>
       </div>

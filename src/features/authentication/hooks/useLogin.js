@@ -16,7 +16,7 @@ export function useLogin() {
     mutationFn: loginApi,
 
     onSuccess: () => {
-      toast.success("تم تسجيل الدخول بنجاح");
+      toast.success("Login successfully");
 
       queryClient.invalidateQueries({ active: true });
 
@@ -25,7 +25,9 @@ export function useLogin() {
 
     onError: (err) => {
       console.log("login", err);
-      toast.error("البريد إلكتروني غير صحيح أو كلمة السر، يرجى المحاولة مرة أخرى");
+      toast.error(
+        "The email address or password is incorrect. Please try again."
+      );
     },
   });
 

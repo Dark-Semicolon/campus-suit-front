@@ -56,14 +56,13 @@ function ForgetPasswordForm() {
         />
 
         <div className="flex w-full gap-5 py-4">
-
           <Button type="primary" className="w-1/2" disabled={isPending}>
             التالي
           </Button>
 
           <Button
             type="bordered"
-            className="w-1/2 rounded-full border-yellow-color-primary text-yellow-color-primary hover:text-yellow-600 hover:border-yellow-600"
+            className="w-1/2 rounded-full border-blue-color-light text-blue-color-light hover:text-yellow-600 hover:border-yellow-600"
             onClick={(e) => {
               e.preventDefault();
               navigate(-1, { replace: true });

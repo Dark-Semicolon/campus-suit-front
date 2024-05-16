@@ -1,4 +1,7 @@
 .btn {
-  clip-path: polygon(5% 30%, 100% 0, 100% 100%, 0 100%);
-  border-top-left-radius: 65px !important;
+  /* clip-path: polygon(5% 30%, 100% 0, 100% 100%, 0 100%); */
+  /* clip-path: polygon(95% 0, 0 0, 0 100%, 100% 100%); */
+  /* border-top-left-radius: 65px !important; */
+  clip-path: polygon(0% -171%, 100% 19%, 100% 100%, 0% 100%);
+  border-top-right-radius: 30px !important;
 }

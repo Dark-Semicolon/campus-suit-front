@@ -39,15 +39,16 @@ function UserQuizResultsPage() {
     return (
       <>
         <div className="pt-3 space-y-5">
-
           <h2 className="text-xl md:text-3xl text-blue-color-primary">
-            نتائج <span className="text-yellow-color-primary">الأختبارات </span>
+            نتائج <span className="text-blue-color-light">الأختبارات </span>
           </h2>
-          <HeroLinks pages={[
-            { name: 'نتائج الأختبارات', link: `user/quizResults` },
-            { name: "الصفحة الرئيسية", link: "/" },
-            { name: "الملف الشخصي", link: "/user/profile" },
-          ]} />
+          <HeroLinks
+            pages={[
+              { name: "نتائج الأختبارات", link: `user/quizResults` },
+              { name: "الصفحة الرئيسية", link: "/" },
+              { name: "الملف الشخصي", link: "/user/profile" },
+            ]}
+          />
         </div>
         <div className="flex flex-col items-center justify-center gap-4 h-dvh">
           <span>
@@ -66,22 +67,27 @@ function UserQuizResultsPage() {
   return (
     <>
       <div className="pt-3 pb-10 space-y-5">
-
         <h2 className="text-xl md:text-3xl text-blue-color-primary">
-          نتائج <span className="text-yellow-color-primary">الأختبارات </span>
+          نتائج <span className="text-blue-color-light">الأختبارات </span>
         </h2>
-        <HeroLinks pages={[
-          { name: 'نتائج الأختبارات', link: `user/quizResults` },
-          { name: "الصفحة الرئيسية", link: "/" },
-          { name: "الملف الشخصي", link: "/user/profile" },
-        ]} />
+        <HeroLinks
+          pages={[
+            { name: "نتائج الأختبارات", link: `user/quizResults` },
+            { name: "الصفحة الرئيسية", link: "/" },
+            { name: "الملف الشخصي", link: "/user/profile" },
+          ]}
+        />
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5">
-        {isPending ? <div className='py-5 mx-auto'>
-          < Spinner color='warning' size='lg' />
-        </div> : userQuizResults?.data?.map((quiz) => (
-          <QuizResultCard quiz={quiz} key={quiz.id} />
-        ))}
+        {isPending ? (
+          <div className="py-5 mx-auto">
+            <Spinner color="warning" size="lg" />
+          </div>
+        ) : (
+          userQuizResults?.data?.map((quiz) => (
+            <QuizResultCard quiz={quiz} key={quiz.id} />
+          ))
+        )}
       </div>
 
       {totalPages > 1 && !isPending && (

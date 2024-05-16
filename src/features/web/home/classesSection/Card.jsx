@@ -55,7 +55,13 @@ function Card({ image, year, educationalLevel, title, link }) {
           <div className="flex flex-col items-center justify-center gap-5">
             <p className="text-lg font-semibold text-white">الصف</p>
             <div>
-              <img src="/images/home/ClassIcon.png" alt="icon for design" className="w-10 mx-auto" loading="lazy" decoding="async" />
+              <img
+                src="/images/home/ClassIcon.png"
+                alt="icon for design"
+                className="w-10 mx-auto"
+                loading="lazy"
+                decoding="async"
+              />
               <Button
                 type="bordered"
                 className="text-white border-white rounded-md bg-blue-color-light"
@@ -78,7 +84,7 @@ function Card({ image, year, educationalLevel, title, link }) {
         <Button
           type="customized"
           to={link}
-          className="w-full px-5 py-3 font-medium text-center rounded-lg text-blue-color-primary bg-yellow-color-primary "
+          className="w-full px-5 py-3 font-medium text-center text-white rounded-lg bg-blue-color-light "
         >
           {title}
         </Button>

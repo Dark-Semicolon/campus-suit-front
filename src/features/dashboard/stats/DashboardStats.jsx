@@ -113,18 +113,18 @@ function DashboardStats() {
     },
   ];
 
-  const totalStudents = studentCountFirstGrade + studentCountSecondGrade + studentCountThirdGrade;
-  const totalCourses = courseCountFirstGrade + courseCountSecondGrade + courseCountThirdGrade;
-  const totalLectures = lectureCountFirstGrade + lectureCountSecondGrade + lectureCountThirdGrade;
-  const totalOffers = offerCountFirstGrade + offerCountSecondGrade + offerCountThirdGrade;
+  const totalStudents =
+    studentCountFirstGrade + studentCountSecondGrade + studentCountThirdGrade;
+  const totalCourses =
+    courseCountFirstGrade + courseCountSecondGrade + courseCountThirdGrade;
+  const totalLectures =
+    lectureCountFirstGrade + lectureCountSecondGrade + lectureCountThirdGrade;
+  const totalOffers =
+    offerCountFirstGrade + offerCountSecondGrade + offerCountThirdGrade;
 
   return (
     <div>
-      <Header
-        pageName="الأحصائيات"
-        pages={pagesLinks}
-        className="text-2xl"
-      />
+      <Header pageName="الأحصائيات" pages={pagesLinks} className="text-2xl" />
 
       <section className="flex flex-wrap justify-center gap-10 py-16">
         {can("read:users") && (
@@ -154,7 +154,7 @@ function DashboardStats() {
         {can("read:course:lectures") && (
           <StatsCard
             title="مجموع الحصص"
-            icon={<GiTeacher className="text-6xl text-yellow-color-primary" />}
+            icon={<GiTeacher className="text-6xl text-blue-color-light" />}
             data={`${totalLectures} حصة`}
           />
         )}
@@ -169,28 +169,16 @@ function DashboardStats() {
       </section>
       <section className="flex flex-wrap justify-around py-16 gap-x-5 gap-y-20">
         {can("read:users") && (
-          <CustomPieChart
-            data={studentsStats}
-            title="الطلاب"
-          />
+          <CustomPieChart data={studentsStats} title="الطلاب" />
         )}
         {can("read:courses") && (
-          <CustomPieChart
-            data={coursesStats}
-            title="الوحدات"
-          />
+          <CustomPieChart data={coursesStats} title="الوحدات" />
         )}
         {can("read:course:lectures") && (
-          <CustomPieChart
-            data={lecturesStats}
-            title="الحصص"
-          />
+          <CustomPieChart data={lecturesStats} title="الحصص" />
         )}
         {can("read:offers") && (
-          <CustomPieChart
-            data={offersStats}
-            title="العروض"
-          />
+          <CustomPieChart data={offersStats} title="العروض" />
         )}
       </section>
     </div>

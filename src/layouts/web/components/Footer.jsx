@@ -63,7 +63,7 @@ function Footer() {
         </h2>
         <h3 className="text-sm text-white md:text-base">
           Developed by:{" "}
-          <span className="text-yellow-color-primary">Darksemicolon</span>
+          <span className="text-blue-color-light">Darksemicolon</span>
         </h3>
       </div>
     </footer>

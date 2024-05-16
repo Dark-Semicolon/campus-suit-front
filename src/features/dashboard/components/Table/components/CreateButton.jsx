@@ -19,7 +19,7 @@ function CreateButton({ addRow }) {
       <>
         <Modal.Open opens="addRow">
           <Button
-            className="text-lg font-medium text-white rounded-lg bg-yellow-color-primary"
+            className="text-lg font-medium text-white rounded-lg bg-blue-color-light"
             endContent={<FaPlus />}
             size="md"
           >

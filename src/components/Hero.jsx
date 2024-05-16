@@ -58,9 +58,7 @@ function Hero({ title, description, pagesLinks, isLoading }) {
           {!isLoading && (
             <>
               <HeroLinks pages={pagesLinks} isHero={true} />
-              <h2 className="mt-4 text-3xl text-yellow-color-primary">
-                {title}
-              </h2>
+              <h2 className="mt-4 text-3xl text-blue-color-light">{title}</h2>
               <h3 className="text-3xl text-white">{description}</h3>
             </>
           )}

@@ -13,20 +13,19 @@ import { STORAGE_LINK } from "../utils/constants";
 import AdminAccount from "../layouts/dashboard/components/AdminAccount";
 
 function UserDropdown({ admin = false }) {
-  const { logout } = useLogout()
-  const { user, isSuperAdmin, identities } = useUser();
+  const { logout } = useLogout();
+  const { user } = useUser();
 
   const image = user?.data?.attributes?.image;
 
   const items = [
     {
       link: "/user/profile",
-      title: "الملف الشخصي",
+      title: "profile",
       textValue: "profile page",
       key: "profile",
     },
   ];
-
 
   return (
     <Dropdown backdrop="blur">
@@ -38,7 +37,17 @@ function UserDropdown({ admin = false }) {
           radius={!admin && "full"}
           isIconOnly={!admin}
         >
-          {admin ? <AdminAccount /> : <AvatarComponent image={image ? `${STORAGE_LINK}/images/users/${image}` : 'images/userPlaceholder.png'} />}
+          {admin ? (
+            <AdminAccount />
+          ) : (
+            <AvatarComponent
+              image={
+                image
+                  ? `${STORAGE_LINK}/images/users/${image}`
+                  : "images/userPlaceholder.png"
+              }
+            />
+          )}
         </Button>
       </DropdownTrigger>
       {/* Dropdown Menu  */}
@@ -55,24 +64,17 @@ function UserDropdown({ admin = false }) {
             </DropdownItem>
           );
         })}
-        {/* {Redeem  code} */}
-        <DropdownItem key="Redeem code" textValue="Redeem code form">
-          <Link to="/redeem" className="block w-full font-semibold text-medium">
-            شراء عن طريق الكود
-          </Link>
-        </DropdownItem>
 
         {/* Dashboard */}
-        {isSuperAdmin || identities[0] ? (
-          <DropdownItem key="admins pages" textValue="dashboard">
-            <Link
-              to="admin/dashboard"
-              className="block w-full font-semibold text-medium"
-            >
-              لوحة النحكم
-            </Link>
-          </DropdownItem>
-        ) : null}
+
+        <DropdownItem key="admins pages" textValue="dashboard">
+          <Link
+            to="admin/dashboard"
+            className="block w-full font-semibold text-medium"
+          >
+            Uni Panal
+          </Link>
+        </DropdownItem>
 
         {/* Logout Button  */}
         <DropdownItem
@@ -82,10 +84,10 @@ function UserDropdown({ admin = false }) {
           color="danger"
           onClick={logout}
         >
-          تسجيل الخروج
+          Log out
         </DropdownItem>
       </DropdownMenu>
-    </Dropdown >
+    </Dropdown>
   );
 }
 export default UserDropdown;
