@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
 
-import { useUser } from "@/features/authentication/hooks/useUser";
+import { useUser } from '@/features/client/auth/hooks/useUser';
 
 function Header({ className }) {
   const { isAuthenticated, isPending } = useUser();

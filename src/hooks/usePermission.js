@@ -1,4 +1,4 @@
-import { useUser } from "../features/authentication/hooks/useUser";
+import { useUser } from "@/features/client/auth/hooks/useUser";
 
 const usePermission = () => {
   const isSuperAdmin = true;
@@ -18,29 +18,20 @@ const usePermission = () => {
   const canAny = (permissionsToCheck) => {
     return (
       isAuthenticated &&
-      (isSuperAdmin ||
-        permissionsToCheck.some((permission) =>
-          permissions.includes(permission)
-        ))
+      (isSuperAdmin || permissionsToCheck.some((permission) => permissions.includes(permission)))
     );
   };
 
   // Function to check if the current user has a specific permission
   const can = (permissionToCheck) => {
-    return (
-      isAuthenticated &&
-      (isSuperAdmin || permissions.includes(permissionToCheck))
-    );
+    return isAuthenticated && (isSuperAdmin || permissions.includes(permissionToCheck));
   };
 
   // Function to check if the current user has all of the specified permissions
   const canAll = (permissionsToCheck) => {
     return (
       isAuthenticated &&
-      (isSuperAdmin ||
-        permissionsToCheck.every((permission) =>
-          permissions.includes(permission)
-        ))
+      (isSuperAdmin || permissionsToCheck.every((permission) => permissions.includes(permission)))
     );
   };
 
@@ -59,15 +50,11 @@ const usePermission = () => {
   };
 
   const isAny = (rolesToCheck) => {
-    return (
-      isAuthenticated && rolesToCheck.some((role) => roles?.includes(role))
-    );
+    return isAuthenticated && rolesToCheck.some((role) => roles?.includes(role));
   };
 
   const isAll = (rolesToCheck) => {
-    return (
-      isAuthenticated && rolesToCheck.every((role) => roles?.includes(role))
-    );
+    return isAuthenticated && rolesToCheck.every((role) => roles?.includes(role));
   };
 
   return {

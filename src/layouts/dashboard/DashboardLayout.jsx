@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
 
-function DashboardLayout() {
+function DashboardLayout({ sidebarLinks }) {
 
   return (
-    <Layout >
+    <Layout sidebarLinks={sidebarLinks} >
       <Outlet />
     </Layout>
   );

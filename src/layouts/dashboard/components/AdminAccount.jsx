@@ -1,5 +1,5 @@
 import { User, spinner } from "@nextui-org/react";
-import { useUser } from "../../../features/authentication/hooks/useUser";
+import { useUser } from "@/features/client/auth/hooks/useUser";
 import { STORAGE_LINK } from "../../../utils/constants";
 
 function AdminAccount() {

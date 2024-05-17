@@ -12,37 +12,15 @@ import ListItem from '@mui/material/ListItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
-import { MdMenuBook, } from 'react-icons/md';
-import { HiUserGroup } from 'react-icons/hi2';
-import { GrAnalytics } from 'react-icons/gr';
 import UserDropdown from '@/components/UserDropdown';
+import Logo from '@/components/Logo';
 
-import { useUser } from '@/features/authentication/hooks/useUser';
-import Logo from '../../../components/Logo';
+import { useUser } from '@/features/client/auth/hooks/useUser';
 
 const drawerWidth = 260;
 
-const list = [
-    {
-        name: "Dashboard",
-        to: "/admin/dashboard",
-        icon: <GrAnalytics />,
-    },
-    {
-        name: "Colleges",
-        to: "/admin/members",
-        icon: <HiUserGroup />,
-        permissions: "read:users",
-    },
-    {
-        name: "teachers",
-        to: "/admin/courses",
-        icon: <MdMenuBook />,
-        permissions: "read:courses",
-    }
-];
 
-function Layout({ children }) {
+function Layout({ children, sidebarLinks }) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
@@ -75,7 +53,7 @@ function Layout({ children }) {
 
 
             <List className='w-full'>
-                {list.map((item, index) => (
+                {sidebarLinks?.map((item, index) => (
                     <ListItem key={index} disablePadding>
                         <NavLink
                             to={item.to}

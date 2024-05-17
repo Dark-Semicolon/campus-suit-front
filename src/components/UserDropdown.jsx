@@ -1,5 +1,7 @@
+import { STORAGE_LINK } from "../utils/constants";
 import { Link } from "react-router-dom";
-import { useLogout } from "../features/authentication/hooks/useLogout";
+import { useLogout } from "@/features/client/auth/hooks/useLogout";
+
 import {
   Button,
   Dropdown,
@@ -8,9 +10,9 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import AvatarComponent from "./Avatar";
-import { useUser } from "@/features/authentication/hooks/useUser";
-import { STORAGE_LINK } from "../utils/constants";
+
 import AdminAccount from "../layouts/dashboard/components/AdminAccount";
+import { useUser } from '@/features/client/auth/hooks/useUser';
 
 function UserDropdown({ admin = false }) {
   const { logout } = useLogout();

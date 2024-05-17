@@ -39,6 +39,7 @@ export function formatDateTime(dateTimeString) {
   });
   return { formattedDate, formattedTime };
 }
+
 //input "12345.67" // Output: "ج.م12,345.67"
 export function formatCurrency(value) {
   const formatter = new Intl.NumberFormat("ar-EG", {

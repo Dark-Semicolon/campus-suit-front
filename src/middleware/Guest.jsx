@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useUser } from "../features/authentication/hooks/useUser";
+import { useUser } from "@/features/client/auth/hooks/useUser";
 
-function Guest({ children }) {
+function Guest({ children, redirect }) {
   const navigate = useNavigate();
   const { isAuthenticated, isPending } = useUser();
 
   useEffect(
     function () {
-      if (isAuthenticated && !isPending) navigate("/user/profile");
+      if (isAuthenticated && !isPending) navigate(redirect);
     },
-    [isAuthenticated, isPending, navigate]
+    [isAuthenticated, isPending, redirect, navigate]
   );
 
   return children;

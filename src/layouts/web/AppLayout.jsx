@@ -2,7 +2,8 @@ import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import AlertWarning from "@/components/AlertWarning";
-import { useUser } from "./../../features/authentication/hooks/useUser";
+
+import { useUser } from '@/features/client/auth/hooks/useUser';
 
 function AppLayout() {
   const { isActive, isPending, isAuthenticated } = useUser();

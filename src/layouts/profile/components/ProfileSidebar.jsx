@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { Image, Spinner } from "@nextui-org/react";
-import { IoClose, IoStatsChart } from "react-icons/io5";
+import { STORAGE_LINK } from "@/utils/constants";
+
+import Fileponds from "@/components/Filepond";
+import ProfileCard from "./ProfileCard";
+
+import { useUser } from '@/features/client/auth/hooks/useUser';
+import { useUpdateUserData } from '@/features/client/profile/userInfo/hooks/useUpdateUserData';
+
+import { IoClose } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
-import { HiOutlineVideoCamera } from "react-icons/hi";
 import { TbEdit } from "react-icons/tb";
 import { FaUniversity } from "react-icons/fa";
 
-import Fileponds from "@/components/filepond/Filepond";
-import { useUpdateUserData } from "@/features/uniAdmin/userProfile/userInfo/hooks/useUpdateUserData";
-import { useUser } from "@/features/authentication/hooks/useUser";
-import { STORAGE_LINK } from "@/utils/constants";
-import ProfileCard from "./ProfileCard";
-
 function ProfileSidebar() {
     const [editImage, setEditImage] = useState(false);
-    const [imagelink, setImagelink] = useState([]);
+    const [imagelink, setImagelink] = useState('');
 
     const { user, isPending } = useUser();
 
@@ -53,17 +54,7 @@ function ProfileSidebar() {
             to: "/user/profile",
         },
         {
-            name: "Statistics",
-            icon: <IoStatsChart className="text-2xl font-semibold" />,
-            to: "/user/stats",
-        },
-        {
-            name: "subscriptions",
-            icon: <HiOutlineVideoCamera className="text-2xl font-semibold" />,
-            to: "/user/subscriptions",
-        },
-        {
-            name: "My universities",
+            name: "Universities",
             icon: <FaUniversity className="text-2xl font-semibold" />,
             to: "/user/universities",
         },

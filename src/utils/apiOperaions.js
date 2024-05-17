@@ -1,59 +1,79 @@
-function apiOperations({ queryLink, fields, filter, sortBy, page, perPage }) {
-    let query = queryLink;
+function apiOperations({
+  queryLink,
+  fields,
+  filter,
+  sortBy,
+  page,
+  perPage,
+  searchValue,
+  filterAndSortAndPageQuery,
+}) {
+  let query = queryLink;
 
-    //Fields
-    if (Array.isArray(fields)) {
-        let fieldsQuery = "fields=";
+  if (filterAndSortAndPageQuery) query += filterAndSortAndPageQuery;
 
-        fields.forEach((el, index) => {
-            fieldsQuery += `${index !== 0 ? "," : ""}${el}`;
-        });
+  // ?filter['grade']=1&filter[name]=test&sort=-id,grade&page=2
 
-        query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
-    } else if (fields) {
-        let fieldsQuery = `fields=${fields}`;
+  //Fields
+  if (Array.isArray(fields)) {
+    let fieldsQuery = "fields=";
 
-        query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
-    }
+    fields.forEach((el, index) => {
+      fieldsQuery += `${index !== 0 ? "," : ""}${el}`;
+    });
 
-    // Filter
+    query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
+  } else if (fields) {
+    let fieldsQuery = `fields=${fields}`;
 
-    if (Array.isArray(filter)) {
-        let filterQuery = "";
+    query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
+  }
 
-        filter.forEach((el, index) => {
-            filterQuery += `${index !== 0 ? "&" : ""}filter[${el.field}]=${el.value}`;
-        });
+  //Search
+  if (searchValue) {
+    let searchQuery = `search=${searchValue}`;
+    query += `${query.includes("?") ? "&" : "?"}${searchQuery}`;
+  }
 
-        query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
-    } else if (filter) {
-        let filterQuery = `filter[${filter.field}]=${filter.value}`;
+  // Filter
+  if (Array.isArray(filter)) {
+    let filterQuery = "";
 
-        query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
-    }
+    filter.forEach((el, index) => {
+      filterQuery += `${index !== 0 ? "&" : ""}filter[${el.field}]=${el.value}`;
+    });
 
-    // Sorting
-    if (Array.isArray(sortBy)) {
-        let sortQuery = "";
+    query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
+  } else if (filter) {
+    let filterQuery = `filter[${filter.field}]=${filter.value}`;
 
-        sortBy.forEach((el, index) => {
-            const direction = el.direction === "asc" ? "" : "-";
-            sortQuery += `${index !== 0 ? "," : ""}${direction}${el.field}`;
-        });
+    query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
+  }
 
-        query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
-    } else if (sortBy) {
-        let sortQuery = `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
+  // Sorting
+  if (Array.isArray(sortBy)) {
+    let sortQuery = "";
 
-        query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
-    }
+    sortBy.forEach((el, index) => {
+      const direction = el.direction === "asc" ? "" : "-";
+      sortQuery += `${index !== 0 ? "," : ""}${direction}${el.field}`;
+    });
 
-    // Pagination
-    if (page !== 0 && page >= 1) {
-        query += `${query.includes("?") ? "&" : "?"}page=${page}${perPage ? "&perPage=" : ""}${perPage}`;
-    }
+    query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
+  } else if (sortBy) {
+    let sortQuery = `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
 
-    return query;
+    query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
+  }
+
+  // Pagination
+  if (page !== 0 && page >= 1) {
+    query += `${query.includes("?") ? "&" : "?"}page=${page}${
+      perPage ? "&perPage=" : ""
+    }${perPage}`;
+  }
+
+  return query;
 }
 
 export default apiOperations;

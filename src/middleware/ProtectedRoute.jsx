@@ -3,7 +3,6 @@ import ErrorPage from '../components/errorPage/ErrorPage';
 import LoaderPage from '../components/LoaderPage';
 
 
-// Custom Route component that handles permission checks
 function ProtectedRoute({ children, permissions, allRequired }) {
     const { canAny, canAll, isPending } = usePermission();
 
