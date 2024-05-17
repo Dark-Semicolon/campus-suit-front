@@ -1,79 +1,50 @@
 function apiOperations({
-  queryLink,
-  fields,
-  filter,
-  sortBy,
-  page,
-  perPage,
-  searchValue,
-  filterAndSortAndPageQuery,
+    queryLink,
+    page,
+    perPage,
+    fields,
+    filter,
+    sortBy,
+    searchValue,
+    filterAndSortAndPageQuery,
 }) {
-  let query = queryLink;
+    let query = queryLink;
 
-  if (filterAndSortAndPageQuery) query += filterAndSortAndPageQuery;
+    // Use provided filter, sort, and page query
+    if (filterAndSortAndPageQuery) query += filterAndSortAndPageQuery;
 
-  // ?filter['grade']=1&filter[name]=test&sort=-id,grade&page=2
+    // Fields
+    if (fields)
+        query += `${query.includes("?") ? "&" : "?"}fields=${
+            Array.isArray(fields) ? fields.join(",") : fields
+        }`;
 
-  //Fields
-  if (Array.isArray(fields)) {
-    let fieldsQuery = "fields=";
+    // Search
+    if (searchValue) query += `${query.includes("?") ? "&" : "?"}search=${searchValue}`;
 
-    fields.forEach((el, index) => {
-      fieldsQuery += `${index !== 0 ? "," : ""}${el}`;
-    });
+    // Filter
+    if (filter) {
+        const filterQuery = Array.isArray(filter)
+            ? filter.map((el) => `filter[${el.field}]=${el.value}`).join("&")
+            : `filter[${filter.field}]=${filter.value}`;
+        query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
+    }
 
-    query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
-  } else if (fields) {
-    let fieldsQuery = `fields=${fields}`;
+    // Sorting
+    if (sortBy) {
+        const sortQuery = Array.isArray(sortBy)
+            ? sortBy.map((el) => `${el.direction === "asc" ? "" : "-"}${el.field}`).join(",")
+            : `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
+        query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
+    }
 
-    query += `${query.includes("?") ? "&" : "?"}${fieldsQuery}`;
-  }
+    // Pagination
+    if (page >= 1)
+        query += `${query.includes("?") ? "&" : "?"}page=${page}${
+            perPage ? `&perPage=${perPage}` : ""
+        }`;
 
-  //Search
-  if (searchValue) {
-    let searchQuery = `search=${searchValue}`;
-    query += `${query.includes("?") ? "&" : "?"}${searchQuery}`;
-  }
-
-  // Filter
-  if (Array.isArray(filter)) {
-    let filterQuery = "";
-
-    filter.forEach((el, index) => {
-      filterQuery += `${index !== 0 ? "&" : ""}filter[${el.field}]=${el.value}`;
-    });
-
-    query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
-  } else if (filter) {
-    let filterQuery = `filter[${filter.field}]=${filter.value}`;
-
-    query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
-  }
-
-  // Sorting
-  if (Array.isArray(sortBy)) {
-    let sortQuery = "";
-
-    sortBy.forEach((el, index) => {
-      const direction = el.direction === "asc" ? "" : "-";
-      sortQuery += `${index !== 0 ? "," : ""}${direction}${el.field}`;
-    });
-
-    query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
-  } else if (sortBy) {
-    let sortQuery = `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
-
-    query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
-  }
-
-  // Pagination
-  if (page !== 0 && page >= 1) {
-    query += `${query.includes("?") ? "&" : "?"}page=${page}${
-      perPage ? "&perPage=" : ""
-    }${perPage}`;
-  }
-
-  return query;
+    return query;
 }
 
 export default apiOperations;
