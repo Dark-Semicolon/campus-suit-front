@@ -1,24 +1,31 @@
-import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react";
-import { MdDelete, MdEdit } from "react-icons/md";
-import Modal from "@/components/Modal";
-import UpdateUniversity from "./UpdateUniversity";
-import useDeleteUniversity from "../hooks/useDeleteUniversity";
-import ConfirmDelete from "@/components/ConfirmDelete";
+import { Link } from "react-router-dom";
 import { STORAGE_LINK } from '@/utils/constants';
+
+import { MdDelete, MdEdit } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+
+import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react";
+import Modal from "@/components/Modal";
+import ConfirmDelete from "@/components/ConfirmDelete";
+import UpdateUniversity from "./UpdateUniversity";
+
+import useDeleteUniversity from "../hooks/useDeleteUniversity";
 
 function UniCard({ university }) {
     const { id } = university;
     const { logo, name, description } = university.attributes;
-
-    console.log(university);
 
     const { deleteUniversity, isDeleting } = useDeleteUniversity();
 
     return (
         <Card className="py-4">
             <CardHeader className="flex items-start justify-between px-4 pt-2 pb-0">
-                <h4 className="font-bold text-large text-blue-color-primary">Actions</h4>
-                <div className="flex gap-3">
+
+                <div className="flex items-center justify-end w-full gap-3 pb-3 border-b-1">
+                    <Link to={`/${id}/controlPanel`} replace={true} >
+
+                        <IoSettingsOutline className="text-xl text-blue-color-primary" />
+                    </Link>
                     <Modal>
                         {/* update University */}
                         <Modal.Open opens={`update-${id}`}>
@@ -39,11 +46,12 @@ function UniCard({ university }) {
                         <Modal.Window name={`delete-${id}`}>
                             <ConfirmDelete resourceName={name} onConfirm={() => deleteUniversity({ universityId: id })} />
                         </Modal.Window>
+
                     </Modal>
                 </div>
             </CardHeader>
             <CardBody className="py-2 overflow-visible">
-                <Image alt="Card background" className="object-cover rounded-xl max-h-52" src={`${STORAGE_LINK}/${logo}`} width={270} />
+                <Image alt="Card background" className="object-contain transition rounded-xl max-h-52 hover:scale-105" src={`${STORAGE_LINK}/${logo}`} width={270} />
             </CardBody>
             <CardFooter>
                 <div>

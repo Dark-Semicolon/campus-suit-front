@@ -28,7 +28,7 @@ const theme = createTheme({
     },
 });
 
-function App1() {
+function App() {
 
     const routes = useRoutes()
 
@@ -72,4 +72,4 @@ function App1() {
     );
 }
 
-export default App1;
+export default App;

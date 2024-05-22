@@ -34,7 +34,7 @@ function Window({ children, name }) {
   return createPortal(
     <div className="fixed top-0 left-0 z-50 w-full h-full transition-all duration-500 bg-opacity-50 backdrop-blur">
       <div
-        className="fixed w-[95%] px-5 py-12 max-h-screen overflow-scroll transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2 bg-gray-100 rounded-lg shadow-lg lg:w-fit md:p-12 top-1/2 left-1/2 dark:bg-gray-900"
+        className="fixed w-[95%] px-5 py-12 max-h-screen overflow-scroll transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg lg:w-fit md:p-12 top-1/2 left-1/2 dark:bg-gray-900"
         ref={ref}
       >
         <button

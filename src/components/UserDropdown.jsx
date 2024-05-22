@@ -67,17 +67,6 @@ function UserDropdown({ admin = false }) {
           );
         })}
 
-        {/* Dashboard */}
-
-        <DropdownItem key="admins pages" textValue="dashboard">
-          <Link
-            to="admin/dashboard"
-            className="block w-full font-semibold text-medium"
-          >
-            Controal Panal
-          </Link>
-        </DropdownItem>
-
         {/* Logout Button  */}
         <DropdownItem
           key="delete"

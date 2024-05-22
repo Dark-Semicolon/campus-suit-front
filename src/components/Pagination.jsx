@@ -30,17 +30,12 @@ function Pagination({ className, total, paginationKey = "page", data }) {
       initialPage={parseInt(page, 10)}
       page={parseInt(page, 10)}
       onChange={handleChange}
-      color="warning"
+      color="primary"
       size={isLargeScreen ? "lg" : "sm"} // Use "md" on large screens, "sm" otherwise
       isCompact
       boundaries={0}
       siblings={1}
       className={`${className}`}
-      classNames={{
-        prev: "rotate-180",
-        next: "rotate-180",
-        item: "w-4",
-      }}
     />
   );
 }

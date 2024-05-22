@@ -11,43 +11,44 @@ import useUpdateUniversity from "../hooks/useUpdateUniversity";
 function UpdateUniversity({ oldValues, universityId, onCloseModal }) {
     const [newLogo, setNewLogo] = useState('')
 
-    const { updateUniversity, isUpdating, error: ApiError } = useUpdateUniversity();
     const { name, description } = oldValues;
+
+
+    const { updateUniversity, isUpdating, error: ApiError } = useUpdateUniversity();
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ defaultValues: { name, description } });
+    } = useForm();
 
     function onSubmit({ name, description }) {
-        if (newLogo)
-            updateUniversity({ name, description, logo: newLogo ? newLogo : null, universityId }, {
-                onSuccess: () => {
-                    setNewLogo('')
-                    onCloseModal?.()
-                }
-            });
-        else
-            updateUniversity({ name, description, universityId }, {
-                onSuccess: () => {
-                    setNewLogo('')
-                    onCloseModal?.()
-                }
-            });
+        const payLoad = newLogo ? { name, description, logo: newLogo, universityId } : { name, description, universityId }
+
+        updateUniversity(payLoad, {
+            onSuccess: () => {
+                setNewLogo('')
+                onCloseModal?.()
+            }
+        });
+
     }
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 pt-5">
+
+            <h4 className="py-3 text-blue-color-primary">Update The University Data</h4>
 
             <CustomInput
                 type="name"
                 label="University name"
                 size="lg"
+                defaultValue={name}
                 isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
                 className="w-4/5 md:w-96 "
                 errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
                 isDisabled={isUpdating}
                 register={register("name", {
-                    required: "user name is required",
+                    required: "University name is required",
                 })}
             />
 
@@ -55,6 +56,7 @@ function UpdateUniversity({ oldValues, universityId, onCloseModal }) {
                 type="description"
                 label="description"
                 size="lg"
+                defaultValue={description}
                 isError={errors?.description || ApiError?.response?.data?.errors?.description?.[0]}
                 className="w-4/5 md:w-96 "
                 errorMessage={errors?.description?.message || ApiError?.response?.data?.errors?.description?.[0]}

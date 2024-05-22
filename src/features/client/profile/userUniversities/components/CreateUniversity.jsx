@@ -31,7 +31,8 @@ function CreateUniversity({ onCloseModal }) {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
-            {/* FirstName */}
+
+            <h4 className="py-3 text-blue-color-primary">Create new university</h4>
 
             <CustomInput
                 type="name"
@@ -42,7 +43,7 @@ function CreateUniversity({ onCloseModal }) {
                 errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
                 isDisabled={isCreating}
                 register={register("name", {
-                    required: "user name is required",
+                    required: "University name is required",
                 })}
             />
 

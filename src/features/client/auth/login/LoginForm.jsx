@@ -38,7 +38,7 @@ function LoginForm() {
     <AuthLayout
       image="bg-login"
       title="Log in"
-      description="Log in with your registered phone number and password."
+      description="Log in with your registered email and password."
       className="py-7"
     >
       <form
@@ -79,13 +79,24 @@ function LoginForm() {
           })}
         />
 
-        <Checkbox
-          color="primary"
-          className="py-3"
-          onChange={() => setRemember((remember) => !remember)}
-        >
-          <span className="px-3 text-blue-color-primary">Remember me</span>
-        </Checkbox>
+        <div className="flex items-center justify-between">
+
+
+          <Checkbox
+            color="primary"
+            className="py-3"
+            onChange={() => setRemember((remember) => !remember)}
+          >
+            <span className="px-3 text-blue-color-primary">Remember me</span>
+          </Checkbox>
+
+          <Link
+            to="/forgetpassword"
+            className="px-2 text-mint-green-color-primary"
+          >
+            Forget password?
+          </Link>
+        </div>
 
         <div className="py-3 ">
           <Button
@@ -103,14 +114,6 @@ function LoginForm() {
           <span>New to CampusSuit ?</span>
           <Link to="/signup" className="px-2 text-mint-green-color-primary">
             Sign up now
-          </Link>
-        </div>
-        <div className="py-2">
-          <Link
-            to="/forgetpassword"
-            className="px-2 text-mint-green-color-primary"
-          >
-            Forget password?
           </Link>
         </div>
       </div>

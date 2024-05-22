@@ -48,16 +48,16 @@ function UserUniversitiesPage() {
                     {userUniversities?.data?.map(university => <UniCard university={university} key={university?.id} />)}
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center gap-4 h-dvh">
+                <div className="flex flex-col items-center justify-center gap-4 h-[500px]">
                     <span>
-                        <HiOutlineVideoCamera className="text-4xl" />
+                        <HiOutlineVideoCamera className="text-5xl font-bold text-blue-color-primary" />
                     </span>
                     <div>
                         <p className="text-2xl font-bold text-blue-color-primary">You have not purchased any university yet.</p>
                     </div>
                 </div>
             )}
-            {totalPages > 1 && (
+            {totalPages > 1 && !isPending && (
                 <div className="flex items-center justify-center mt-5">
                     <Pagination setSearchParams={setSearchParams} page={page} total={totalPages} paginationKey="page" />
                 </div>
