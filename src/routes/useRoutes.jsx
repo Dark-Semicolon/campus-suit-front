@@ -6,6 +6,7 @@ import useAuthRoutes from './useAuthRoutes';
 
 function useRoutes() {
 
+
     const CampusSuiteRoutes = useCampusSuiteRoutes()
     const ClientntRoutes = useClientRoutes()
     const ProfessorsRoutes = useProfessorsRoutes()

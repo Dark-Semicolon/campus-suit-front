@@ -1,7 +1,7 @@
 function StatsPage() {
     return (
         <div>
-            test el 5ara
+            Stats
         </div>
     )
 }

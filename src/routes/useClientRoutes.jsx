@@ -7,35 +7,41 @@ import DashboardLayout from "@/layouts/dashboard/DashboardLayout"
 import Auth from "@/middleware/Auth"
 
 
-import Stats from "../pages/client/panel/Stats"
+import { GiTeacher } from "react-icons/gi";
+import { FaUniversity } from "react-icons/fa";
+import { GrAnalytics } from 'react-icons/gr';
+
 
 import UserInfo from './../pages/client/profile/UserInfo';
 import UserUniversities from "./../pages/client/profile/UserUnviersities"
 
-import { GrAnalytics } from "react-icons/gr"
-import { HiUserGroup } from "react-icons/hi2"
-import { MdMenuBook } from "react-icons/md"
+import Stats from "../pages/client/panel/Stats"
+import Faculties from "../pages/client/panel/Faculties"
+import Professors from "../pages/client/panel/Professors"
 
 
-const sidebarLinks = [
-    {
-        name: "Dashboard",
-        to: "/admin/dashboard",
-        icon: <GrAnalytics />,
-    },
-    {
-        name: "Colleges",
-        to: "/admin/members",
-        icon: <HiUserGroup />,
-    },
-    {
-        name: "teachers",
-        to: "/admin/courses",
-        icon: <MdMenuBook />,
-    }
-];
+
 
 export default function useClientRoutes() {
+    const universityId = 2
+
+    const sidebarLinks = [
+        {
+            name: "Dashboard",
+            to: `${universityId}/controlPanel`,
+            icon: <GrAnalytics />,
+        },
+        {
+            name: "faculties",
+            to: `/${universityId}/controlPanel/faculties`,
+            icon: <FaUniversity />,
+        },
+        {
+            name: "professors",
+            to: `/${universityId}/controlPanel/professors`,
+            icon: <GiTeacher />,
+        }
+    ];
     return (
         <>
             {/* Client in Web*/}
@@ -60,9 +66,21 @@ export default function useClientRoutes() {
                 }
             >
                 <Route
-                    path="/client/universities/:id"
+                    path="/:universityId/controlPanel"
                     element={
                         <Stats />
+                    }
+                />
+                <Route
+                    path="/:universityId/controlPanel/faculties"
+                    element={
+                        <Faculties />
+                    }
+                />
+                <Route
+                    path="/:universityId/controlPanel/professors"
+                    element={
+                        <Professors />
                     }
                 />
             </Route>
