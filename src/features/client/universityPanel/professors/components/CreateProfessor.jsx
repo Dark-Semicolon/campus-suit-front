@@ -45,7 +45,7 @@ function CreateProfessor({ onCloseModal }) {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
       <h4 className="py-3 text-blue-color-primary">Create new Professor</h4>
 
-      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="warning" />} label={isVisibile ? "Active" : "Disabled"} />
+      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
 
       <CustomInput
         type="name"
