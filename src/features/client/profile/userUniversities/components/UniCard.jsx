@@ -21,7 +21,7 @@ function UniCard({ university }) {
     <Card className="py-4">
       <CardHeader className="flex items-start justify-between px-4 pt-2 pb-0">
         <div className="flex items-center justify-end w-full gap-3 pb-3 border-b-1">
-          <Link to={`/${id}/admin/controlPanel`} replace={true}>
+          <Link to={`/${id}/panel/stats`} replace={true}>
             <IoSettingsOutline className="text-xl text-blue-color-primary" />
           </Link>
           <Modal>

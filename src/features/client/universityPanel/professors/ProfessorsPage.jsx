@@ -4,7 +4,7 @@ import ProfessorsTable from "./components/ProfessorsTable";
 function ProfessorsPage() {
   let pagesLinks = [
     {
-      name: "Faculties",
+      name: "Professors",
       link: `/`,
     },
     { name: "Home Page", link: `/` },
