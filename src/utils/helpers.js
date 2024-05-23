@@ -49,3 +49,8 @@ export function formatCurrency(value) {
   });
   return formatter.format(value);
 }
+
+//Remove Empty Values From Object
+export function removeEmptyValues(obj) {
+  return Object.fromEntries(Object.entries(obj).filter(([, value]) => value != null && value !== ""));
+}
