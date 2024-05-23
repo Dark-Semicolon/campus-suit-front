@@ -72,7 +72,7 @@ function Table({ bottomContent, topContent, headers, isloading, rows, visibleCol
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={isloading ? null : "لا توجد نتائج"} isLoading={isloading} loadingContent={<Spinner color="primary" labelColor="primary" />} items={rows || []}>
+            <TableBody emptyContent={isloading ? null : "No Results"} isLoading={isloading} loadingContent={<Spinner color="primary" labelColor="primary" />} items={rows || []}>
                 {(row) => <TableRow key={row?.id}>{(columnKey) => <TableCell>{renderCell(row, columnKey)}</TableCell>}</TableRow>}
             </TableBody>
         </TableUi>

@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import AvatarComponent from "./Avatar";
 
-import AdminAccount from "../layouts/dashboard/components/AdminAccount";
+import AdminAccount from "./AdminAccount";
 import { useUser } from '@/features/client/auth/hooks/useUser';
 
 function UserDropdown({ admin = false }) {

@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Marhey",
+    fontFamily: "Open Sans",
   },
 });
 

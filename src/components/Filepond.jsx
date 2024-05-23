@@ -109,8 +109,7 @@ function Fileponds({ source, filePath, imageToken, className }) {
                     load: source && handleLoadFile
                 }}
                 onupdatefiles={(e) => setFiles(e)}
-                labelIdle='قم بسحب وإسقاط ملفاتك أو<span class="filepond--label-action">تصفح</span>'
-            />
+                labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>' />
         </div>
     );
 }
