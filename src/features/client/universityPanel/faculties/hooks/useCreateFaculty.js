@@ -3,26 +3,26 @@ import { createFaculty as createFacultyApi } from "@/services/client/panel/apiFa
 import toast from "react-hot-toast";
 
 export function useCreateFaculty() {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    const {
-        mutate: createFaculty,
-        isLoading: isCreating,
-        error,
-    } = useMutation({
-        mutationFn: createFacultyApi,
-        onSuccess: () => {
-            toast.success("faculty has been Created successfully");
+  const {
+    mutate: createFaculty,
+    isPending: isCreating,
+    error,
+  } = useMutation({
+    mutationFn: createFacultyApi,
+    onSuccess: () => {
+      toast.success("faculty has been Created successfully");
 
-            queryClient.invalidateQueries({
-                queryKey: ["faculties"],
-            });
-        },
+      queryClient.invalidateQueries({
+        queryKey: ["faculties"],
+      });
+    },
 
-        onError: (error) => {
-            toast.error(error.response.data.message);
-        },
-    });
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+  });
 
-    return { createFaculty, isCreating, error };
+  return { createFaculty, isCreating, error };
 }
