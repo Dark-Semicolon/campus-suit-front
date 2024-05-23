@@ -82,7 +82,7 @@ function ProfessorsTable() {
         id: "edit",
         name: "Edite",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
-        content: (row) => <UpdateProfessor data={row} />,
+        content: (row) => <UpdateProfessor oldValues={row} />,
       },
       {
         id: "delete",

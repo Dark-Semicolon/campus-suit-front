@@ -7,37 +7,35 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useUpdateProfessor from "../hooks/useUpdateProfesssor";
+import { removeEmptyValues } from "../../../../../utils/helpers";
 
-function UpdateProfessor({ onCloseModal, data }) {
+function UpdateProfessor({ onCloseModal, oldValues }) {
   const { universityId } = useParams();
   const [image, setImage] = useState("");
 
   const { updateProfessor, isUpdating, error: ApiError } = useUpdateProfessor();
 
-  const { id, name, email, status } = data;
+  const { id: professorId, name, email, status } = oldValues;
 
   const [isVisibile, setIsVisibile] = useState(status);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
     reset,
-  } = useForm({
-    defaultValues: { name, email, status },
-  });
+  } = useForm();
 
-  console.log(status);
   const handleChange = (event) => {
     setIsVisibile(event.target.checked);
   };
 
   function onSubmit(data) {
-    if (!image) return null;
+    let updatedData = { ...data, image };
+    const filteredData = removeEmptyValues(updatedData);
 
     updateProfessor(
-      { ...data, image, universityId, professorId: id, status: isVisibile },
+      { ...filteredData, status: isVisibile, universityId, professorId },
       {
         onSuccess: () => {
           reset();
@@ -62,9 +60,7 @@ function UpdateProfessor({ onCloseModal, data }) {
         className="w-4/5 md:w-96 "
         errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
         isDisabled={isUpdating}
-        register={register("name", {
-          required: "professor name is required",
-        })}
+        register={register("name")}
       />
 
       <CustomInput
@@ -76,9 +72,7 @@ function UpdateProfessor({ onCloseModal, data }) {
         className="w-4/5 md:w-96 "
         errorMessage={errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]}
         isDisabled={isUpdating}
-        register={register("email", {
-          required: "email is required",
-        })}
+        register={register("email")}
       />
 
       <CustomInput
