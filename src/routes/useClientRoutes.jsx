@@ -24,17 +24,17 @@ export default function useClientRoutes() {
     {
       name: "Dashboard",
       to: `${universityId}/admin/controlPanel`,
-      icon: <GrAnalytics />,
+      icon: <GrAnalytics className="text-2xl" />,
     },
     {
       name: "faculties",
       to: `/${universityId}/admin/faculties`,
-      icon: <FaUniversity />,
+      icon: <FaUniversity className="text-2xl" />,
     },
     {
       name: "professors",
       to: `/${universityId}/admin/professors`,
-      icon: <GiTeacher />,
+      icon: <GiTeacher className="text-2xl" />,
     },
   ];
   return (

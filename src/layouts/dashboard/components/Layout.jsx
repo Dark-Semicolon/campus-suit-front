@@ -17,7 +17,7 @@ import Logo from "@/components/Logo";
 
 import { useUser } from "@/features/client/auth/hooks/useUser";
 
-const drawerWidth = 260;
+const drawerWidth = 300;
 
 function Layout({ children, sidebarLinks }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,23 +41,23 @@ function Layout({ children, sidebarLinks }) {
   };
 
   const drawer = (
-    <div className="flex flex-col items-center gap-10 py-6 ">
+    <div className="flex flex-col items-center h-full gap-10 py-6 bg-blue-color-primary">
       <Link to="/">
-        <Logo width="100" />
+        <Logo logo="/images/logo/logoWhite.svg" width="120" />
       </Link>
 
       <List className="w-full">
         {sidebarLinks?.map((item, index) => (
-          <ListItem key={index} disablePadding>
+          <ListItem key={index} sx={{ "&.MuiListItem-root": { justifyContent: "center", transition: "all 2s" } }}>
             <NavLink
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center py-4 duration-200 w-full gap-x-2 pl-6 text-blue-color-light
-                                ${isActive && ` font-bold bg-yellow-color-light border-r-5 border-blue-color-primary`}`
+                `flex items-center duration-300 py-4  w-11/12 gap-x-2 pl-6 text-white
+                                ${isActive && `font-bold bg-blue-color-light rounded-md`}`
               }
             >
-              <span className={`duration-300 text-3xl`}>{item.icon}</span>
-              {<p className="capitalize text-md">{item.name}</p>}
+              <span className="duration-300">{item.icon}</span>
+              <p className="capitalize text-md ">{item.name}</p>
             </NavLink>
           </ListItem>
         ))}
