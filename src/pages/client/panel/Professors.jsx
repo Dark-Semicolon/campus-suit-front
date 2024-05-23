@@ -1,9 +1,7 @@
+import ProfessorsPage from "../../../features/client/universityPanel/professors/ProfessorsPage";
+
 function Professors() {
-    return (
-        <div>
-            professors
-        </div>
-    )
+  return <ProfessorsPage />;
 }
 
-export default Professors
+export default Professors;
