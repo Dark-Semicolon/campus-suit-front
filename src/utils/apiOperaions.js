@@ -6,6 +6,7 @@ function apiOperations({
     filter,
     sortBy,
     searchValue,
+    include,
     filterAndSortAndPageQuery,
 }) {
     let query = queryLink;
@@ -17,6 +18,12 @@ function apiOperations({
     if (fields)
         query += `${query.includes("?") ? "&" : "?"}fields=${
             Array.isArray(fields) ? fields.join(",") : fields
+        }`;
+
+    // include
+    if (include)
+        query += `${query.includes("?") ? "&" : "?"}include=${
+            Array.isArray(include) ? include.join(",") : include
         }`;
 
     // Search

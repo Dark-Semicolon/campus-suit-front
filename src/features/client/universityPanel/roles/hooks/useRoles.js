@@ -1,96 +1,96 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getRoles } from "@/services/dashboard/apiRoles";
+import { getRoles } from "@/services/client/panel/apiRoles";
 
 export function useRoles({
-  page,
-  perPage,
-  searchValue,
-  sortBy,
-  filter,
-  includeFields,
-  filterAndSortAndPageQuery,
+    universityId,
+    facultyId,
+    page,
+    perPage,
+    searchValue,
+    include,
+    filterAndSortAndPageQuery,
 } = {}) {
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
-  const {
-    data: roles,
-    isPending,
-    isSuccess,
-  } = useQuery({
-    queryKey: [
-      "roles",
-      page,
-      perPage,
-      searchValue,
-      sortBy,
-      filter,
-      includeFields,
-      filterAndSortAndPageQuery,
-    ],
-    queryFn: () =>
-      getRoles({
-        includeFields,
-        perPage,
-        searchValue,
-        sortBy,
-        filter,
-        page,
-        filterAndSortAndPageQuery,
-      }),
-  });
-
-  const totalPages = Math.ceil(roles?.meta?.total / roles?.meta?.per_page);
-
-  // PRE - FETCHING;
-  if (isSuccess && page < totalPages) {
-    queryClient.prefetchQuery({
-      queryKey: [
-        "roles",
-        page,
-        perPage,
-        searchValue,
-        sortBy,
-        filter,
-        includeFields,
-        filterAndSortAndPageQuery,
-      ],
-      queryFn: () =>
-        getRoles({
-          includeFields,
-          perPage,
-          searchValue,
-          sortBy,
-          filter,
-          page: page++,
-          filterAndSortAndPageQuery,
-        }),
+    const {
+        data: roles,
+        isPending,
+        isSuccess,
+    } = useQuery({
+        queryKey: [
+            "roles",
+            universityId,
+            facultyId,
+            page,
+            perPage,
+            searchValue,
+            include,
+            filterAndSortAndPageQuery,
+        ],
+        queryFn: () =>
+            getRoles({
+                universityId,
+                facultyId,
+                page,
+                perPage,
+                searchValue,
+                include,
+                filterAndSortAndPageQuery,
+            }),
     });
-  }
 
-  if (isSuccess && page > 1) {
-    queryClient.prefetchQuery({
-      queryKey: [
-        "roles",
-        page,
-        perPage,
-        searchValue,
-        sortBy,
-        filter,
-        includeFields,
-        filterAndSortAndPageQuery,
-      ],
-      queryFn: () =>
-        getRoles({
-          includeFields,
-          perPage,
-          searchValue,
-          sortBy,
-          filter,
-          page: page--,
-          filterAndSortAndPageQuery,
-        }),
-    });
-  }
+    const totalPages = Math.ceil(roles?.meta?.total / roles?.meta?.per_page);
 
-  return { isPending, roles };
+    // PRE - FETCHING;
+    if (isSuccess && page < totalPages) {
+        queryClient.prefetchQuery({
+            queryKey: [
+                "roles",
+                universityId,
+                facultyId,
+                page,
+                perPage,
+                searchValue,
+                include,
+                filterAndSortAndPageQuery,
+            ],
+            queryFn: () =>
+                getRoles({
+                    universityId,
+                    facultyId,
+                    page: page++,
+                    perPage,
+                    searchValue,
+                    include,
+                    filterAndSortAndPageQuery,
+                }),
+        });
+    }
+
+    if (isSuccess && page > 1) {
+        queryClient.prefetchQuery({
+            queryKey: [
+                "roles",
+                universityId,
+                facultyId,
+                page,
+                perPage,
+                searchValue,
+                include,
+                filterAndSortAndPageQuery,
+            ],
+            queryFn: () =>
+                getRoles({
+                    universityId,
+                    facultyId,
+                    page: page--,
+                    perPage,
+                    searchValue,
+                    include,
+                    filterAndSortAndPageQuery,
+                }),
+        });
+    }
+
+    return { isPending, roles };
 }

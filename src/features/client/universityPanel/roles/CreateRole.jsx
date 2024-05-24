@@ -1,20 +1,25 @@
-import Header from "../components/Header";
-import CreateForm from "./components/CreateForm";
+import { useParams } from "react-router-dom";
+import DashboardHeader from '@/components/DashboardHeader';
+import RoleForm from "./components/RoleForm";
 
 function CreateRole() {
+
+    const { universityId, facultyId } = useParams()
+
     let pagesLinks = [
         {
-            name: "انشاء دور جديد",
-            link: `/admin/roles`,
+            name: "Create Role",
+            link: `/${universityId}/panel/faculties/${facultyId}/roles/create`,
         },
-        { name: "الصفحة الرئيسية", link: `/` },
-        { name: "الأدوار", link: `/admin/roles` },
+        { name: "Home pgae", link: `/` },
+        { name: "Roles", link: `/${universityId}/panel/faculties/${facultyId}/roles` },
+        { name: "Faculty", link: `/${universityId}/panel/faculties/${facultyId}` },
     ];
 
     return (
         <div>
-            <Header pageName="انشاء دور جديد" pages={pagesLinks} className="text-2xl" />
-            <CreateForm />
+            <DashboardHeader pageName="Create Role" pages={pagesLinks} className="text-2xl" />
+            <RoleForm />
         </div>
     )
 }

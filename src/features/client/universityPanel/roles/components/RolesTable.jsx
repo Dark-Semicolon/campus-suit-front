@@ -43,9 +43,12 @@ function RolesTable() {
   const filterAndSortAndPageQuery = convertURLParams(search);
 
   const { roles, isPending } = useRoles({
+    universityId,
+    facultyId,
     page,
     perPage,
     searchValue,
+    include: 'permissions',
     filterAndSortAndPageQuery,
   });
 
@@ -96,6 +99,7 @@ function RolesTable() {
     const {
       id,
       attributes: { name: roleName, updatedAt, createdAt, teamId },
+      relationships: { permissions }
     } = role;
 
     return {
@@ -104,6 +108,7 @@ function RolesTable() {
       updatedAt,
       createdAt,
       teamId,
+      permissions
     };
   });
 
@@ -132,7 +137,7 @@ function RolesTable() {
             <div className="relative flex items-center justify-start gap-2">
               <Modal>
                 {actions?.map((action) =>
-                  row?.roleName === "Super Admin" ? null : action.id === "edit" ? (
+                  row?.roleName === "super_admin" ? null : action.id === "edit" ? (
                     <button
                       onClick={() => navigate(action.to(row.id), { state: row })}
                       key={action.id}
@@ -153,7 +158,7 @@ function RolesTable() {
                         ) : action.id === "delete" ? (
                           <ConfirmDelete
                             rowData={row}
-                            onConfirm={() => deleteRole(row?.id)}
+                            onConfirm={() => deleteRole({ roleId: row?.id, universityId, facultyId })}
                             disabled={isDeleting}
                             resourceName={row?.roleName}
                           />
@@ -169,7 +174,7 @@ function RolesTable() {
           return cellValue;
       }
     },
-    [actions, isDeleting, navigate, deleteRole]
+    [actions, isDeleting, universityId, facultyId, navigate, deleteRole]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));

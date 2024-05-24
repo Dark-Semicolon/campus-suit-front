@@ -10,7 +10,7 @@ export async function getPermissions({ page = 1, perPage } = {}) {
 
     // Base API Query
     let query = apiOperations({
-        queryLink: `${API_WEB}/permissions`,
+        queryLink: `${API_WEB}/faculty-supervisors/permissions`,
         page,
         perPage,
     });

@@ -1,9 +1,7 @@
-function CreateFacultyRoles() {
-    return (
-        <div>
+import CreateRole from "@/features/client/universityPanel/roles/CreateRole"
 
-        </div>
-    )
+function CreateFacultyRoles() {
+    return <CreateRole />
 }
 
 export default CreateFacultyRoles

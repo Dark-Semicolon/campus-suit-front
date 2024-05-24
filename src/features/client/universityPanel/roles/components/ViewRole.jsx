@@ -1,5 +1,5 @@
 import { Chip } from "@nextui-org/react";
-import RowView from "../../components/Table/components/RowView"
+import RowView from "@/components/Table/components/RowView"
 
 function ViewRole({ role }) {
     const { roleName, id, permissions } = role;
@@ -7,20 +7,20 @@ function ViewRole({ role }) {
     return (
         <div className="" key={id}>
             <RowView
-                name='أسم الدور'
+                name='Role Name '
                 brief={roleName}
-                className={"flex"}
+                className={"flex font-semibold"}
             />
 
             <RowView
-                name={"الصلاحيات"}
+                name={"permissions"}
                 brief={
                     <div className="flex flex-wrap gap-4 py-5">
                         {permissions.map(permission =>
                             <Chip
                                 key={permission.id}
                                 variant="bordered"
-                                className="mx-2 text-lg font-semibold text-blue-color-primary"
+                                className="py-4 mx-2 text-lg font-bold text-blue-color-primary"
                             >
                                 {permission.attributes.name}
                             </Chip>)}
