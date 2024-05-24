@@ -82,7 +82,7 @@ function SignupForm({ onCloseModal }) {
         register={register("password", {
           pattern: {
             value:
-              /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}/,
             message:
               "Your password must be at least 8 characters long and contain both letters and numbers.",
           },
