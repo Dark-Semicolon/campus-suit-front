@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-// import RolesTable from "./components/RolesTable";
+import RolesTable from "./components/RolesTable";
 import DashboardHeader from '@/components/DashboardHeader';
 
 function Roles() {
@@ -19,7 +19,7 @@ function Roles() {
         <div>
             <DashboardHeader pageName="Roles" pages={pagesLinks} className="text-2xl" />
 
-            {/* <RolesTable /> */}
+            <RolesTable />
         </div>
     );
 }

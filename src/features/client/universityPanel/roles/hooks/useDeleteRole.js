@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteRole as deleteRoleApi } from "../../../../services/dashboard/apiRoles";
+import { deleteRole as deleteRoleApi } from "@/services/client/panel/apiRoles";
 import toast from "react-hot-toast";
 
 export function useDeleteRole() {
@@ -12,7 +12,7 @@ export function useDeleteRole() {
     } = useMutation({
         mutationFn: deleteRoleApi,
         onSuccess: () => {
-            toast.success("Role has been deleted sucssfully");
+            toast.success("Role has been deleted successfully");
 
             queryClient.invalidateQueries({
                 queryKey: ["roles"],

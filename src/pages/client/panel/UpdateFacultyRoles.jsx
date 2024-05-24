@@ -1,9 +1,7 @@
-function UpdateFacultyRoles() {
-    return (
-        <div>
+import UpdateForm from "@/features/client/universityPanel/roles/components/UpdateForm"
 
-        </div>
-    )
+function UpdateFacultyRoles() {
+    return <UpdateForm />
 }
 
 export default UpdateFacultyRoles

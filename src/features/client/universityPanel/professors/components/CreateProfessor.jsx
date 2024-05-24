@@ -83,8 +83,8 @@ function CreateProfessor({ onCloseModal }) {
         errorMessage={errors?.password?.message}
         register={register("password", {
           pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            message: "The password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.",
+            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            message: "Your password must be at least 8 characters long and contain both letters and numbers.",
           },
         })}
       />

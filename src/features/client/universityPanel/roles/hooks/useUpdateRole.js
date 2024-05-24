@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateRole as updateRoleApi } from "../../../../services/dashboard/apiRoles";
+import { updateRole as updateRoleApi } from "@/services/client/panel/apiRoles";
 import toast from "react-hot-toast";
 
 function useUpdateRole() {
     const queryClient = useQueryClient();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const { universityId, facultyId } = useParams();
 
     const {
         mutate: updateRole,
@@ -18,8 +19,8 @@ function useUpdateRole() {
                 queryKey: ["roles"],
             });
 
-            toast.success("تم تعديل الدور بنجاح");
-            // navigate("/admin/roles");
+            toast.success("The role has been updates successfully");
+            navigate(`/${universityId}/panel/faculties/${facultyId}/roles`);
         },
 
         onError: (error) => {

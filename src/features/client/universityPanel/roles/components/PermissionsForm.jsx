@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { parseSearchParams } from '@/utils/helpers';
+
 import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
-import Pagination from './../../../../components/Pagination';
+import Search from '@/components/Search';
+import Pagination from '@/components/Pagination';
 import { usePermissions } from "../hooks/usePermissions";
-import { usePermissionCategories } from "../hooks/usePermissionCategories";
-import permissionsTranslations from './permissionsTranslations.json';
 
 function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
+  const [searchValue, setSearchValue] = useState('')
+
   const [searchParams] = useSearchParams();
+
   const page = parseSearchParams(
     searchParams,
     "page",
@@ -15,59 +19,89 @@ function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
     1
   );
 
-  const includeFields = ["category", "roles"];
-
-  const { permissions, isPending: isPermissionsPending } = usePermissions({ page, perPage: 30, includeFields });
-  const { permissionCategories, isPending: isLoadingCategories } = usePermissionCategories();
-
-  const renderPermissions = () => {
-    return permissionCategories.data.map(category => {
-      const categoryPermissions = permissions.data.filter(permission => permission.relationships.category.attributes.name === category.attributes.name);
-      if (categoryPermissions.length > 0) {
-        return (
-          <div key={category.id} className="flex flex-col w-full pt-10">
-            <p className="text-lg font-bold text-blue-color-primary">{permissionsTranslations[category.attributes.name]?.name} :</p>
-            <div className="flex flex-wrap  w-[50%] gap-10 py-5">
-              {categoryPermissions.map(permission => (
-                <Checkbox
-                  key={permission.id}
-                  color="warning"
-                  value={permission.id}
-                >
-                  <span className="mx-2">{permissionsTranslations[category.attributes.name].permissions[permission.attributes.name]}</span>
-                </Checkbox>
-              ))}
-            </div>
-          </div>
-        );
-      }
-      return null;
-    });
-  };
+  const { permissions, isPending } = usePermissions({ page, perPage: 30, searchValue });
 
   const totalPages = Math.ceil(permissions?.meta?.total / permissions?.meta?.per_page);
 
+  const groupPermissionsByPostfix = (permissions) => {
+    return permissions.reduce((acc, permission) => {
+      const postfix = permission.attributes.name.split('_').pop();
+      if (!acc[postfix]) {
+        acc[postfix] = [];
+      }
+      acc[postfix].push(permission);
+      return acc;
+    }, {});
+  };
+
+  const groupedPermissions = groupPermissionsByPostfix(permissions?.data || []);
+
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedPermissions(permissions?.data?.map(p => p.id) || []);
+    } else {
+      setSelectedPermissions([]);
+    }
+  };
+
+  const handleSelectGroup = (postfix, e) => {
+    const groupPermissions = groupedPermissions[postfix].map(p => p.id);
+    if (e.target.checked) {
+      setSelectedPermissions(prev => [...new Set([...prev, ...groupPermissions])]);
+    } else {
+      setSelectedPermissions(prev => prev.filter(id => !groupPermissions.includes(id)));
+    }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center py-5">
-
-      {(isPermissionsPending || isLoadingCategories) ? (
+      {isPending ? (
         <div className='py-5 mx-auto'>
-          <Spinner color='warning' />
+          <Spinner color='primary' />
         </div>
       ) : (
-        <div className="flex flex-col w-full gap-2 py-10 text-right">
-          <CheckboxGroup
-            className="gap-1"
-            label="قم بإختيار الأدوار"
-            orientation="horizontal"
-            value={selectedPermissions}
-            onChange={setSelectedPermissions}
-          >
-            {renderPermissions()}
-          </CheckboxGroup>
-        </div>
+        <>
+          <Search setSearchValue={setSearchValue} />
+          <section className="w-full pt-10">
+            <Checkbox
+              color="primary"
+              isSelected={selectedPermissions.length === permissions?.data?.length}
+              onChange={handleSelectAll}
+            >
+              Select All Permissions
+            </Checkbox>
+            <div className="flex flex-wrap justify-around w-full py-10">
+              {Object.keys(groupedPermissions).map(postfix => (
+                <div key={postfix} className="flex flex-col items-start justify-start gap-5 py-5">
+                  <Checkbox
+                    color="primary"
+                    isSelected={groupedPermissions[postfix].every(p => selectedPermissions.includes(p.id))}
+                    onChange={(e) => handleSelectGroup(postfix, e)}
+                  >
+                    Select All {postfix} Permissions
+                  </Checkbox>
+                  <CheckboxGroup
+                    className="gap-10"
+                    orientation="vertical"
+                    value={selectedPermissions}
+                    onChange={setSelectedPermissions}
+                  >
+                    {groupedPermissions[postfix].map(permission =>
+                      <Checkbox
+                        key={permission.id}
+                        color="primary"
+                        value={permission.id}
+                      >
+                        <span>{permission.attributes.name}</span>
+                      </Checkbox>)}
+                  </CheckboxGroup>
+                </div>
+              ))}
+            </div>
+          </section>
+        </>
       )}
-      {(totalPages > 1 && !isLoadingCategories && !isPermissionsPending) && (
+      {(totalPages > 1 && !isPending) && (
         <Pagination total={totalPages} className='mx-auto w-fit' />
       )}
     </section>
