@@ -44,6 +44,7 @@ function UpdateFaculty({ onCloseModal, data }) {
                 type="name"
                 label="Faculty name"
                 size="lg"
+                defaultValue={name}
                 isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
                 className="w-4/5 md:w-96 "
                 errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
@@ -57,6 +58,7 @@ function UpdateFaculty({ onCloseModal, data }) {
                 type="description"
                 label="Faculty Description"
                 size="lg"
+                defaultValue={description}
                 isError={errors?.description || ApiError?.response?.data?.errors?.description?.[0]}
                 className="w-4/5 md:w-96 "
                 errorMessage={errors?.description?.message || ApiError?.response?.data?.errors?.description?.[0]}
