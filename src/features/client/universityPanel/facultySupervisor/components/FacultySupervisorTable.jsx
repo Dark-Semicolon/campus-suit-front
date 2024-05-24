@@ -16,6 +16,7 @@ import ConfirmDelete from "@/components/ConfirmDelete";
 
 import { STORAGE_LINK } from "@/utils/constants";
 import CreateFacultySupervisorPage from "../CreateFacultySupervisorPage";
+import { useDeleteFacultySupervisor } from "../hooks/useDeleteFacultySupervisor";
 
 function FacultySupervisorTable() {
   const { universityId, facultyId } = useParams();
@@ -43,7 +44,7 @@ function FacultySupervisorTable() {
   });
 
   //Delete Users
-  // const { deleteProfessor, isDeleting } = useDeleteProfessor();
+  const { deleteFacultySupervisor, isDeleting } = useDeleteFacultySupervisor();
 
   //Filter Options
   const filterOptions = [
@@ -151,9 +152,13 @@ function FacultySupervisorTable() {
                       ) : action.id === "edit" ? (
                         action.content(row)
                       ) : action.id === "delete" ? (
-                        <div>test</div>
-                      ) : //   <ConfirmDelete rowData={row} onConfirm={() => deleteProfessor({ professorId: row?.id, universityId })} disabled={isDeleting} resourceName={row?.name} />
-                      null}
+                        <ConfirmDelete
+                          rowData={row}
+                          onConfirm={() => deleteFacultySupervisor({ universityId, facultyId, facultySupervisorId: row?.id })}
+                          disabled={isDeleting}
+                          resourceName={row?.name}
+                        />
+                      ) : null}
                     </Modal.Window>
                   </React.Fragment>
                 ))}

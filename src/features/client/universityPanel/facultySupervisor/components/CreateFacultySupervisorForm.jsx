@@ -1,15 +1,31 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 import FormWizard from "react-form-wizard-component";
+import toast from "react-hot-toast";
 import "react-form-wizard-component/dist/style.css";
 
-import CustomInput from "../../../../../components/CustomInput";
+import CustomInput from "@/components/CustomInput";
+import RolesForm from "./RolesForm";
+
 import { useCreateFacultySupervisor } from "../hooks/useCreateFacultySupervisor";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import PermissionsForm from "../../roles/components/PermissionsForm";
+import { useUpdateFacultySupervisorRole } from "../hooks/useUpdateFacultySupervisorRole";
+import { useUpdateFacultySupervisorPermissions } from "../hooks/useUpdateFacultySupervisorPermissions";
 
 function CreateFacultySupervisorForm() {
+  const navigate = useNavigate();
   const { universityId, facultyId } = useParams();
 
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [stepError, setStepError] = useState(false);
+
   const { createFacultySupervisor, isCreating, error: ApiError } = useCreateFacultySupervisor();
+
+  const { updateFacultySupervisorRole } = useUpdateFacultySupervisorRole();
+
+  const { updateFacultySupervisorPermissions } = useUpdateFacultySupervisorPermissions();
 
   const {
     register,
@@ -20,20 +36,25 @@ function CreateFacultySupervisorForm() {
   } = useForm();
 
   function handleComplete(data) {
-    console.log(data);
     createFacultySupervisor(
       { ...data, universityId, facultyId },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           reset();
+          updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId: data?.data?.id, roles: selectedRoles });
+          updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId: data?.data?.id, permissions: selectedPermissions });
+
+          navigate(`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`);
+        },
+        onError: () => {
+          setStepError(true);
         },
       }
     );
   }
-
   return (
     <section className="lg:w-[75%] mx-auto pt-20">
-      <FormWizard shape="circle" color="#4E74F9" stepSize="sm" onComplete={handleSubmit(handleComplete)}>
+      <FormWizard shape="circle" color={stepError ? "#FF0000" : "#4E74F9"} stepSize="sm" onComplete={handleSubmit(handleComplete)}>
         <FormWizard.TabContent title="Create Faculty Supervisor" icon="ti-settings">
           <div className="flex flex-col items-center justify-center gap-4">
             <CustomInput
@@ -95,7 +116,13 @@ function CreateFacultySupervisorForm() {
           </div>
         </FormWizard.TabContent>
 
-        {/* <FormWizard.TabContent title="Permissions" icon="ti-check"></FormWizard.TabContent> */}
+        <FormWizard.TabContent title="Roles" icon="ti-settings" validationError={() => toast.error("Please Finish User Data First")}>
+          <RolesForm selectedRoles={selectedRoles} setSelectedRoles={setSelectedRoles} />
+        </FormWizard.TabContent>
+
+        <FormWizard.TabContent title="Permissions" icon="ti-check">
+          <PermissionsForm selectedPermissions={selectedPermissions} setSelectedPermissions={setSelectedPermissions} />
+        </FormWizard.TabContent>
       </FormWizard>
 
       <style>

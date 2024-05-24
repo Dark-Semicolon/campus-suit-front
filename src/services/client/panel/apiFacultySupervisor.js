@@ -54,3 +54,42 @@ export async function createFacultySupervisor({ universityId, facultyId, name, e
     throw new Error(response.response.data.message);
   }
 }
+
+export async function updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId, roles }) {
+  await csrf();
+
+  const response = await axios.put(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}/roles`, {
+    roles,
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+export async function updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId, permissions }) {
+  await csrf();
+
+  const response = await axios.put(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}/permissions`, {
+    permissions,
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+
+export async function deleteFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
+  await csrf();
+
+  const response = await axios.delete(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}`);
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
