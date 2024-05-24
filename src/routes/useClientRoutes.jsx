@@ -16,9 +16,10 @@ import FacultyDetails from "../pages/client/panel/FacultyDetails";
 import FacultyRoles from "../pages/client/panel/FacultyRoles";
 import CreateFacultyRoles from "../pages/client/panel/CreateFacultyRoles";
 import UpdateFacultyRoles from "../pages/client/panel/UpdateFacultyRoles";
+import FacultySupervisor from "../pages/client/panel/FacultySupervisor";
+import CreateFacultySupervisor from "../pages/client/panel/CreateFacultySupervisor";
 
 export default function useClientRoutes() {
-
   return (
     <>
       {/* Client in Web*/}
@@ -48,10 +49,15 @@ export default function useClientRoutes() {
         <Route path="/:universityId/panel/professors" element={<Professors />} />
         <Route path="/:universityId/panel/faculties" element={<Faculties />} />
         <Route path="/:universityId/panel/faculties/:facultyId" element={<FacultyDetails />} />
+
+        {/* Faculty Roles */}
         <Route path="/:universityId/panel/faculties/:facultyId/roles" element={<FacultyRoles />} />
         <Route path="/:universityId/panel/faculties/:facultyId/roles/create" element={<CreateFacultyRoles />} />
         <Route path="/:universityId/panel/faculties/:facultyId/roles/:roleId" element={<UpdateFacultyRoles />} />
 
+        {/* Faculty Supervisor */}
+        <Route path="/:universityId/panel/faculties/:facultyId/facultySupervisors" element={<FacultySupervisor />} />
+        <Route path="/:universityId/panel/faculties/:facultyId/facultySupervisors/create" element={<CreateFacultySupervisor />} />
       </Route>
     </>
   );
