@@ -14,7 +14,7 @@ export function useUpdateFacultySupervisorRole() {
     mutationFn: updateFacultySupervisorRoleApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["facultySupervisorRole"],
+        queryKey: ["facultySupervisorRoles"],
       });
 
       toast.success("The role has been updates successfully");

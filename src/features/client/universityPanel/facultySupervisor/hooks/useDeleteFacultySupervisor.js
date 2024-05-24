@@ -15,7 +15,7 @@ export function useDeleteFacultySupervisor() {
       toast.success("faculty supervisor has been deleted successfully");
 
       queryClient.invalidateQueries({
-        queryKey: ["facultySupervisor"],
+        queryKey: ["facultySupervisors"],
       });
     },
 

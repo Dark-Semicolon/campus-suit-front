@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import DashboardHeader from "../../../../components/DashboardHeader";
+
+import DashboardHeader from "@/components/DashboardHeader";
 import FacultySupervisorTable from "./components/FacultySupervisorTable";
 
 function FacultySupervisorPage() {

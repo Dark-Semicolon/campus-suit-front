@@ -18,6 +18,7 @@ import CreateFacultyRoles from "../pages/client/panel/CreateFacultyRoles";
 import UpdateFacultyRoles from "../pages/client/panel/UpdateFacultyRoles";
 import FacultySupervisor from "../pages/client/panel/FacultySupervisor";
 import CreateFacultySupervisor from "../pages/client/panel/CreateFacultySupervisor";
+import UpdateFacultySupervisor from "../pages/client/panel/UpdateFacultySupervisor";
 
 export default function useClientRoutes() {
   return (
@@ -58,6 +59,7 @@ export default function useClientRoutes() {
         {/* Faculty Supervisor */}
         <Route path="/:universityId/panel/faculties/:facultyId/facultySupervisors" element={<FacultySupervisor />} />
         <Route path="/:universityId/panel/faculties/:facultyId/facultySupervisors/create" element={<CreateFacultySupervisor />} />
+        <Route path="/:universityId/panel/faculties/:facultyId/facultySupervisors/:facultySupervisorId/update" element={<UpdateFacultySupervisor />} />
       </Route>
     </>
   );
