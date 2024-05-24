@@ -107,7 +107,14 @@ function FacultySupervisorTable() {
       const cellValue = row?.[columnKey];
       switch (columnKey) {
         case "avatarUrl":
-          return <Image className="w-[50px] h-[50px] rounded-full object-cover" src={row?.avatarUrl === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`} loading="lazy" />;
+          return (
+            <Image
+              className="w-[50px] h-[50px] rounded-full object-cover"
+              src={row?.avatarUrl === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`}
+              loading="lazy"
+              classNames={{ img: "object-contain" }}
+            />
+          );
 
         case "status":
           return (

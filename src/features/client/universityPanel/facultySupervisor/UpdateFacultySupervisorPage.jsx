@@ -11,7 +11,7 @@ function UpdateFacultySupervisorPage() {
       name: "Update Faculty Supervisor",
       link: `/${universityId}/panel/faculties/${facultyId}/facultySupervisors/${facultySupervisorId}`,
     },
-    { name: "Home Page", link: `/` },
+    { name: "My Universities", link: `/user/universities` },
 
     { name: "Faculties", link: `/${universityId}/panel/faculties` },
     {

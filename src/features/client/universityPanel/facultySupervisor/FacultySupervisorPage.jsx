@@ -10,7 +10,7 @@ function FacultySupervisorPage() {
       name: "Faculty Supervisor",
       link: `/`,
     },
-    { name: "Home Page", link: `/` },
+    { name: "My Universities", link: `/user/universities` },
 
     { name: "Faculties", link: `/${universityId}/panel/faculties` },
     {

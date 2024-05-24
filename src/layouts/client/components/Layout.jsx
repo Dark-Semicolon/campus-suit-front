@@ -16,6 +16,7 @@ import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
 
 import { useUser } from "@/features/client/auth/hooks/useUser";
+import UniversityAccount from "../../../components/UniversityAccount";
 
 const drawerWidth = 300;
 
@@ -24,7 +25,6 @@ function Layout({ children, sidebarLinks }) {
   const [isClosing, setIsClosing] = useState(false);
 
   const { isAuthenticated, isPending } = useUser();
-
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -79,6 +79,9 @@ function Layout({ children, sidebarLinks }) {
         }}
       >
         <Toolbar>
+          <div className="flex-row-reverse justify-start w-full py-3 ">
+            <UniversityAccount reverse={false} />
+          </div>
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { md: "none" }, color: "#4E74F9" }}>
             <MenuIcon />
           </IconButton>

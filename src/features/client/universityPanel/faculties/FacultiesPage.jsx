@@ -4,9 +4,9 @@ function FacultiesPage() {
   let pagesLinks = [
     {
       name: "Faculties",
-      link: `/members`,
+      link: `/`,
     },
-    { name: "Home Page", link: `/` },
+    { name: "My Universities", link: `/user/universities` },
   ];
 
   return (
