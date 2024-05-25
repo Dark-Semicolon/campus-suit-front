@@ -15,8 +15,8 @@ function Header({ className }) {
 
   return (
     <nav
-      className={`${!isProfileRoute && "absolute top-0 left-0 right-0"
-        } flex justify-between px-2 text-center md:px-5 w-100 z-30 ${isProfileRoute && "bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] "
+      className={`${!isProfileRoute && ""
+        } flex justify-between px-2 text-center md:px-16 w-100 z-30 ${isProfileRoute && "bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] "
         } ${className} py-6`}
     >
       <header className="flex">
@@ -30,22 +30,21 @@ function Header({ className }) {
       )}
       {!isAuthenticated && !isPending && (
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-          <Button to="/signup" type="secondry" className="md:leading-9">
-            إنشاء حساب
+          <Button to="/signup" type="primary" className="rounded-md md:leading-7">
+            Sign Up
           </Button>
 
           <Button
             to="/login"
-            type="bordered"
-            className="text-white h-fit md:leading-9 hover:text-stone-200 hover:border-stone-200 w-fit"
+            type="primary" className="rounded-md md:leading-7"
           >
-            تسجيل الدخول
+            Login
           </Button>
         </div>
       )}
       {isAuthenticated && !isPending && (
         <div className="flex items-center pe-5">
-          <UserDropdown />
+          <UserDropdown admin={true} />
         </div>
       )}
     </nav>
