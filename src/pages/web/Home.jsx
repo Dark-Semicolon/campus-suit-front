@@ -1,26 +1,20 @@
-import Hero from '@/features/web/home/heroSection/Hero';
-import WhyUse from '@/features/web/home/whyUseSection/WhyUse';
-import Classes from '@/features/web/home/classesSection/Classes';
-import About from '@/features/web/home/about/About';
+import HeroSection from '@/features/web/home/hero/HeroSection';
+import Features from '@/features/web/home/features/Features';
+// import ClientsSection from '../../features/web/home/clients/ClientsSection';
+import Pricing from '../../features/web/home/pricing/Pricing';
 
 
 function Home() {
 
     return (
         <div>
-            <Hero />
-            <WhyUse />
-            <About />
-            <div className='bg-mint-green-color-light'>
-                <Classes />
-                <div className='relative py-20 top-28 bg-mint-green-color-light'>
-                </div>
-            </div>
+            <HeroSection />
+            <Features />
+            {/* <ClientsSection /> */}
+            <Pricing />
         </div>
 
     )
 }
 
 export default Home
-
-// The div with the bg-mint-green-color-light and the relative div for solve the broblem of the footer background color 
