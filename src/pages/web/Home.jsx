@@ -1,7 +1,6 @@
 import HeroSection from '@/features/web/home/hero/HeroSection';
 import Features from '@/features/web/home/features/Features';
-// import ClientsSection from '../../features/web/home/clients/ClientsSection';
-import Pricing from '../../features/web/home/pricing/Pricing';
+import Pricing from '@/features/web/home/pricing/Pricing';
 
 
 function Home() {
@@ -10,7 +9,6 @@ function Home() {
         <div>
             <HeroSection />
             <Features />
-            {/* <ClientsSection /> */}
             <Pricing />
         </div>
 
