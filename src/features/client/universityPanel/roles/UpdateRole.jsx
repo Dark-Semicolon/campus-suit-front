@@ -1,22 +1,28 @@
-import Header from "../components/Header";
+import DashboardHeader from "@/components/DashboardHeader";
 import UpdateForm from "./components/UpdateForm";
+import { useParams } from "react-router-dom";
 
 function UpdateRole() {
-    let pagesLinks = [
-        {
-            name: "تعديل الدور",
-            link: `/admin/roles`,
-        },
-        { name: "الصفحة الرئيسية", link: `/` },
-        { name: "الأدوار", link: `/admin/roles` },
-    ];
+  const { universityId, facultyId } = useParams();
 
-    return (
-        <div>
-            <Header pageName="تعديل الدور" pages={pagesLinks} className="text-2xl" />
-            <UpdateForm />
-        </div>
-    )
+  let pagesLinks = [
+    {
+      name: "Edit Role",
+      link: `/admin/roles`,
+    },
+    { name: "My Universities", link: `/user/universities` },
+
+    { name: "Faculties", link: `/${universityId}/panel/faculties` },
+    { name: "Faculty Detail", link: `/${universityId}/panel/faculties/${facultyId}` },
+    { name: "Roles", link: `/${universityId}/panel/faculties/${facultyId}/roles` },
+  ];
+
+  return (
+    <div>
+      <DashboardHeader pageName="Roles" pages={pagesLinks} className="text-2xl" />
+      <UpdateForm />
+    </div>
+  );
 }
 
-export default UpdateRole
+export default UpdateRole;

@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 
 import DashboardHeader from "@/components/DashboardHeader";
-import CreateFacultySupervisorForm from "./components/CreateFacultySupervisorForm";
+import UpdateFacultySupervisor from "./components/UpdateFacultySupervisor";
 
-function CreateFacultySupervisorPage() {
-  const { universityId, facultyId } = useParams();
+function UpdateFacultySupervisorPage() {
+  const { universityId, facultyId, facultySupervisorId } = useParams();
 
   let pagesLinks = [
     {
-      name: "Create Faculty Supervisor",
-      link: `/${universityId}/panel/faculties/${facultyId}/facultySupervisors`,
+      name: "Update Faculty Supervisor",
+      link: `/${universityId}/panel/faculties/${facultyId}/facultySupervisors/${facultySupervisorId}`,
     },
     { name: "My Universities", link: `/user/universities` },
 
@@ -23,12 +23,13 @@ function CreateFacultySupervisorPage() {
       link: `/${universityId}/panel/faculties/${facultyId}/facultySupervisors`,
     },
   ];
+
   return (
     <div>
-      <DashboardHeader pageName="Create Faculty Supervisor" pages={pagesLinks} className="text-2xl" />
-      <CreateFacultySupervisorForm />;
+      <DashboardHeader pageName="Faculty Supervisor" pages={pagesLinks} className="text-2xl" />
+      <UpdateFacultySupervisor />
     </div>
   );
 }
 
-export default CreateFacultySupervisorPage;
+export default UpdateFacultySupervisorPage;

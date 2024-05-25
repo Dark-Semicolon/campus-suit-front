@@ -19,7 +19,7 @@ function Operations() {
       <Link to={`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`}>
         <StatsCard
           title="Faculty Supervisors"
-          data="2 supervisor"
+          data="supervisors"
           icon={<GrUserAdmin />}
           className="duration-300 hover:shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
         />

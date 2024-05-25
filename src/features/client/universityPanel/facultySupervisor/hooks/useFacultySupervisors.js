@@ -1,17 +1,17 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getFacultySupervisor } from "@/services/client/panel/apiFacultySupervisor";
+import { getFacultySupervisors } from "@/services/client/panel/apiFacultySupervisor";
 
-export function useFacultySupervisor({ universityId, facultyId, filter, fields, perPage, page, searchValue, sortBy, filterAndSortAndPageQuery } = {}) {
+export function useFacultySupervisors({ universityId, facultyId, filter, fields, perPage, page, searchValue, sortBy, filterAndSortAndPageQuery } = {}) {
   const queryClient = useQueryClient();
 
   const {
     isPending,
-    data: facultySupervisor,
+    data: facultySupervisors,
     isSuccess,
   } = useQuery({
-    queryKey: ["facultySupervisor", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
+    queryKey: ["facultySupervisors", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
     queryFn: () =>
-      getFacultySupervisor({
+      getFacultySupervisors({
         universityId,
         facultyId,
         filter,
@@ -24,14 +24,14 @@ export function useFacultySupervisor({ universityId, facultyId, filter, fields, 
       }),
   });
 
-  const totalPages = Math.ceil(facultySupervisor?.meta?.total / facultySupervisor?.meta?.per_page);
+  const totalPages = Math.ceil(facultySupervisors?.meta?.total / facultySupervisors?.meta?.per_page);
 
   // PRE-FETCHING
   if (isSuccess && page < totalPages) {
     queryClient.prefetchQuery({
-      queryKey: ["facultySupervisor", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
+      queryKey: ["facultySupervisors", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
       queryFn: () =>
-        getFacultySupervisor({
+        getFacultySupervisors({
           universityId,
           facultyId,
           filter,
@@ -47,9 +47,9 @@ export function useFacultySupervisor({ universityId, facultyId, filter, fields, 
 
   if (isSuccess && page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["facultySupervisor", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
+      queryKey: ["facultySupervisors", universityId, facultyId, filter, fields, perPage, searchValue, sortBy, page, filterAndSortAndPageQuery],
       queryFn: () =>
-        getFacultySupervisor({
+        getFacultySupervisors({
           universityId,
           facultyId,
           filter,
@@ -63,5 +63,5 @@ export function useFacultySupervisor({ universityId, facultyId, filter, fields, 
     });
   }
 
-  return { isPending, facultySupervisor };
+  return { isPending, facultySupervisors };
 }

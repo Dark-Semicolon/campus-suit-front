@@ -7,7 +7,7 @@ function ProfessorsPage() {
       name: "Professors",
       link: `/`,
     },
-    { name: "Home Page", link: `/` },
+    { name: "My Universities", link: `/user/universities` },
   ];
 
   return (

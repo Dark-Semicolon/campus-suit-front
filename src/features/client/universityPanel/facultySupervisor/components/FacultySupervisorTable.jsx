@@ -1,12 +1,11 @@
 import React, { useCallback, useState, useMemo } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { Chip, Image } from "@nextui-org/react";
 
 import { convertURLParams, formatDateTime, parseSearchParams } from "@/utils/helpers";
-import { useFacultySupervisor } from "../hooks/useFacultySupervisor";
+import { useFacultySupervisors } from "../hooks/useFacultySupervisors";
 
 import Modal from "@/components/Modal";
 import Table from "@/components/Table/Table";
@@ -17,6 +16,7 @@ import ConfirmDelete from "@/components/ConfirmDelete";
 import { STORAGE_LINK } from "@/utils/constants";
 import CreateFacultySupervisorPage from "../CreateFacultySupervisorPage";
 import { useDeleteFacultySupervisor } from "../hooks/useDeleteFacultySupervisor";
+import ViewFacultySupervisor from "./ViewFacultySupervisor";
 
 function FacultySupervisorTable() {
   const { universityId, facultyId } = useParams();
@@ -34,7 +34,7 @@ function FacultySupervisorTable() {
   //Hooks
 
   //Get Users
-  const { facultySupervisor, isPending } = useFacultySupervisor({
+  const { facultySupervisors, isPending } = useFacultySupervisors({
     universityId,
     facultyId,
     page,
@@ -55,7 +55,8 @@ function FacultySupervisorTable() {
   //Header Rows
   const headers = [
     { uid: "id", name: "#", sortable: true },
-    { uid: "name", name: "Prof. name", sortable: true },
+    { uid: "avatarUrl", name: "Image", sortable: true },
+    { uid: "name", name: "Supervisor", sortable: true },
     { uid: "email", name: "Email", sortable: true },
     { uid: "status", name: "Status", sortable: true },
     { uid: "createdAt", name: "Created at", sortable: true },
@@ -64,22 +65,16 @@ function FacultySupervisorTable() {
   ];
 
   //Default Headers
-  const INITIAL_VISIBLE_COLUMNS = ["id", "name", "email", "status", "actions"];
+  const INITIAL_VISIBLE_COLUMNS = ["id", "avatarUrl", "name", "email", "status", "actions"];
 
   //Actions
   const actions = useMemo(
     () => [
       {
-        id: "rowDetails",
-        name: "View",
-        icon: <FaEye className="text-lg" />,
-        content: (row) => <div>test</div>,
-      },
-      {
         id: "edit",
-        name: "Edite",
+        name: "Edit",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
-        content: (row) => <div>test</div>,
+        content: (row) => <ViewFacultySupervisor data={row} />,
       },
       {
         id: "delete",
@@ -98,7 +93,7 @@ function FacultySupervisorTable() {
   };
 
   //formatting Data
-  const reformattedData = facultySupervisor?.data?.map((item) => {
+  const reformattedData = facultySupervisors?.data?.map((item) => {
     const { id, attributes } = item;
 
     return {
@@ -110,10 +105,16 @@ function FacultySupervisorTable() {
   const renderCell = useCallback(
     (row, columnKey) => {
       const cellValue = row?.[columnKey];
-
       switch (columnKey) {
-        case "image":
-          return <Image className="w-[50px] h-[50px] rounded-full object-cover" src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`} loading="lazy" />;
+        case "avatarUrl":
+          return (
+            <Image
+              className="w-[50px] h-[50px] rounded-full object-cover"
+              src={row?.avatarUrl === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`}
+              loading="lazy"
+              classNames={{ img: "object-contain" }}
+            />
+          );
 
         case "status":
           return (
@@ -169,12 +170,12 @@ function FacultySupervisorTable() {
           return cellValue;
       }
     },
-    [actions]
+    [actions, universityId, facultyId, isDeleting, deleteFacultySupervisor]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
 
-  const totalPages = Math.ceil(facultySupervisor?.meta?.total / facultySupervisor?.meta?.per_page);
+  const totalPages = Math.ceil(facultySupervisors?.meta?.total / facultySupervisors?.meta?.per_page);
 
   return (
     <Table
@@ -192,7 +193,7 @@ function FacultySupervisorTable() {
           rowsNumber={perPage}
           setRowsNumber={setPerPage}
           addRow={addRow}
-          totalRows={facultySupervisor?.meta?.total}
+          totalRows={facultySupervisors?.meta?.total}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder={"Search with fuculty name or id.."}

@@ -12,16 +12,38 @@ import { useCreateFacultySupervisor } from "../hooks/useCreateFacultySupervisor"
 import PermissionsForm from "../../roles/components/PermissionsForm";
 import { useUpdateFacultySupervisorRole } from "../hooks/useUpdateFacultySupervisorRole";
 import { useUpdateFacultySupervisorPermissions } from "../hooks/useUpdateFacultySupervisorPermissions";
+import Fileponds from "../../../../../components/Filepond";
+import { useUpdateFacultySupervisor } from "../hooks/useUpdateFacultySupervisor";
+import { removeEmptyValues } from "../../../../../utils/helpers";
+import { FormControlLabel, Switch } from "@mui/material";
 
-function CreateFacultySupervisorForm() {
+function CreateFacultySupervisorForm({ facultySupervisorData }) {
   const navigate = useNavigate();
+
+  // get old data
+  const oldRoles = facultySupervisorData ? facultySupervisorData?.facultySupervisorRoles?.data?.map((ele) => ele.id) : null;
+
+  const oldPermissions = facultySupervisorData ? facultySupervisorData?.facultySupervisorPermissions?.data?.map((ele) => ele.id) : null;
+
+  const { name, email, status } = facultySupervisorData?.facultySupervisor?.data?.attributes || {};
+  const { id } = facultySupervisorData?.facultySupervisor?.data || {};
+
+  // get data from params
   const { universityId, facultyId } = useParams();
 
-  const [selectedRoles, setSelectedRoles] = useState([]);
-  const [selectedPermissions, setSelectedPermissions] = useState([]);
-  const [stepError, setStepError] = useState(false);
+  // states
+  const [image, setImage] = useState("");
 
+  const [selectedRoles, setSelectedRoles] = useState(oldRoles || []);
+  const [selectedPermissions, setSelectedPermissions] = useState(oldPermissions || []);
+
+  const [stepError, setStepError] = useState(false);
+  const [isVisibile, setIsVisibile] = useState(status || true);
+
+  // API
   const { createFacultySupervisor, isCreating, error: ApiError } = useCreateFacultySupervisor();
+
+  const { updateFacultySupervisor, isUpdating } = useUpdateFacultySupervisor();
 
   const { updateFacultySupervisorRole } = useUpdateFacultySupervisorRole();
 
@@ -31,40 +53,72 @@ function CreateFacultySupervisorForm() {
     register,
     handleSubmit,
     getValues,
-    reset,
     formState: { errors },
   } = useForm();
 
   function handleComplete(data) {
-    createFacultySupervisor(
-      { ...data, universityId, facultyId },
-      {
-        onSuccess: (data) => {
-          reset();
-          updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId: data?.data?.id, roles: selectedRoles });
-          updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId: data?.data?.id, permissions: selectedPermissions });
+    if (!image) setImage("");
+    const supervisorData = { universityId, facultyId, facultySupervisorId: id, ...data, permissions: selectedPermissions, roles: selectedRoles, status: isVisibile, avatar_url: image };
 
-          navigate(`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`);
-        },
-        onError: () => {
-          setStepError(true);
-        },
-      }
-    );
+    if (facultySupervisorData) {
+      const filteredData = removeEmptyValues(supervisorData);
+      updateFacultySupervisor(
+        { ...filteredData },
+        {
+          onSuccess: () => {
+            updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId: id, roles: selectedRoles });
+            updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId: id, permissions: selectedPermissions });
+
+            navigate(`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`);
+          },
+          onError: () => {
+            setStepError(true);
+          },
+        }
+      );
+    } else {
+      //createFacultySupervisor
+      createFacultySupervisor(
+        { ...supervisorData },
+        {
+          onSuccess: (data) => {
+            updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId: data?.data?.id, roles: selectedRoles });
+            updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId: data?.data?.id, permissions: selectedPermissions });
+
+            navigate(`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`);
+          },
+          onError: () => {
+            setStepError(true);
+          },
+        }
+      );
+    }
   }
+
+  const handleChange = (event) => {
+    setIsVisibile(event.target.checked);
+  };
+
   return (
     <section className="lg:w-[75%] mx-auto pt-20">
       <FormWizard shape="circle" color={stepError ? "#FF0000" : "#4E74F9"} stepSize="sm" onComplete={handleSubmit(handleComplete)}>
         <FormWizard.TabContent title="Create Faculty Supervisor" icon="ti-settings">
+          <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
+
           <div className="flex flex-col items-center justify-center gap-4">
+            <div className="w-1/3">
+              <h4 className="py-3 text-gray-600 text-start">Faculty Supervisor Image *</h4>
+              <Fileponds imageToken={setImage} />
+            </div>
             <CustomInput
               type="name"
               label="Supervisor name"
               size="lg"
+              defaultValue={name || ""}
               isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
               className="w-4/5 md:w-96 "
               errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
-              isDisabled={isCreating}
+              isDisabled={isCreating || isUpdating}
               register={register("name", {
                 required: "Supervisor name is required",
               })}
@@ -74,10 +128,11 @@ function CreateFacultySupervisorForm() {
               type="email"
               label="Email"
               size="lg"
+              defaultValue={email || ""}
               isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
               className="w-4/5 md:w-96 "
               errorMessage={errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]}
-              isDisabled={isCreating}
+              isDisabled={isCreating || isUpdating}
               register={register("email", {
                 required: "email is required",
               })}
@@ -88,13 +143,13 @@ function CreateFacultySupervisorForm() {
               label="Password"
               size="lg"
               color={errors?.password || ApiError?.response?.data?.errors?.password?.[0]}
-              isDisabled={isCreating}
+              isDisabled={isCreating || isUpdating}
               className="w-4/5 md:w-96"
               errorMessage={errors?.password?.message}
               register={register("password", {
                 pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message: "The password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.",
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}/,
+                  message: "Your password must be at least 8 characters long and contain both letters and numbers.",
                 },
               })}
             />
@@ -103,7 +158,7 @@ function CreateFacultySupervisorForm() {
               type="password"
               label="Confirm password"
               size="lg"
-              isDisabled={isCreating}
+              isDisabled={isCreating || isUpdating}
               isError={errors?.passwordConfirmation || ApiError?.response?.data?.errors?.passwordConfirmation?.[0]}
               className="w-4/5 md:w-96"
               errorMessage={errors?.passwordConfirmation?.message}

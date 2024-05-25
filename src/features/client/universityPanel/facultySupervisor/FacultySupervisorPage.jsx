@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import DashboardHeader from "../../../../components/DashboardHeader";
+
+import DashboardHeader from "@/components/DashboardHeader";
 import FacultySupervisorTable from "./components/FacultySupervisorTable";
 
 function FacultySupervisorPage() {
@@ -9,7 +10,7 @@ function FacultySupervisorPage() {
       name: "Faculty Supervisor",
       link: `/`,
     },
-    { name: "Home Page", link: `/` },
+    { name: "My Universities", link: `/user/universities` },
 
     { name: "Faculties", link: `/${universityId}/panel/faculties` },
     {

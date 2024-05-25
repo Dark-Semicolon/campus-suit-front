@@ -5,7 +5,7 @@ import apiOperations from "@/utils/apiOperaions";
 // CSRF Token API Function
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
-export async function getFacultySupervisor({ universityId, facultyId, filter, fields, searchValue, filterAndSortAndPageQuery, sortBy, page = 1, perPage = 10 }) {
+export async function getFacultySupervisors({ universityId, facultyId, filter, fields, searchValue, filterAndSortAndPageQuery, sortBy, page = 1, perPage = 10 }) {
   await csrf();
 
   // Base API Query
@@ -33,11 +33,44 @@ export async function getFacultySupervisor({ universityId, facultyId, filter, fi
   }
 }
 
-export async function createFacultySupervisor({ universityId, facultyId, name, email, password, passwordConfirmation, status }) {
+//Find Faculty Supervisor
+export async function findFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
   await csrf();
 
-  const response = await axios.post(
-    `${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors`,
+  const response = await axios.get(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}`);
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+
+export async function createFacultySupervisor({ universityId, facultyId, name, email, password, passwordConfirmation, status, avatar_url }) {
+  await csrf();
+
+  const response = await axios.post(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors`, {
+    name,
+    email,
+    password,
+    passwordConfirmation,
+    status,
+    avatar_url,
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+
+//update FacultySupervisor
+export async function updateFacultySupervisor({ universityId, facultyId, facultySupervisorId, name, email, password, passwordConfirmation, status, avatar_url }) {
+  await csrf();
+
+  const response = await axios.patch(
+    `${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}`,
 
     {
       name,
@@ -45,6 +78,7 @@ export async function createFacultySupervisor({ universityId, facultyId, name, e
       password,
       passwordConfirmation,
       status,
+      avatar_url,
     }
   );
 
@@ -55,6 +89,20 @@ export async function createFacultySupervisor({ universityId, facultyId, name, e
   }
 }
 
+// delete FacultySupervisor
+export async function deleteFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
+  await csrf();
+
+  const response = await axios.delete(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}`);
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+
+// update Roles
 export async function updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId, roles }) {
   await csrf();
 
@@ -68,6 +116,8 @@ export async function updateFacultySupervisorRole({ universityId, facultyId, fac
     throw new Error(response.response.data.message);
   }
 }
+
+// update Permissions
 export async function updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId, permissions }) {
   await csrf();
 
@@ -82,10 +132,20 @@ export async function updateFacultySupervisorPermissions({ universityId, faculty
   }
 }
 
-export async function deleteFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
-  await csrf();
+// get FacultySupervisorRole
+export async function getFacultySupervisorRoles({ universityId, facultyId, facultySupervisorId }) {
+  const response = await axios.get(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}/roles`);
 
-  const response = await axios.delete(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}`);
+  if (response.status >= 200 && response.status < 300) {
+    return response.data;
+  } else {
+    throw new Error(response.response.data.message);
+  }
+}
+
+// get FacultySupervisorPermission
+export async function getFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId }) {
+  const response = await axios.get(`${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}/permissions`);
 
   if (response.status >= 200 && response.status < 300) {
     return response.data;

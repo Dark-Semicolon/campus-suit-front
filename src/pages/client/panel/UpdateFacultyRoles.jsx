@@ -1,7 +1,7 @@
-import UpdateForm from "@/features/client/universityPanel/roles/components/UpdateForm"
+import UpdateRole from "../../../features/client/universityPanel/roles/UpdateRole";
 
 function UpdateFacultyRoles() {
-    return <UpdateForm />
+  return <UpdateRole />;
 }
 
-export default UpdateFacultyRoles
+export default UpdateFacultyRoles;
