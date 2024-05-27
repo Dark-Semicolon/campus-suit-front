@@ -29,7 +29,7 @@ const Pricing = () => {
                     <Button type='primary' className='bg-black rounded-md'>Start</Button>
                 </div>
                 <div>
-                    <img src="/public/images/home/pricing/map.svg" />
+                    <img src="images/home/pricing/map.svg" />
                 </div>
             </div>
 

@@ -79,7 +79,7 @@ function LoginForm() {
           })}
         />
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
 
 
           <Checkbox
