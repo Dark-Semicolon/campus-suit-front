@@ -1,6 +1,6 @@
-import usePermission from './../hooks/usePermission';
-import ErrorPage from '../components/errorPage/ErrorPage';
-import LoaderPage from '../components/LoaderPage';
+import usePermission from '../../hooks/usePermission';
+import ErrorPage from '../../components/errorPage/ErrorPage';
+import LoaderPage from '../../components/LoaderPage';
 
 
 function ProtectedRoute({ children, permissions, allRequired }) {

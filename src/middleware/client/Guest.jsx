@@ -1,15 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuth } from "../hooks/auth/useAuth";
-import LoaderPage from "@/components/LoaderPage";
+import { useUser } from "@/features/client/auth/hooks/useUser";
 
-function Guest({ children, redirect, gardName }) {
+function Guest({ children, redirect }) {
   const navigate = useNavigate();
-
-  const { useUser } = useAuth({ gardName });
-
-  const { isAuthenticated, isPending } = useUser()
-
+  const { isAuthenticated, isPending } = useUser();
 
   useEffect(
     function () {
@@ -17,7 +12,6 @@ function Guest({ children, redirect, gardName }) {
     },
     [isAuthenticated, isPending, redirect, navigate]
   );
-  if (isPending) return <LoaderPage />
 
   return children;
 }

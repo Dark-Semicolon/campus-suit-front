@@ -4,7 +4,7 @@ import ProfileLayout from "@/layouts/profile/ProfileLayout";
 import AppLayout from "@/layouts/web/AppLayout";
 import DashboardLayout from "@/layouts/client/DashboardLayout";
 
-import Auth from "@/middleware/Auth";
+import Auth from "@/middleware/client/Auth";
 
 import UserInfo from "./../pages/client/profile/UserInfo";
 import UserUniversities from "./../pages/client/profile/UserUnviersities";

@@ -1,8 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import { HiOutlineVideoCamera } from "react-icons/hi";
 
 import Pagination from "@/components/Pagination";
 import HeroLinks from "@/components/HeroLinks";
+
+import { FaUniversity } from "react-icons/fa";
 
 import { parseSearchParams } from "@/utils/helpers";
 import { useUserUniversities } from "./hooks/useUserUniversities";
@@ -28,7 +29,7 @@ function UserUniversitiesPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <div className="pt-3 pb-10 space-y-5">
+            <div className="pt-3 space-y-5">
                 <h2 className="text-xl md:text-3xl text-blue-color-primary">
                     My<span className="text-blue-color-light"> Universities</span>
                 </h2>
@@ -50,7 +51,7 @@ function UserUniversitiesPage() {
             ) : (
                 <div className="flex flex-col items-center justify-center gap-4 h-[500px]">
                     <span>
-                        <HiOutlineVideoCamera className="text-5xl font-bold text-blue-color-primary" />
+                        <FaUniversity className="text-5xl font-bold text-blue-color-primary" />
                     </span>
                     <div>
                         <p className="text-2xl font-bold text-blue-color-primary">You have not purchased any university yet.</p>

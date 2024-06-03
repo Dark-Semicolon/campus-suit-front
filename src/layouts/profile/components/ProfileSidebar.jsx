@@ -61,7 +61,7 @@ function ProfileSidebar() {
     ];
 
     return (
-        <div className="flex-col bg-white rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-full lg:w-[500px]">
+        <div className="flex-col h-fit bg-white rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-full lg:w-[500px]">
             <p className="py-6 text-xl font-bold text-center capitalize border-b-2 text-blue-color-primary">My Profile</p>
 
             <div className="flex flex-col items-center justify-center md:p-8">

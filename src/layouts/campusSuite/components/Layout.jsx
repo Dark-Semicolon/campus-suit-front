@@ -14,8 +14,8 @@ import Toolbar from "@mui/material/Toolbar";
 
 import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
+import { useAuth } from "../../../hooks/auth/useAuth";
 
-import { useUser } from "@/features/client/auth/hooks/useUser";
 
 const drawerWidth = 300;
 
@@ -23,7 +23,9 @@ function Layout({ children, sidebarLinks }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const { isAuthenticated, isPending } = useUser();
+  const { useUser } = useAuth({ gardName: 'admin' })
+
+  const { isAuthenticated, isPending, user } = useUser();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -82,13 +84,13 @@ function Layout({ children, sidebarLinks }) {
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { md: "none" }, color: "#4E74F9" }}>
             <MenuIcon />
           </IconButton>
-          <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown admin={true} />}</div>
+          <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown logoutRedirect='/admin/login'
+            user={user} gardName='admin' admin={true} />}</div>
         </Toolbar>
       </AppBar>
       <Box component="nav" sx={{ flexShrink: { xs: 1 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          // container={container}
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}

@@ -3,9 +3,10 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import AlertWarning from "@/components/AlertWarning";
 
-import { useUser } from '@/features/client/auth/hooks/useUser';
+import { useAuth } from "../../hooks/auth/useAuth";
 
 function AppLayout() {
+  const { useUser } = useAuth({ gardName: 'client' })
   const { isActive, isPending, isAuthenticated } = useUser();
 
   return (

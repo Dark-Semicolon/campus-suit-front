@@ -1,0 +1,108 @@
+import axios from "@/lib/axios";
+import { API_ADMIN, API_WEB } from "../../utils/constants";
+
+// CSRF Token API Function
+const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+//login
+export async function login({ gardName = "client", email, password, remember = false }) {
+    await csrf();
+
+    const response = await axios.post(`${gardName !== "client" ? gardName : ""}/login`, {
+        email,
+        password,
+        remember,
+    });
+
+    if (response.status !== 204) {
+        throw new Error(response.response.data.message);
+    }
+}
+
+//logout
+export async function logout({ gardName = "client" }) {
+    await csrf();
+
+    const response = await axios.post(`${gardName !== "client" ? gardName : ""}/logout`);
+
+    if (response.status !== 204) throw new Error(response.response.data.message);
+}
+
+//forgetPassword
+export async function forgetPassword({ gardName = "client", email }) {
+    await csrf();
+
+    let link = "";
+
+    switch (gardName) {
+        case "admin":
+            link = `${API_ADMIN}`;
+            break;
+        case "client":
+            link = `${API_WEB}`;
+            break;
+        default:
+            break;
+    }
+
+    const response = await axios.post(`${link}/forgot-password`, { email });
+
+    if (response.status !== 200) throw new Error(response.response.data.message);
+
+    return response;
+}
+
+//resetPassword
+export async function resetPassword({
+    gardName = "client",
+    token,
+    email,
+    password,
+    password_confirmation,
+}) {
+    await csrf();
+    let link = "";
+
+    switch (gardName) {
+        case "admin":
+            link = `${API_ADMIN}`;
+            break;
+        case "client":
+            link = `${API_WEB}`;
+            break;
+        default:
+            break;
+    }
+    const response = await axios.post(`${link}/reset-password`, {
+        token,
+        email,
+        password,
+        password_confirmation,
+    });
+
+    if (response.status !== 200) throw new Error(response.response.data.message);
+}
+
+//getCurrentUser
+export async function getCurrentUser({ gardName = "client" }) {
+    await csrf();
+
+    let link = "";
+
+    switch (gardName) {
+        case "admin":
+            link = `${API_ADMIN}`;
+            break;
+        case "client":
+            link = `${API_WEB}`;
+            break;
+        default:
+            break;
+    }
+
+    const response = await axios.get(`${link}/user`);
+
+    if (response.status === 200) return response.data;
+
+    if (response.status === 401) throw new Error(response.response.data.message);
+}

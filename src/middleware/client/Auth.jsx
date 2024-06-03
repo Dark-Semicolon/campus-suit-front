@@ -1,14 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import LoaderPage from '@/components/LoaderPage';
+import LoaderPage from '../../components/LoaderPage';
 
-import { useAuth } from "../hooks/auth/useAuth";
+import { useUser } from '@/features/client/auth/hooks/useUser';
 
-function Auth({ children, redirect, gardName }) {
+function Auth({ children, redirect }) {
   const navigate = useNavigate();
-  const { useUser } = useAuth({ gardName });
-
-  const { isAuthenticated, isPending, isActive } = useUser()
+  const { isAuthenticated, isPending, isActive } = useUser();
 
   useEffect(
     function () {

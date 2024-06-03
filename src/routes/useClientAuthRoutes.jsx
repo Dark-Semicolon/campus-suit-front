@@ -1,8 +1,8 @@
 import { Route } from "react-router-dom"
 
-import Guest from "../middleware/Guest"
+import Guest from "@/middleware/client/Guest"
 
-import GuestLayout from "../layouts/guest/GestLayout"
+import GuestLayout from "@/layouts/guest/GestLayout"
 
 import Login from '@/pages/client/auth/Login';
 import Signup from '@/pages/client/auth/Signup';
@@ -11,7 +11,7 @@ import EmailConfirmation from '@/pages/client/auth/EmailConfirmation';
 import ResetPassword from '@/pages/client/auth/ResetPassword';
 
 
-function useAuthRoutes() {
+function useClientAuthRoutes() {
     return (
         <>
             {/* Auth Routes and layout  */}
@@ -32,4 +32,4 @@ function useAuthRoutes() {
     )
 }
 
-export default useAuthRoutes
+export default useClientAuthRoutes

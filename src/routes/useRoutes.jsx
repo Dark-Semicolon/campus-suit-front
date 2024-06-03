@@ -2,7 +2,8 @@ import useCampusSuiteRoutes from "./useCampusSuiteRoutes";
 import useClientRoutes from "./useClientRoutes";
 import useIndexRoutes from "./useIndexRoutes";
 import useProfessorsRoutes from "./useProfessorsRoutes";
-import useAuthRoutes from "./useAuthRoutes";
+import useClientAuthRoutes from "./useClientAuthRoutes";
+import useCampusSuiteAuthRoutes from './useCampusSuiteAuthRoutes';
 
 function useRoutes() {
     const CampusSuiteRoutes = useCampusSuiteRoutes();
@@ -10,14 +11,19 @@ function useRoutes() {
     const ProfessorsRoutes = useProfessorsRoutes();
     const IndexRoutes = useIndexRoutes();
 
-    const AuthRoutes = useAuthRoutes();
+    const clientAuthRoutes = useClientAuthRoutes();
+    const CampusSuiteAuthRoutes = useCampusSuiteAuthRoutes();
 
     return (
         <>
             {IndexRoutes}
-            {AuthRoutes}
-            {CampusSuiteRoutes}
+
+            {clientAuthRoutes}
             {ClientRoutes}
+
+            {CampusSuiteRoutes}
+            {CampusSuiteAuthRoutes}
+
             {ProfessorsRoutes}
         </>
     );

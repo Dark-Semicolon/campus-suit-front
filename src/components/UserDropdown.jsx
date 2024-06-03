@@ -1,6 +1,5 @@
 import { STORAGE_LINK } from "../utils/constants";
 import { Link } from "react-router-dom";
-import { useLogout } from "@/features/client/auth/hooks/useLogout";
 
 import {
   Button,
@@ -8,17 +7,15 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  User,
 } from "@nextui-org/react";
-import AvatarComponent from "./Avatar";
 
-import AdminAccount from "./AdminAccount";
-import { useUser } from '@/features/client/auth/hooks/useUser';
+import { useAuth } from "../hooks/auth/useAuth";
 
-function UserDropdown({ admin = false }) {
-  const { logout } = useLogout();
-  const { user } = useUser();
+function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
 
-  const image = user?.attributes?.image;
+
+  const { logout } = useAuth({ gardName, logoutRedirect })
 
   const items = [
     {
@@ -39,17 +36,20 @@ function UserDropdown({ admin = false }) {
           radius={!admin && "full"}
           isIconOnly={!admin}
         >
-          {admin ? (
-            <AdminAccount />
-          ) : (
-            <AvatarComponent
-              image={
-                image
-                  ? `${STORAGE_LINK}/${image}`
-                  : "images/userPlaceholder.png"
-              }
-            />
-          )}
+          <User
+            avatarProps={{
+              radius: "full",
+              size: "md",
+              src: user?.attributes?.image === null
+                ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${user?.attributes?.image}`,
+            }}
+            classNames={{
+              name: "text-blue-color-primary font-bold text-sm truncate w-30",
+              base: ' flex-row-reverse py-2'
+            }}
+            description={user?.attributes?.email}
+            name={user?.attributes?.name}
+          />
         </Button>
       </DropdownTrigger>
       {/* Dropdown Menu  */}
@@ -73,7 +73,7 @@ function UserDropdown({ admin = false }) {
           textValue="profile page"
           className="block w-full font-semibold text-danger text-medium"
           color="danger"
-          onClick={logout}
+          onClick={() => logout({ gardName })}
         >
           Log out
         </DropdownItem>
