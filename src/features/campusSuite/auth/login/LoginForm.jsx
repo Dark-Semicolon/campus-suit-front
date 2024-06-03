@@ -8,7 +8,7 @@ import AuthLayout from "@/layouts/Auth/AuthLayout";
 
 import Button from "@/components/Button";
 import CustomInput from "@/components/CustomInput";
-import { useAuth } from "../../../../hooks/auth/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 
 function LoginForm() {
@@ -20,7 +20,9 @@ function LoginForm() {
     handleSubmit,
   } = useForm();
 
-  const { login, isLogin, loginError: ApiError } = useAuth({ gardName: 'admin', loginRedirect: '/admin/dashboard', logoutRedirect: '/admin/login' })
+  const { useLogin } = useAuth({ gardName: 'admin', loginRedirect: '/admin/dashboard', logoutRedirect: '/admin/login' })
+
+  const { login, isPending, error: ApiError } = useLogin()
 
 
   function onSubmit(data) {
@@ -60,7 +62,7 @@ function LoginForm() {
             errors?.email?.message ||
             ApiError?.response?.data?.errors?.email?.[0]
           }
-          disabled={isLogin}
+          disabled={isPending}
           register={register("email", {
             required: "email is required",
           })}
@@ -94,7 +96,7 @@ function LoginForm() {
           </Checkbox>
 
           <Link
-            to="/forgetpassword"
+            to="/admin/forgetpassword"
             className="px-2 text-mint-green-color-primary"
           >
             Forget password?
@@ -104,14 +106,13 @@ function LoginForm() {
         <div className="py-3 ">
           <Button
             type="primary"
-            disabled={isLogin}
+            disabled={isPending}
             className="w-full leading-7"
           >
-            {!isLogin ? "Login" : "Login..."}
+            {!isPending ? "Login" : "Login..."}
           </Button>
         </div>
       </form>
-      {/* <button onClick={logout({ gardName: 'admin' })}>logout</button> */}
     </AuthLayout>
   );
 }

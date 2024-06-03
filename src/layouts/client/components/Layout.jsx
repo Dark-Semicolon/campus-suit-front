@@ -15,8 +15,8 @@ import Toolbar from "@mui/material/Toolbar";
 import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
 
-import { useUser } from "@/features/client/auth/hooks/useUser";
-import UniversityAccount from "../../../components/UniversityAccount";
+import UniversityAccount from "@/components/UniversityAccount";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const drawerWidth = 300;
 
@@ -24,7 +24,11 @@ function Layout({ children, sidebarLinks }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
+
+  const { useUser } = useAuth({ gardName: 'client' })
+
   const { isAuthenticated, isPending } = useUser();
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);

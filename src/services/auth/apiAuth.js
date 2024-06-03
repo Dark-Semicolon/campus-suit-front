@@ -1,5 +1,5 @@
 import axios from "@/lib/axios";
-import { API_ADMIN, API_WEB } from "../../utils/constants";
+import { API_ADMIN, API_WEB } from "@/utils/constants";
 
 // CSRF Token API Function
 const csrf = () => axios.get("/sanctum/csrf-cookie");
@@ -32,20 +32,9 @@ export async function logout({ gardName = "client" }) {
 export async function forgetPassword({ gardName = "client", email }) {
     await csrf();
 
-    let link = "";
-
-    switch (gardName) {
-        case "admin":
-            link = `${API_ADMIN}`;
-            break;
-        case "client":
-            link = `${API_WEB}`;
-            break;
-        default:
-            break;
-    }
-
-    const response = await axios.post(`${link}/forgot-password`, { email });
+    const response = await axios.post(`${gardName !== "client" ? gardName : ""}/forgot-password`, {
+        email,
+    });
 
     if (response.status !== 200) throw new Error(response.response.data.message);
 
@@ -61,19 +50,8 @@ export async function resetPassword({
     password_confirmation,
 }) {
     await csrf();
-    let link = "";
 
-    switch (gardName) {
-        case "admin":
-            link = `${API_ADMIN}`;
-            break;
-        case "client":
-            link = `${API_WEB}`;
-            break;
-        default:
-            break;
-    }
-    const response = await axios.post(`${link}/reset-password`, {
+    const response = await axios.post(`${gardName !== "client" ? gardName : ""}/reset-password`, {
         token,
         email,
         password,

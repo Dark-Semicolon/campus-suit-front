@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
 
-import { useAuth } from "../hooks/auth/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 function Header({ className }) {
 

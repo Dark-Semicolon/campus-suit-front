@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Checkbox } from "@nextui-org/react";
 
-import { useLogin } from "../hooks/useLogin";
 
 import AuthLayout from "@/layouts/Auth/AuthLayout";
 
 import Button from "@/components/Button";
 import CustomInput from "@/components/CustomInput";
+import { useAuth } from '@/hooks/auth/useAuth';
 
 function LoginForm() {
   const [remember, setRemember] = useState(false);
-  const { login, isPending, error: ApiError } = useLogin();
+
+  const { useLogin } = useAuth({ gardName: 'client' })
+
+  const { login, isPending, error: ApiError } = useLogin()
   const {
     register,
     formState: { errors },

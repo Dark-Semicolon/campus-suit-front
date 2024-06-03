@@ -3,16 +3,20 @@ import { useForm } from "react-hook-form";
 import { Tab, Tabs } from "@nextui-org/react";
 
 import { useUpdateUserData } from "./hooks/useUpdateUserData";
-import { useUser } from '@/features/client/auth/hooks/useUser';
 
 import HeroLinks from "@/components/HeroLinks";
 import Button from "@/components/Button";
 import PersonalInputs from "./components/PersonalInputs";
 import CustomInput from "@/components/CustomInput";
+import { useAuth } from '@/hooks/auth/useAuth';
 
 function UserInfoPage() {
     const [isUpdateInputs, setIsUpdateInputs] = useState(true);
+
+    const { useUser } = useAuth({ gardName: 'client' })
+
     const { user } = useUser();
+
     const { name, email } = user.attributes;
 
     const { updateUser, error: ApiError, isUpdating } = useUpdateUserData();

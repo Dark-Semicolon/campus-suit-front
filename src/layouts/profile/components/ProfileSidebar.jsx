@@ -5,17 +5,20 @@ import { STORAGE_LINK } from "@/utils/constants";
 import Fileponds from "@/components/Filepond";
 import ProfileCard from "./ProfileCard";
 
-import { useUser } from '@/features/client/auth/hooks/useUser';
 import { useUpdateUserData } from '@/features/client/profile/userInfo/hooks/useUpdateUserData';
 
 import { IoClose } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
 import { FaUniversity } from "react-icons/fa";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 function ProfileSidebar() {
     const [editImage, setEditImage] = useState(false);
     const [imagelink, setImagelink] = useState('');
+
+
+    const { useUser } = useAuth({ gardName: 'client' })
 
     const { user, isPending } = useUser();
 

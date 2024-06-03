@@ -1,4 +1,4 @@
-import { STORAGE_LINK } from "../utils/constants";
+import { STORAGE_LINK } from "@/utils/constants";
 import { Link } from "react-router-dom";
 
 import {
@@ -10,12 +10,14 @@ import {
   User,
 } from "@nextui-org/react";
 
-import { useAuth } from "../hooks/auth/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
 
+  const { useLogout } = useAuth({ gardName, logoutRedirect })
 
-  const { logout } = useAuth({ gardName, logoutRedirect })
+
+  const { logout, isPending } = useLogout()
 
   const items = [
     {
@@ -67,13 +69,14 @@ function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
           );
         })}
 
+
         {/* Logout Button  */}
         <DropdownItem
           key="delete"
           textValue="profile page"
           className="block w-full font-semibold text-danger text-medium"
           color="danger"
-          onClick={() => logout({ gardName })}
+          onClick={() => !isPending && logout({ gardName })}
         >
           Log out
         </DropdownItem>

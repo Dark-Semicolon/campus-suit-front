@@ -6,11 +6,13 @@ import AuthLayout from "@/layouts/Auth/AuthLayout";
 import Button from "@/components/Button";
 import CustomInput from "@/components/CustomInput";
 
-import { useResetPassword } from "../hooks/useResetPassword";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 function ResetPasswordForm() {
   const { register, formState, handleSubmit, getValues } = useForm();
   const { errors } = formState;
+
+  const { useResetPassword } = useAuth({ gardName: 'admin' })
 
   const { isPending, resetPassword, error: ApiError } = useResetPassword();
 

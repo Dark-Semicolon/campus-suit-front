@@ -4,7 +4,7 @@ import ProfileLayout from "@/layouts/profile/ProfileLayout";
 import AppLayout from "@/layouts/web/AppLayout";
 import DashboardLayout from "@/layouts/client/DashboardLayout";
 
-import Auth from "@/middleware/client/Auth";
+import Auth from "@/middleware/Auth";
 
 import UserInfo from "./../pages/client/profile/UserInfo";
 import UserUniversities from "./../pages/client/profile/UserUnviersities";
@@ -26,7 +26,7 @@ export default function useClientRoutes() {
       {/* Client in Web*/}
       <Route
         element={
-          <Auth redirect="/login">
+          <Auth redirect="/login" gardName='client'>
             <AppLayout />
           </Auth>
         }
@@ -41,7 +41,7 @@ export default function useClientRoutes() {
       {/* Uni Panel */}
       <Route
         element={
-          <Auth redirect="/login">
+          <Auth redirect="/login" gardName='client'>
             <DashboardLayout />
           </Auth>
         }

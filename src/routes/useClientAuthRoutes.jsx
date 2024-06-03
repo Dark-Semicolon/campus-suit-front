@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom"
 
-import Guest from "@/middleware/client/Guest"
+import Guest from "@/middleware/Guest"
 
 import GuestLayout from "@/layouts/guest/GestLayout"
 
@@ -17,7 +17,7 @@ function useClientAuthRoutes() {
             {/* Auth Routes and layout  */}
             <Route
                 element={
-                    <Guest>
+                    <Guest gardName='client' redirect='/admin/dashboard'>
                         <GuestLayout />
                     </Guest>
                 }
