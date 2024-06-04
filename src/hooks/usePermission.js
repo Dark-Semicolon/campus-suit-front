@@ -1,73 +1,72 @@
-import { useUser } from "@/features/client/auth/hooks/useUser";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const usePermission = () => {
-  const isSuperAdmin = true;
-  const roles = [""];
-  const permissions = [""];
+    const { useUser } = useAuth({ gardName: "admin" });
 
-  const {
-    // isSuperAdmin,
-    // permissions,
-    isAuthenticated,
-    isPending,
-    isSuccess,
-    // roles,
-  } = useUser();
+    const include = ["permissions", "permissionsCount", "permissionsExists", "roles"];
 
-  // Function to check if the current user has any of the specified permissions
-  const canAny = (permissionsToCheck) => {
-    return (
-      isAuthenticated &&
-      (isSuperAdmin || permissionsToCheck.some((permission) => permissions.includes(permission)))
-    );
-  };
+    const { user, isPending, isAuthenticated, isSuccess } = useUser(include);
 
-  // Function to check if the current user has a specific permission
-  const can = (permissionToCheck) => {
-    return isAuthenticated && (isSuperAdmin || permissions.includes(permissionToCheck));
-  };
+    const permissions = user?.relationships?.permissions;
+    const roles = user?.relationships?.permissions.roles;
+    const isSuperAdmin = roles.includes("Super Admin");
 
-  // Function to check if the current user has all of the specified permissions
-  const canAll = (permissionsToCheck) => {
-    return (
-      isAuthenticated &&
-      (isSuperAdmin || permissionsToCheck.every((permission) => permissions.includes(permission)))
-    );
-  };
+    // Function to check if the current user has any of the specified permissions
+    const canAny = (permissionsToCheck) => {
+        return (
+            isAuthenticated &&
+            (isSuperAdmin ||
+                permissionsToCheck.some((permission) => permissions.includes(permission)))
+        );
+    };
 
-  // Function to check if the current user does not have any of the specified permissions
-  const canNot = (permissionsToCheck) => {
-    return (
-      isAuthenticated &&
-      !isSuperAdmin &&
-      !permissionsToCheck.some((permission) => permissions.includes(permission))
-    );
-  };
+    // Function to check if the current user has a specific permission
+    const can = (permissionToCheck) => {
+        return isAuthenticated && (isSuperAdmin || permissions.includes(permissionToCheck));
+    };
 
-  // For Roles Check
-  const is = (roleToCheck) => {
-    return isAuthenticated && roles?.includes(roleToCheck);
-  };
+    // Function to check if the current user has all of the specified permissions
+    const canAll = (permissionsToCheck) => {
+        return (
+            isAuthenticated &&
+            (isSuperAdmin ||
+                permissionsToCheck.every((permission) => permissions.includes(permission)))
+        );
+    };
 
-  const isAny = (rolesToCheck) => {
-    return isAuthenticated && rolesToCheck.some((role) => roles?.includes(role));
-  };
+    // Function to check if the current user does not have any of the specified permissions
+    const canNot = (permissionsToCheck) => {
+        return (
+            isAuthenticated &&
+            !isSuperAdmin &&
+            !permissionsToCheck.some((permission) => permissions.includes(permission))
+        );
+    };
 
-  const isAll = (rolesToCheck) => {
-    return isAuthenticated && rolesToCheck.every((role) => roles?.includes(role));
-  };
+    // For Roles Check
+    const is = (roleToCheck) => {
+        return isAuthenticated && roles?.includes(roleToCheck);
+    };
 
-  return {
-    canAny,
-    can,
-    canAll,
-    canNot,
-    is,
-    isAny,
-    isAll,
-    isPending,
-    isSuccess,
-  };
+    const isAny = (rolesToCheck) => {
+        return isAuthenticated && rolesToCheck.some((role) => roles?.includes(role));
+    };
+
+    const isAll = (rolesToCheck) => {
+        return isAuthenticated && rolesToCheck.every((role) => roles?.includes(role));
+    };
+
+    return {
+        canAny,
+        can,
+        canAll,
+        canNot,
+        is,
+        isAny,
+        isAll,
+        isPending,
+        isSuccess,
+    };
 };
 
 export default usePermission;

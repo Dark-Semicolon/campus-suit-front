@@ -1,5 +1,6 @@
 import axios from "@/lib/axios";
 import { API_ADMIN, API_WEB } from "@/utils/constants";
+import apiOperations from "@/utils/apiOperaions";
 
 // CSRF Token API Function
 const csrf = () => axios.get("/sanctum/csrf-cookie");
@@ -62,7 +63,7 @@ export async function resetPassword({
 }
 
 //getCurrentUser
-export async function getCurrentUser({ gardName = "client" }) {
+export async function getCurrentUser({ fields, include, gardName = "client" }) {
     await csrf();
 
     let link = "";
@@ -78,7 +79,9 @@ export async function getCurrentUser({ gardName = "client" }) {
             break;
     }
 
-    const response = await axios.get(`${link}/user`);
+    const queryLink = apiOperations({ queryLink: `${link}/user`, fields, include });
+
+    const response = await axios.get(queryLink);
 
     if (response.status === 200) return response.data;
 

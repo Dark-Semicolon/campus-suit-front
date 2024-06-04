@@ -1,6 +1,6 @@
-import usePermission from '../../hooks/usePermission';
-import ErrorPage from '../../components/errorPage/ErrorPage';
-import LoaderPage from '../../components/LoaderPage';
+import usePermission from '@/hooks/usePermission';
+import ErrorPage from '@/components/errorPage/ErrorPage';
+import LoaderPage from '@/components/LoaderPage';
 
 
 function ProtectedRoute({ children, permissions, allRequired }) {
@@ -17,7 +17,7 @@ function ProtectedRoute({ children, permissions, allRequired }) {
     if (allRequired && canAll(permissions))
         return children;
 
-    return <ErrorPage status={401} error={'لا تملك صلاحية الوصول لهذه الصفحة'} />
+    return <ErrorPage status={401} error={'You do not have access to this page'} />
 }
 
 export default ProtectedRoute
