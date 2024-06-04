@@ -1,4 +1,4 @@
-import ForgetPasswordForm from "@/features/campusSuite/auth/newPassword/ForgetPasswordForm";
+import ForgetPasswordForm from "@/features/campusSuit/auth/newPassword/ForgetPasswordForm";
 
 function ForgetPassword() {
   return (

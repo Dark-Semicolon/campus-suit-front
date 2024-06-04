@@ -3,13 +3,13 @@ import { Route } from "react-router-dom"
 import Guest from "@/middleware/Guest"
 
 import GuestLayout from "@/layouts/guest/GestLayout"
-import Login from '@/pages/campusSuite/auth/Login';
-import ForgetPassword from "@/pages/campusSuite/auth/ForgetPassword";
-import EmailConfirmation from "@/pages/campusSuite/auth/EmailConfirmation";
-import ResetPassword from "@/pages/campusSuite/auth/ResetPassword";
+import Login from '@/pages/campusSuit/auth/Login';
+import ForgetPassword from "@/pages/campusSuit/auth/ForgetPassword";
+import EmailConfirmation from "@/pages/campusSuit/auth/EmailConfirmation";
+import ResetPassword from "@/pages/campusSuit/auth/ResetPassword";
 
 
-function useCampusSuiteAuthRoutes() {
+function useCampusSuitAuthRoutes() {
     return (
         <>
             {/* Auth Routes and layout  */}
@@ -29,4 +29,4 @@ function useCampusSuiteAuthRoutes() {
     )
 }
 
-export default useCampusSuiteAuthRoutes
+export default useCampusSuitAuthRoutes

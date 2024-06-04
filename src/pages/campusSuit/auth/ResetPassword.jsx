@@ -1,4 +1,4 @@
-import ResetPasswordForm from "@/features/campusSuite/auth/newPassword/ResetPasswordForm";
+import ResetPasswordForm from "@/features/campusSuit/auth/newPassword/ResetPasswordForm";
 
 function ResetPassword() {
   return (

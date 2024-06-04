@@ -1,10 +1,10 @@
 import { Route } from "react-router-dom"
 import Home from "../pages/web/Home"
 import AppLayout from "../layouts/web/AppLayout"
-import DashboardLayout from './../layouts/campusSuite/DashboardLayout';
+import DashboardLayout from './../layouts/campusSuit/DashboardLayout';
 import Auth from '../middleware/Auth';
 
-function useCampusSuiteRoutes() {
+function useCampusSuitRoutes() {
     return (
         <>
             <Route element={<AppLayout />}>
@@ -21,4 +21,4 @@ function useCampusSuiteRoutes() {
     )
 }
 
-export default useCampusSuiteRoutes
+export default useCampusSuitRoutes

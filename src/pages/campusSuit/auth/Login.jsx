@@ -1,4 +1,4 @@
-import LoginForm from '@/features/campusSuite/auth/login/LoginForm';
+import LoginForm from '@/features/campusSuit/auth/login/LoginForm';
 
 function Login() {
   return (
