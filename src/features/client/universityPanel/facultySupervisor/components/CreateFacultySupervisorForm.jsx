@@ -16,10 +16,11 @@ import Fileponds from "../../../../../components/Filepond";
 import { useUpdateFacultySupervisor } from "../hooks/useUpdateFacultySupervisor";
 import { removeEmptyValues } from "../../../../../utils/helpers";
 import { FormControlLabel, Switch } from "@mui/material";
+import Button from "../../../../../components/Button";
 
-function CreateFacultySupervisorForm({ facultySupervisorData }) {
+function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
   const navigate = useNavigate();
-
+  console.log(Object.keys(facultySupervisorData).length);
   // get old data
   const oldRoles = facultySupervisorData ? facultySupervisorData?.facultySupervisorRoles?.data?.map((ele) => ele.id) : null;
 
@@ -37,6 +38,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
   const [selectedRoles, setSelectedRoles] = useState(oldRoles || []);
   const [selectedPermissions, setSelectedPermissions] = useState(oldPermissions || []);
 
+  const [step, setStep] = useState(false);
   const [stepError, setStepError] = useState(false);
   const [isVisibile, setIsVisibile] = useState(status || true);
 
@@ -60,7 +62,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
     if (!image) setImage("");
     const supervisorData = { universityId, facultyId, facultySupervisorId: id, ...data, permissions: selectedPermissions, roles: selectedRoles, status: isVisibile, avatar_url: image };
 
-    if (facultySupervisorData) {
+    if (Object.keys(facultySupervisorData).length) {
       const filteredData = removeEmptyValues(supervisorData);
       updateFacultySupervisor(
         { ...filteredData },
@@ -71,9 +73,6 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
 
             navigate(`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`);
           },
-          onError: () => {
-            setStepError(true);
-          },
         }
       );
     } else {
@@ -82,6 +81,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
         { ...supervisorData },
         {
           onSuccess: (data) => {
+            console.log(data);
             updateFacultySupervisorRole({ universityId, facultyId, facultySupervisorId: data?.data?.id, roles: selectedRoles });
             updateFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId: data?.data?.id, permissions: selectedPermissions });
 
@@ -99,9 +99,36 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
     setIsVisibile(event.target.checked);
   };
 
+  const handleStep = () => {
+    if (Object.keys(facultySupervisorData).length > 0) {
+      setStep(true);
+    } else if (getValues().name && getValues().name && getValues().password && getValues().passwordConfirmation) {
+      setStep(true);
+    }
+    if (Object.keys(errors).length !== 0) {
+      setStepError(true);
+    }
+  };
   return (
     <section className="lg:w-[75%] mx-auto pt-20">
-      <FormWizard shape="circle" color={stepError ? "#FF0000" : "#4E74F9"} stepSize="sm" onComplete={handleSubmit(handleComplete)}>
+      <FormWizard
+        shape="circle"
+        color={stepError ? "#cc0000" : "#4E74F9"}
+        stepSize="sm"
+        onComplete={handleSubmit(handleComplete)}
+        nextButtonTemplate={(handleNext) => (
+          <Button
+            type="customized"
+            className="text-sm font-semibold px-[12px] py-[6px] bg-[#4E74F9] text-white rounded min-w-[140px]"
+            onClick={() => {
+              handleNext();
+              handleStep();
+            }}
+          >
+            Next
+          </Button>
+        )}
+      >
         <FormWizard.TabContent title="Create Faculty Supervisor" icon="ti-settings">
           <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
 
@@ -171,7 +198,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
           </div>
         </FormWizard.TabContent>
 
-        <FormWizard.TabContent title="Roles" icon="ti-settings" validationError={() => toast.error("Please Finish User Data First")}>
+        <FormWizard.TabContent title="Roles" icon="ti-settings" validationError={() => toast.error("Please Finish User Data First")} isValid={step}>
           <RolesForm selectedRoles={selectedRoles} setSelectedRoles={setSelectedRoles} />
         </FormWizard.TabContent>
 
@@ -182,11 +209,19 @@ function CreateFacultySupervisorForm({ facultySupervisorData }) {
 
       <style>
         {`@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
-                .react-form-wizard {
+                .wizard-card-footer{
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .react-form-wizard .clearfix:after {
+                  content: none;
+                }
+                .react-form-wizard{
                     background-color: #fff;
                     border-radius: 31px;
                     padding: 20px 0;    
                 }
+                
                 `}
       </style>
     </section>
