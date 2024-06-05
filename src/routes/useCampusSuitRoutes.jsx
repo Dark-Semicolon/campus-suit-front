@@ -9,8 +9,9 @@ import Roles from "@/pages/campusSuit/panel/roles/Roles";
 import CreateRole from "@/pages/campusSuit/panel/roles/CreateRole";
 import UpdateRole from "@/pages/campusSuit/panel/roles/UpdateRole";
 import AssignPermissions from "@/pages/campusSuit/panel/assignPermissions/AssignPermissions";
-import Admins from "../pages/campusSuit/panel/Admins";
+import Admins from "../pages/campusSuit/panel/admins/Admins";
 import ProtectedRoute from './../middleware/ProtectedRoute';
+import Clients from "../pages/campusSuit/panel/clients/Clients";
 
 function useCampusSuitRoutes() {
   return (
@@ -48,7 +49,10 @@ function useCampusSuitRoutes() {
         } />
 
         <Route path="/admin/permissions" element={<AssignPermissions />} />
-        <Route path="/admin/admins" element={<Admins />} />
+
+        <Route path="/admin/admins" element={<ProtectedRoute permissions={['view_any_admin']}><Admins /></ProtectedRoute>} />
+
+        <Route path="/admin/clients" element={<ProtectedRoute permissions={['view_any_user']}><Clients /></ProtectedRoute>} />
       </Route>
     </>
   );
