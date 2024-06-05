@@ -106,7 +106,7 @@ function CreateAdmin({ onCloseModal }) {
       />
       <div className="w-full">
         <h4 className="py-3 text-blue-color-primary">Admin Image</h4>
-        <Fileponds imageToken={setImage} />
+        <Fileponds imageToken={setImage} gardName='admin' />
       </div>
 
       <div>

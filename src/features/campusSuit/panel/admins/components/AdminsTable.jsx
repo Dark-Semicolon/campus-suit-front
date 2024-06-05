@@ -20,15 +20,16 @@ import CreateAdmin from "./CreateAdmin";
 import UpdateAdmin from "./UpdateAdmin";
 import { useDeleteAdmin } from "../hooks/useDeleteAdmin";
 import AdminView from "./AdminView";
+import usePermission from '@/hooks/usePermission';
 
 function AdminsTable() {
-  // const { universityId } = useParams();
-
   const { search } = useLocation();
   const [searchValue, setSearchValue] = useState("");
 
   const [perPage, setPerPage] = useState(5);
   const [searchParams] = useSearchParams();
+
+  const { can, canAll } = usePermission()
 
   const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
 
@@ -79,17 +80,20 @@ function AdminsTable() {
         name: "View",
         icon: <FaEye className="text-lg" />,
         content: (row) => <AdminView data={row} />,
+        permissions: 'view_admin'
       },
       {
         id: "update",
         name: "Edite",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
         content: (row) => <UpdateAdmin data={row} />,
+        permissions: 'update_admin'
       },
       {
         id: "delete",
         name: "Delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
+        permissions: 'delete_admin'
       },
     ],
     []
@@ -98,7 +102,7 @@ function AdminsTable() {
   //Add Row
   const addRow = {
     row: <CreateAdmin />,
-    permission: true,
+    permission: can('create_admin'),
   };
 
   //formatting Data
@@ -115,7 +119,7 @@ function AdminsTable() {
   const renderCell = useCallback(
     (row, columnKey) => {
       const cellValue = row?.[columnKey];
-      console.log(row);
+
       switch (columnKey) {
         case "image":
           return <Image className="w-[50px] h-[50px] rounded-full object-cover" src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`} loading="lazy" />;
@@ -146,6 +150,9 @@ function AdminsTable() {
             <div className="relative flex items-center justify-start gap-2">
               <Modal>
                 {actions?.map((action) => (
+
+                  canAll(action.permissions) &&
+
                   <React.Fragment key={action.id}>
                     {row.policies[action.id] && (
                       <>
@@ -172,7 +179,7 @@ function AdminsTable() {
           return cellValue;
       }
     },
-    [actions, deleteAdmin, isDeleting]
+    [actions, isDeleting, canAll, deleteAdmin]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -198,7 +205,7 @@ function AdminsTable() {
           totalRows={admins?.meta?.total}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          placeholder={"Search with fuculty name or id.."}
+          placeholder={"Search with admin name or email.."}
         />
       }
       bottomContent={<FooterContent totalPages={totalPages} />}

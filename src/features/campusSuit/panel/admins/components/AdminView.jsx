@@ -3,7 +3,7 @@ import { STORAGE_LINK } from "@/utils/constants";
 
 function AdminView({ data }) {
   const { id, name, image, email, status } = data;
-  console.log(data);
+
   return (
     <div className="flex flex-col items-center justify-center gap-3">
       <div className="flex flex-col gap-3 lg:flex-row">

@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import { Spinner } from "@nextui-org/react";
 import { FormControlLabel, Switch } from "@mui/material";
 import { useUpdateAdmin } from "../hooks/useUpdateAdmin";
-import { removeEmptyValues } from "../../../../../utils/helpers";
+import { removeEmptyValues } from "@/utils/helpers";
 
 function UpdateAdmin({ onCloseModal, data }) {
   const [image, setImage] = useState("");
@@ -111,7 +111,7 @@ function UpdateAdmin({ onCloseModal, data }) {
       />
       <div className="w-full">
         <h4 className="py-3 text-blue-color-primary">Admin Image</h4>
-        <Fileponds imageToken={setImage} />
+        <Fileponds imageToken={setImage} gardName='admin' />
       </div>
 
       <div>
