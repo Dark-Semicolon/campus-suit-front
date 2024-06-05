@@ -1,16 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
-import { GrAnalytics, GrUserAdmin } from 'react-icons/gr';
+
+import { GrUserAdmin } from "react-icons/gr";
 import { FaUsers } from "react-icons/fa";
-import { MdAdminPanelSettings } from 'react-icons/md';
+import { RxDashboard } from "react-icons/rx";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 function DashboardLayout() {
-
   const sidebarLinks = [
     {
       name: "Dashboard",
       to: `/admin/dashboard`,
-      icon: <GrAnalytics className="text-2xl" />,
+      icon: <RxDashboard className="text-2xl" />,
     },
     {
       name: "Clients",
@@ -30,7 +31,7 @@ function DashboardLayout() {
   ];
 
   return (
-    <Layout sidebarLinks={sidebarLinks} >
+    <Layout sidebarLinks={sidebarLinks}>
       <Outlet />
     </Layout>
   );
