@@ -14,8 +14,10 @@ import toast from 'react-hot-toast';
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-function Fileponds({ source, filePath, imageToken, className }) {
+function Fileponds({ source, filePath, imageToken, className, gardName = 'client' }) {
     const [, setFiles] = useState([])
+
+
 
     const csrf = () => axios.get("/sanctum/csrf-cookie");
 
@@ -27,7 +29,9 @@ function Fileponds({ source, filePath, imageToken, className }) {
             const formData = new FormData();
             formData.append(options.name, file, file.name);
 
-            const response = await axios.post(`${API_WEB}/filepond`, formData, {
+            let link = gardName === 'admin' ? `${API_ADMIN}/filepond` : `${API_WEB}/filepond`
+
+            const response = await axios.post(link, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -42,7 +46,7 @@ function Fileponds({ source, filePath, imageToken, className }) {
             imageToken(response.data);
         } catch (err) {
             // Call the error method if there's an error
-            toast.error("حث خطأ اثناء رفع الملف الرجاء محاوله مره اخري");
+            toast.error(err);
         }
     };
 
