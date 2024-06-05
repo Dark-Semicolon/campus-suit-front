@@ -7,7 +7,7 @@ function UpdateRole() {
 
   let pagesLinks = [
     {
-      name: "Edit Role",
+      name: "Update Role",
       link: `/admin/roles`,
     },
     { name: "My Universities", link: `/user/universities` },
@@ -19,7 +19,7 @@ function UpdateRole() {
 
   return (
     <div>
-      <DashboardHeader pageName="Roles" pages={pagesLinks} className="text-2xl" />
+      <DashboardHeader pageName="Update Role" pages={pagesLinks} className="text-2xl" />
       <UpdateForm />
     </div>
   );

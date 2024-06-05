@@ -24,7 +24,7 @@ function DashboardLayout() {
     },
     {
       name: "Roles",
-      to: `/admin/Roles`,
+      to: `/admin/roles`,
       icon: <MdAdminPanelSettings className="text-2xl" />,
     },
   ];
