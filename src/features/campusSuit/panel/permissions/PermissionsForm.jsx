@@ -7,7 +7,7 @@ import Search from '@/components/Search';
 import Pagination from '@/components/Pagination';
 import { usePermissions } from "./hooks/usePermissions";
 
-function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
+function PermissionsForm({ isDisabled = false, setSelectedPermissions, selectedPermissions }) {
   const [searchValue, setSearchValue] = useState('')
 
   const [searchParams] = useSearchParams();
@@ -67,6 +67,7 @@ function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
               color="primary"
               isSelected={selectedPermissions?.length === permissions?.data?.length}
               onChange={handleSelectAll}
+              isDisabled={isDisabled}
             >
               Select All Permissions
             </Checkbox>
@@ -77,6 +78,7 @@ function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
                     color="primary"
                     isSelected={groupedPermissions[postfix].every(p => selectedPermissions?.includes(p.id))}
                     onChange={(e) => handleSelectGroup(postfix, e)}
+                    isDisabled={isDisabled}
                   >
                     Select All {postfix} Permissions
                   </Checkbox>
@@ -91,6 +93,7 @@ function PermissionsForm({ setSelectedPermissions, selectedPermissions }) {
                         key={permission.id}
                         color="primary"
                         value={permission.id}
+                        isDisabled={isDisabled}
                       >
                         <span>{permission.attributes.name}</span>
                       </Checkbox>)}
