@@ -9,26 +9,25 @@ import { useAuth } from "@/hooks/auth/useAuth";
 function ForgetPasswordForm() {
   const navigate = useNavigate();
 
-  const { register, formState: { errors }, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  const { useForgetPassword } = useAuth({ gardName: 'client' })
+  const { useForgetPassword } = useAuth({ gardName: "client" });
 
   const { isPending, forgetPassword, error: ApiError } = useForgetPassword();
 
   function onSubmit(data) {
     const { email } = data;
+    if (!email) return;
     forgetPassword({ email });
   }
 
   return (
-    <AuthLayout
-      image="bg-forgotPassword"
-      title="Forgot your password"
-      description="Enter your email address and we will send you a link to reset your password"
-      className="py-14"
-    >
+    <AuthLayout image="bg-forgotPassword" title="Forgot your password" description="Enter your email address and we will send you a link to reset your password" className="py-14">
       <form onSubmit={handleSubmit(onSubmit)} className="w-[70%]">
-
         <CustomInput
           type="email"
           label="Email"
@@ -36,20 +35,15 @@ function ForgetPasswordForm() {
           size="lg"
           disabled={isPending}
           isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
-          errorMessage={
-            errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]
-          }
-          register={
-            register("email", {
-              required: 'Email is required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Please write a valid email address",
-              },
-            })
-          }
+          errorMessage={errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]}
+          register={register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Please write a valid email address",
+            },
+          })}
         />
-
 
         <div className="flex w-full gap-5 py-5">
           <Button
@@ -66,7 +60,6 @@ function ForgetPasswordForm() {
           <Button type="primary" className="w-1/2" disabled={isPending}>
             Next
           </Button>
-
         </div>
       </form>
     </AuthLayout>

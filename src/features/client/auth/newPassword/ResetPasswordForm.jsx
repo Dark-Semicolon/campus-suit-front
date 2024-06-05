@@ -9,27 +9,26 @@ import CustomInput from "@/components/CustomInput";
 import { useAuth } from "@/hooks/auth/useAuth";
 
 function ResetPasswordForm() {
-  const { register, formState, handleSubmit, getValues } = useForm();
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get("email");
+
+  const { register, formState, handleSubmit, getValues } = useForm({ defaultValues: { email } });
   const { errors } = formState;
 
-  const { useResetPassword } = useAuth({ gardName: 'client' })
+  const { useResetPassword } = useAuth({ gardName: "client" });
 
   const { isPending, resetPassword, error: ApiError } = useResetPassword();
 
   const { token } = useParams();
 
-  const [searchParams] = useSearchParams();
-  const email = searchParams.get("email");
-
-
   function onSubmit(data) {
     const { email, password, password_confirmation } = data;
-
+    console.log(data);
     resetPassword({ token, email, password, password_confirmation });
   }
 
   return (
-    <AuthLayout image='bg-forgotPassword' title="change Password" description="Enter the new password">
+    <AuthLayout image="bg-forgotPassword" title="change Password" description="Enter the new password">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-5">
         {/* Email */}
         <CustomInput
@@ -39,23 +38,12 @@ function ResetPasswordForm() {
           size="lg"
           className="w-4/5"
           defaultValue={email}
-          disabled={isPending}
+          // value={email}
+          disabled={true}
           isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
-          errorMessage={
-            errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]
-          }
-          register={
-            register("email", {
-              required: 'Email is required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Please write a valid email address",
-              },
-            })
-          }
+          errorMessage={errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]}
+          register={register("email")}
         />
-
-
 
         <CustomInput
           type="password"
@@ -67,10 +55,8 @@ function ResetPasswordForm() {
           errorMessage={errors?.password?.message}
           register={register("password", {
             pattern: {
-              value:
-                /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}/,
-              message:
-                "Your password must be at least 8 characters long and contain both letters and numbers.",
+              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}/,
+              message: "Your password must be at least 8 characters long and contain both letters and numbers.",
             },
           })}
         />
@@ -85,19 +71,12 @@ function ResetPasswordForm() {
           errorMessage={errors?.password_confirmation?.message}
           register={register("password_confirmation", {
             validate: {
-              validate: (value) =>
-                value !== getValues().password
-                  ? "The password and password confirmation do not match."
-                  : true,
+              validate: (value) => (value !== getValues().password ? "The password and password confirmation do not match." : true),
             },
           })}
         />
         <div className="w-4/5 py-3">
-          <Button
-            type="primary"
-            className="w-full leading-8"
-            disabled={isPending}
-          >
+          <Button type="primary" className="w-full leading-8" disabled={isPending}>
             Change
           </Button>
         </div>
