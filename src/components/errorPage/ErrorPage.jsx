@@ -3,15 +3,16 @@ import style from "./ErrorPage.module.css";
 import Button from "../Button";
 
 function ErrorPage({ error, status, resetErrorBoundary }) {
-  // const navigate = useNavigate();
+
   const { statusCode } = useParams();
 
   const errors = {
-    404: "غير موجود",
-    401: "لا تملك صلاحية الوصول",
-    403: "ليس لديك إذن للوصول إلى هذا المورد",
-    402: "خطأ في الخادم",
+    404: "Not Found",
+    401: "Unauthorized",
+    403: "Forbidden",
+    402: "Server Error",
   };
+
 
   return (
     <section className="h-screen bg-white">
@@ -27,16 +28,15 @@ function ErrorPage({ error, status, resetErrorBoundary }) {
                 {error.message}
               </h2>
               <p className="text-lg font-medium text-center text-blue-color-primary">
-                نأسف، حدث خطأ في التطبيق <br />
-                الرجاء إعادة تحميل الصفحة و في حالة استمرار الخطأ الرجاء التواصل
-                مع خدمة العملاء
+                Sorry, an error occurred in the application.<br />
+                Please reload the page, and if the error persists, please contact customer service.
               </p>
               <Button
                 onClick={resetErrorBoundary}
                 type="primary"
                 className="leading-7 w-fit"
               >
-                إعادة التشغيل
+                Refresh
               </Button>
             </>
           ) : (
@@ -45,10 +45,10 @@ function ErrorPage({ error, status, resetErrorBoundary }) {
                 {error || errors[statusCode]}
               </h3>
               <p className="text-lg font-medium text-blue-color-primary">
-                هل أنت متأكد أنك تريد أن تكون هنا؟
+                Are you sure you want to be here?
               </p>
               <Button to="/" type="primary" className="leading-7 w-fit">
-                الرجوع للصفحة الرئيسية
+                Home Page
               </Button>
             </>
           )}
