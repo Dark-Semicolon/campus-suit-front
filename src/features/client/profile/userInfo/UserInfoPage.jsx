@@ -17,7 +17,8 @@ function UserInfoPage() {
 
     const { user } = useUser();
 
-    const { name, email } = user.attributes;
+    const email = user?.attributes?.email;
+    const name = user?.attributes?.name;
 
     const { updateUser, error: ApiError, isUpdating } = useUpdateUserData();
 
@@ -32,7 +33,7 @@ function UserInfoPage() {
 
     function onSubmit(data) {
         const { name, email, password, passwordConfirmation } = data;
-        console.log(data);
+
         const updateUserData = {
             name,
             email,

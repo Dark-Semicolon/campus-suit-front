@@ -7,9 +7,11 @@ const usePermission = () => {
 
     const { user, isPending, isAuthenticated, isSuccess } = useUser(include);
 
-    const permissions = user?.relationships?.permissions;
-    const roles = user?.relationships?.permissions.roles;
-    const isSuperAdmin = roles.includes("Super Admin");
+    const permissions = user?.relationships?.permissions?.map(
+        (permission) => permission.attributes.name
+    );
+    const roles = user?.relationships?.roles?.map((role) => role.attributes.name);
+    const isSuperAdmin = roles?.includes("super_admin");
 
     // Function to check if the current user has any of the specified permissions
     const canAny = (permissionsToCheck) => {
@@ -64,6 +66,7 @@ const usePermission = () => {
         is,
         isAny,
         isAll,
+        isSuperAdmin,
         isPending,
         isSuccess,
     };

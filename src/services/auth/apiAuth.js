@@ -63,7 +63,7 @@ export async function resetPassword({
 }
 
 //getCurrentUser
-export async function getCurrentUser({ fields, include, gardName = "client" }) {
+export async function getCurrentUser({ include, gardName = "client" }) {
     await csrf();
 
     let link = "";
@@ -79,7 +79,7 @@ export async function getCurrentUser({ fields, include, gardName = "client" }) {
             break;
     }
 
-    const queryLink = apiOperations({ queryLink: `${link}/user`, fields, include });
+    const queryLink = apiOperations({ queryLink: `${link}/user`, include });
 
     const response = await axios.get(queryLink);
 
