@@ -1,57 +1,37 @@
-function apiOperations({
-    queryLink,
-    page,
-    perPage,
-    fields,
-    filter,
-    sortBy,
-    searchValue,
-    include,
-    filterAndSortAndPageQuery,
-}) {
-    let query = queryLink;
+function apiOperations({ queryLink, page, perPage, fields, filter, load, sortBy, searchValue, include, filterAndSortAndPageQuery }) {
+  let query = queryLink;
 
-    // Use provided filter, sort, and page query
-    if (filterAndSortAndPageQuery) query += filterAndSortAndPageQuery;
+  // Use provided filter, sort, and page query
+  if (filterAndSortAndPageQuery) query += filterAndSortAndPageQuery;
 
-    // Fields
-    if (fields)
-        query += `${query.includes("?") ? "&" : "?"}fields=${
-            Array.isArray(fields) ? fields.join(",") : fields
-        }`;
+  // Fields
+  if (fields) query += `${query.includes("?") ? "&" : "?"}fields=${Array.isArray(fields) ? fields.join(",") : fields}`;
 
-    // include
-    if (include)
-        query += `${query.includes("?") ? "&" : "?"}include=${
-            Array.isArray(include) ? include.join(",") : include
-        }`;
+  // include
+  if (include) query += `${query.includes("?") ? "&" : "?"}include=${Array.isArray(include) ? include.join(",") : include}`;
 
-    // Search
-    if (searchValue) query += `${query.includes("?") ? "&" : "?"}search=${searchValue}`;
+  // load
+  if (load) query += `${query.includes("?") ? "&" : "?"}load=${Array.isArray(load) ? load.join(",") : load}`;
 
-    // Filter
-    if (filter) {
-        const filterQuery = Array.isArray(filter)
-            ? filter.map((el) => `filter[${el.field}]=${el.value}`).join("&")
-            : `filter[${filter.field}]=${filter.value}`;
-        query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
-    }
+  // Search
+  if (searchValue) query += `${query.includes("?") ? "&" : "?"}search=${searchValue}`;
 
-    // Sorting
-    if (sortBy) {
-        const sortQuery = Array.isArray(sortBy)
-            ? sortBy.map((el) => `${el.direction === "asc" ? "" : "-"}${el.field}`).join(",")
-            : `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
-        query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
-    }
+  // Filter
+  if (filter) {
+    const filterQuery = Array.isArray(filter) ? filter.map((el) => `filter[${el.field}]=${el.value}`).join("&") : `filter[${filter.field}]=${filter.value}`;
+    query += `${query.includes("?") ? "&" : "?"}${filterQuery}`;
+  }
 
-    // Pagination
-    if (page >= 1)
-        query += `${query.includes("?") ? "&" : "?"}page=${page}${
-            perPage ? `&perPage=${perPage}` : ""
-        }`;
+  // Sorting
+  if (sortBy) {
+    const sortQuery = Array.isArray(sortBy) ? sortBy.map((el) => `${el.direction === "asc" ? "" : "-"}${el.field}`).join(",") : `${sortBy.direction === "asc" ? "" : "-"}${sortBy.field}`;
+    query += `${query.includes("?") ? "&" : "?"}sort=${sortQuery}`;
+  }
 
-    return query;
+  // Pagination
+  if (page >= 1) query += `${query.includes("?") ? "&" : "?"}page=${page}${perPage ? `&perPage=${perPage}` : ""}`;
+
+  return query;
 }
 
 export default apiOperations;
