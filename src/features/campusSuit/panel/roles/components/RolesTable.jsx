@@ -19,6 +19,7 @@ import ViewRole from "./ViewRole";
 import { useRoles } from "../hooks/useRoles";
 import { useDeleteRole } from "../hooks/useDeleteRole";
 import { convertURLParams } from "@/utils/helpers";
+import usePermission from '@/hooks/usePermission';
 
 function RolesTable() {
   const [searchValue, setSearchValue] = useState("");
@@ -28,6 +29,7 @@ function RolesTable() {
 
   const navigate = useNavigate();
 
+  const { can, canAll } = usePermission()
 
   const { deleteRole, isDeleting } = useDeleteRole();
 
@@ -69,17 +71,20 @@ function RolesTable() {
         name: "View",
         icon: <FaEye className="text-lg" />,
         content: (row) => <ViewRole role={row} />,
+        permissions: ["view_role"],
       },
       {
         id: "edit",
         name: "update",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
         to: (id) => `/admin/roles/${id}`,
+        permissions: ["update_role"],
       },
       {
         id: "delete",
         name: "delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
+        permissions: ["delete_role"],
       },
     ],
     []
@@ -88,7 +93,7 @@ function RolesTable() {
   //addRow
   const addRow = {
     to: `/admin/roles/create`,
-    permission: true,
+    permission: can('create_role'),
   };
 
   //formatting Data
@@ -141,7 +146,7 @@ function RolesTable() {
                     >
                       {action.icon}
                     </button>
-                  ) : (
+                  ) : canAll(action.permissions) && (
                     <React.Fragment key={action.id}>
                       <Modal.Open opens={action.id}>
                         <button>{action.icon}</button>
@@ -171,7 +176,7 @@ function RolesTable() {
           return cellValue;
       }
     },
-    [actions, isDeleting, navigate, deleteRole]
+    [actions, isDeleting, canAll, navigate, deleteRole]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));

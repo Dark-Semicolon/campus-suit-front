@@ -26,6 +26,12 @@ function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
       textValue: "profile page",
       key: "profile",
     },
+    {
+      link: "/user/universities",
+      title: "my universities",
+      textValue: "my universities",
+      key: "myUniversities",
+    },
   ];
 
   return (
