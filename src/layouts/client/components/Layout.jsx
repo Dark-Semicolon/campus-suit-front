@@ -27,7 +27,7 @@ function Layout({ children, sidebarLinks }) {
 
   const { useUser } = useAuth({ gardName: 'client' })
 
-  const { isAuthenticated, isPending } = useUser();
+  const { isAuthenticated, isPending, user } = useUser();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -89,7 +89,7 @@ function Layout({ children, sidebarLinks }) {
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { md: "none" }, color: "#4E74F9" }}>
             <MenuIcon />
           </IconButton>
-          <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown admin={true} />}</div>
+          <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown admin={true} user={user} />}</div>
         </Toolbar>
       </AppBar>
       <Box component="nav" sx={{ flexShrink: { xs: 1 } }} aria-label="mailbox folders">

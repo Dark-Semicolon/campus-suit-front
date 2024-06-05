@@ -63,17 +63,25 @@ export function useAuth({ gardName = "client", loginRedirect = "/", logoutRedire
         return { logout, error, isPending };
     }
 
-    function useUser() {
+    function useUser(
+        include = gardName === "admin" && [
+            "permissions",
+            "permissionsCount",
+            "permissionsExists",
+            "roles",
+        ]
+    ) {
         let isAuthenticated = false;
         let isActive = false;
+
         const {
             data: user,
             isPending,
             error,
             isSuccess,
         } = useQuery({
-            queryFn: () => getCurrentUser({ gardName: gardName ? gardName : "client" }),
-            queryKey: [`${gardName ? gardName : "client"}`, gardName],
+            queryFn: () => getCurrentUser({ include, gardName: gardName ? gardName : "client" }),
+            queryKey: [`${gardName ? gardName : "client"}`, gardName, include],
             retry: false,
         });
 
