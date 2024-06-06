@@ -10,7 +10,8 @@ import CreateRole from "@/pages/campusSuit/panel/roles/CreateRole";
 import UpdateRole from "@/pages/campusSuit/panel/roles/UpdateRole";
 import AssignPermissions from "@/pages/campusSuit/panel/assignPermissions/AssignPermissions";
 import Admins from "../pages/campusSuit/panel/Admins";
-import ProtectedRoute from './../middleware/ProtectedRoute';
+import ProtectedRoute from "./../middleware/ProtectedRoute";
+import AdminProfile from "../pages/campusSuit/panel/AdminProfile";
 
 function useCampusSuitRoutes() {
   return (
@@ -31,24 +32,31 @@ function useCampusSuitRoutes() {
         <Route
           path="/admin/roles"
           element={
-            <ProtectedRoute permissions={['view_any_role']}>
+            <ProtectedRoute permissions={["view_any_role"]}>
               <Roles />
             </ProtectedRoute>
           }
         />
-        <Route path="/admin/roles/create" element={
-          <ProtectedRoute permissions={['create_role']}>
-            <CreateRole />
-          </ProtectedRoute>
-        } />
-        <Route path="/admin/roles/:id" element={
-          <ProtectedRoute permissions={['update_role']}>
-            <UpdateRole />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/admin/roles/create"
+          element={
+            <ProtectedRoute permissions={["create_role"]}>
+              <CreateRole />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/roles/:id"
+          element={
+            <ProtectedRoute permissions={["update_role"]}>
+              <UpdateRole />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/admin/permissions" element={<AssignPermissions />} />
         <Route path="/admin/admins" element={<Admins />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
       </Route>
     </>
   );
