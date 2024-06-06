@@ -1,32 +1,18 @@
 import { Link } from "react-router-dom";
 
-function Button({
-  children,
-  disabled,
-  to,
-  type,
-  onClick,
-  className,
-  link1,
-  link1Name,
-  link2,
-  link2Name,
-  name,
-}) {
-  const base =
-    "inline-block rounded-full font-semibold tracking-wide transition-colors duration-300   disabled:cursor-not-allowed";
+function Button({ children, disabled, to, type, onClick, className, link1, link1Name, link2, link2Name, name }) {
+  const base = "inline-block rounded-full font-semibold tracking-wide transition-colors duration-300   disabled:cursor-not-allowed";
 
   const styles = {
-    primary:
-      base + ` px-4 py-2 md:px-6 bg-blue-color-light text-white  ${className}`,
+    primary: base + ` px-4 py-2 md:px-6 bg-blue-color-light text-white  ${className}`,
 
-    secondry:
-      base +
-      ` px-4 py-2 md:px-6 bg-white text-blue-color-light hover:bg-stone-100 ${className}`,
+    secondry: base + ` px-4 py-2 md:px-6 bg-white text-blue-color-light hover:bg-stone-100 ${className}`,
 
     bordered: base + ` px-[10px] py-[6px] md:px-5 border-2 ${className}`,
 
     customized: `${className}`,
+
+    simple: "text-sm font-semibold px-[12px] py-[8px] bg-blue-color-light text-white rounded-md min-w-[140px]",
   };
 
   if (to) {
