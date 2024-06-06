@@ -15,41 +15,40 @@ import FooterContent from "@/components/Table/components/FooterContent";
 import { Chip, Image } from "@nextui-org/react";
 import { STORAGE_LINK } from "@/utils/constants";
 import ConfirmDelete from "@/components/ConfirmDelete";
-import { useAdmins } from "../hooks/useAdmins";
-import CreateAdmin from "./CreateAdmin";
-import UpdateAdmin from "./UpdateAdmin";
-import { useDeleteAdmin } from "../hooks/useDeleteAdmin";
-import AdminView from "./AdminView";
+import { useClients } from "../hooks/useClients";
+import CreateClient from "./CreateClient";
+import UpdateClient from "./UpdateClient";
+import ViewClient from "./ViewClient";
+
+import { useDeleteClient } from "../hooks/useDeleteClient";
 import usePermission from '@/hooks/usePermission';
 
-function AdminsTable() {
+function ClientsTable() {
+
   const { search } = useLocation();
   const [searchValue, setSearchValue] = useState("");
 
   const [perPage, setPerPage] = useState(5);
   const [searchParams] = useSearchParams();
 
-  const { can, canAll } = usePermission()
+  const { canAll, can } = usePermission()
 
   const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
 
   const filterAndSortAndPageQuery = convertURLParams(search);
 
-  const include = ["roles", "permissions"];
-  const load = ["policies"];
+
 
   //Get Users
-  const { admins, isPending } = useAdmins({
+  const { clients, isPending } = useClients({
     page,
     perPage,
     searchValue,
-    include,
-    load,
     filterAndSortAndPageQuery,
   });
 
   //Delete Users
-  const { deleteAdmin, isDeleting } = useDeleteAdmin();
+  const { deleteClient, isDeleting } = useDeleteClient();
 
   // //Filter Options
   const filterOptions = [
@@ -61,7 +60,7 @@ function AdminsTable() {
   const headers = [
     { uid: "id", name: "#", sortable: true },
     { uid: "image", name: "Image", sortable: false },
-    { uid: "name", name: "Admin Name", sortable: true },
+    { uid: "name", name: "Client Name", sortable: true },
     { uid: "email", name: "Email", sortable: true },
     { uid: "status", name: "Status", sortable: true },
     { uid: "createdAt", name: "Created at", sortable: true },
@@ -79,21 +78,21 @@ function AdminsTable() {
         id: "view",
         name: "View",
         icon: <FaEye className="text-lg" />,
-        content: (row) => <AdminView data={row} />,
-        permissions: 'view_admin'
+        content: (row) => <ViewClient data={row} />,
+        permissions: 'view_user'
       },
       {
         id: "update",
         name: "Edite",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
-        content: (row) => <UpdateAdmin data={row} />,
-        permissions: 'update_admin'
+        content: (row) => <UpdateClient data={row} />,
+        permissions: 'update_user'
       },
       {
         id: "delete",
         name: "Delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
-        permissions: 'delete_admin'
+        permissions: 'delete_user'
       },
     ],
     []
@@ -101,18 +100,17 @@ function AdminsTable() {
 
   //Add Row
   const addRow = {
-    row: <CreateAdmin />,
-    permission: can('create_admin'),
+    row: <CreateClient />,
+    permission: can('create_user'),
   };
 
   //formatting Data
-  const reformattedData = admins?.data?.map((item) => {
-    const { id, attributes, policies } = item;
+  const reformattedData = clients?.data?.map((item) => {
+    const { id, attributes } = item;
 
     return {
       id,
       ...attributes,
-      policies,
     };
   });
 
@@ -150,11 +148,9 @@ function AdminsTable() {
             <div className="relative flex items-center justify-start gap-2">
               <Modal>
                 {actions?.map((action) => (
+                  canAll(action.permissions) && (
+                    <React.Fragment key={action.id}>
 
-                  canAll(action.permissions) &&
-
-                  <React.Fragment key={action.id}>
-                    {row.policies[action.id] && (
                       <>
                         <Modal.Open opens={action.id}>
                           <button>{action.icon}</button>
@@ -165,12 +161,11 @@ function AdminsTable() {
                           ) : action.id === "update" ? (
                             action.content(row)
                           ) : action.id === "delete" ? (
-                            <ConfirmDelete rowData={row} onConfirm={() => deleteAdmin({ adminId: row.id })} disabled={isDeleting} resourceName={row?.name} />
+                            <ConfirmDelete rowData={row} onConfirm={() => deleteClient({ clientId: row.id })} disabled={isDeleting} resourceName={row?.name} />
                           ) : null}
                         </Modal.Window>
                       </>
-                    )}
-                  </React.Fragment>
+                    </React.Fragment>)
                 ))}
               </Modal>
             </div>
@@ -179,12 +174,12 @@ function AdminsTable() {
           return cellValue;
       }
     },
-    [actions, isDeleting, canAll, deleteAdmin]
+    [actions, deleteClient, canAll, isDeleting]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
 
-  const totalPages = Math.ceil(admins?.meta?.total / admins?.meta?.per_page);
+  const totalPages = Math.ceil(clients?.meta?.total / clients?.meta?.per_page);
 
   return (
     <Table
@@ -202,10 +197,10 @@ function AdminsTable() {
           rowsNumber={perPage}
           setRowsNumber={setPerPage}
           addRow={addRow}
-          totalRows={admins?.meta?.total}
+          totalRows={clients?.meta?.total}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          placeholder={"Search with admin name or email.."}
+          placeholder={"Search with Client email or name..."}
         />
       }
       bottomContent={<FooterContent totalPages={totalPages} />}
@@ -213,4 +208,4 @@ function AdminsTable() {
   );
 }
 
-export default AdminsTable;
+export default ClientsTable;

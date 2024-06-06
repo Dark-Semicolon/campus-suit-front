@@ -1,7 +1,7 @@
 import { Chip, Image } from "@nextui-org/react";
 import { STORAGE_LINK } from "@/utils/constants";
 
-function AdminView({ data }) {
+function ViewClient({ data }) {
   const { id, name, image, email, status } = data;
 
   return (
@@ -36,4 +36,4 @@ function AdminView({ data }) {
   );
 }
 
-export default AdminView;
+export default ViewClient;

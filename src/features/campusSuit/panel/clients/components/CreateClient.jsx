@@ -1,21 +1,19 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import CustomInput from "@/components/CustomInput";
 import Fileponds from "@/components/Filepond";
 import Button from "@/components/Button";
 import { Spinner } from "@nextui-org/react";
 import { FormControlLabel, Switch } from "@mui/material";
-import { useUpdateAdmin } from "../hooks/useUpdateAdmin";
-import { removeEmptyValues } from "@/utils/helpers";
+import { useCreateClient } from "../hooks/useCreateClient";
 
-function UpdateAdmin({ onCloseModal, data }) {
+function CreateClient({ onCloseModal }) {
+  const { universityId } = useParams();
   const [image, setImage] = useState("");
+  const [isVisibile, setIsVisibile] = useState(true);
 
-  const { updateAdmin, isUpdating, error: ApiError } = useUpdateAdmin();
-
-  const { id: adminId, name, email, status } = data;
-
-  const [isVisible, setIsVisible] = useState(status);
+  const { createClient, isCreating, error: ApiError } = useCreateClient();
 
   const {
     register,
@@ -23,18 +21,17 @@ function UpdateAdmin({ onCloseModal, data }) {
     formState: { errors },
     getValues,
     reset,
-  } = useForm({ defaultValues: { data } });
+  } = useForm();
 
   const handleChange = (event) => {
-    setIsVisible(event.target.checked);
+    setIsVisibile(event.target.checked);
   };
 
   function onSubmit(data) {
-    let updatedData = { ...data, image };
-    const filteredData = removeEmptyValues(updatedData);
+    if (!image) return null;
 
-    updateAdmin(
-      { ...filteredData, adminId, status: isVisible },
+    createClient(
+      { ...data, image, universityId, status: isVisibile },
       {
         onSuccess: () => {
           reset();
@@ -46,19 +43,18 @@ function UpdateAdmin({ onCloseModal, data }) {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
-      <h4 className="py-3 text-blue-color-primary">Update Admin</h4>
+      <h4 className="py-3 text-blue-color-primary">Create New Client</h4>
 
-      <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
+      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
 
       <CustomInput
         type="text"
-        label="Admin Name"
+        label="Client Name"
         size="lg"
         isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
         className="w-4/5 md:w-96 "
-        defaultValue={name}
         errorMessage={errors?.name?.message || ApiError?.response?.data?.errors?.name?.[0]}
-        isDisabled={isUpdating}
+        isDisabled={isCreating}
         register={register("name", {
           required: "Name is required",
         })}
@@ -70,9 +66,8 @@ function UpdateAdmin({ onCloseModal, data }) {
         size="lg"
         isError={errors?.email || ApiError?.response?.data?.errors?.email?.[0]}
         className="w-4/5 md:w-96 "
-        defaultValue={email}
         errorMessage={errors?.email?.message || ApiError?.response?.data?.errors?.email?.[0]}
-        isDisabled={isUpdating}
+        isDisabled={isCreating}
         register={register("email", {
           required: "Email is required",
         })}
@@ -83,7 +78,7 @@ function UpdateAdmin({ onCloseModal, data }) {
         label="Password"
         size="lg"
         color={errors?.password || ApiError?.response?.data?.errors?.password?.[0]}
-        isDisabled={isUpdating}
+        isDisabled={isCreating}
         className="w-4/5 md:w-96"
         errorMessage={errors?.password?.message}
         register={register("password", {
@@ -99,7 +94,7 @@ function UpdateAdmin({ onCloseModal, data }) {
         type="password"
         label="Confirm password"
         size="lg"
-        isDisabled={isUpdating}
+        isDisabled={isCreating}
         isError={errors?.password_confirmation || ApiError?.response?.data?.errors?.passwordConfirmation?.[0]}
         className="w-4/5 md:w-96"
         errorMessage={errors?.passwordConfirmation?.message}
@@ -110,17 +105,17 @@ function UpdateAdmin({ onCloseModal, data }) {
         })}
       />
       <div className="w-full">
-        <h4 className="py-3 text-blue-color-primary">Admin Image</h4>
+        <h4 className="py-3 text-blue-color-primary">Client Image</h4>
         <Fileponds imageToken={setImage} gardName='admin' />
       </div>
 
       <div>
         <Button type="primary" className="md:w-96">
-          {isUpdating ? <Spinner color="white" /> : "Update"}
+          {isCreating ? <Spinner color="white" /> : "Create"}
         </Button>
       </div>
     </form>
   );
 }
 
-export default UpdateAdmin;
+export default CreateClient;

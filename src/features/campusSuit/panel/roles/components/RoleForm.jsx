@@ -6,6 +6,7 @@ import FormWizard from "react-form-wizard-component";
 import 'react-form-wizard-component/dist/style.css';
 
 import CustomInput from "@/components/CustomInput";
+import Button from "@/components/Button";
 
 import useCreateRole from "../hooks/useCreateRole";
 import useUpdateRole from "../hooks/useUpdateRole";
@@ -40,8 +41,8 @@ function RoleForm({ initialData }) {
                 // Create role
                 createRole(roleData, {
                     onSuccess: () => {
-                        setName('');
                         navigate(`/admin/roles`);
+                        setName('');
                         setSelectedPermissions([]);
                     }
                 });
@@ -50,12 +51,17 @@ function RoleForm({ initialData }) {
     };
 
     return (
-        <section className='lg:w-[75%] mx-auto pt-10 bg-white rounded-xl'>
+        <section className='lg:w-[75%] mx-auto pt-10 rounded-xl'>
             <FormWizard
                 shape="circle"
                 color="#4E74F9"
                 stepSize="sm"
                 onComplete={handleComplete}
+                finishButtonTemplate={(handleComplete) => (
+                    <Button type='customized' className="min-h-[36px] min-w-[140px] py-[6px] px-3 bg-blue-color-light text-white font-semibold text-sm rounded-md float-right" disabled={isCreating || isUpdating} onClick={handleComplete}>
+                        Finish
+                    </Button>
+                )}
             >
                 <FormWizard.TabContent title="Role name" icon="ti-settings">
                     <div className="flex items-center justify-center py-10">
@@ -73,17 +79,19 @@ function RoleForm({ initialData }) {
                     </div>
                 </FormWizard.TabContent>
                 <FormWizard.TabContent title="Permissions" icon="ti-check" isValid={name}>
-                    <PermissionsForm selectedPermissions={selectedPermissions} setSelectedPermissions={setSelectedPermissions} />
+                    <PermissionsForm isDisabled={isCreating || isUpdating} selectedPermissions={selectedPermissions} setSelectedPermissions={setSelectedPermissions} />
                 </FormWizard.TabContent>
             </FormWizard>
             <style>
                 {`@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
-                .reimport PermissionsForm from './../../permissions/PermissionsForm';
-act-form-wizard {
+                
+                .react-form-wizard {
                     background-color: #fff;
                     border-radius: 31px;
                     padding: 20px 0;    
                 }
+
+
                 `}
             </style>
         </section>

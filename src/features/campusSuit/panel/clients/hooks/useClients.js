@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllAdmins } from "@/services/campusSuit/panel/apiAdmins";
+import { getClients } from "@/services/campusSuit/panel/apiClients";
 
-export function useAdmins({
+export function useClients({
     filter,
     fields,
     load,
@@ -16,11 +16,11 @@ export function useAdmins({
 
     const {
         isPending,
-        data: admins,
+        data: clients,
         isSuccess,
     } = useQuery({
         queryKey: [
-            "admins",
+            "clients",
             filter,
             fields,
             load,
@@ -32,7 +32,7 @@ export function useAdmins({
             filterAndSortAndPageQuery,
         ],
         queryFn: () =>
-            getAllAdmins({
+            getClients({
                 filter,
                 fields,
                 load,
@@ -45,13 +45,13 @@ export function useAdmins({
             }),
     });
 
-    const totalPages = Math.ceil(admins?.meta?.total / admins?.meta?.per_page);
+    const totalPages = Math.ceil(clients?.meta?.total / clients?.meta?.per_page);
 
     // PRE-FETCHING
     if (isSuccess && page < totalPages) {
         queryClient.prefetchQuery({
             queryKey: [
-                "admins",
+                "clients",
                 filter,
                 fields,
                 load,
@@ -63,7 +63,7 @@ export function useAdmins({
                 filterAndSortAndPageQuery,
             ],
             queryFn: () =>
-                getAllAdmins({
+                getClients({
                     filter,
                     fields,
                     load,
@@ -80,7 +80,7 @@ export function useAdmins({
     if (isSuccess && page > 1) {
         queryClient.prefetchQuery({
             queryKey: [
-                "admins",
+                "clients",
                 filter,
                 fields,
                 load,
@@ -92,7 +92,7 @@ export function useAdmins({
                 filterAndSortAndPageQuery,
             ],
             queryFn: () =>
-                getAllAdmins({
+                getClients({
                     filter,
                     fields,
                     load,
@@ -106,5 +106,5 @@ export function useAdmins({
         });
     }
 
-    return { isPending, admins };
+    return { isPending, clients };
 }

@@ -1,22 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { deleteAdmin as deleteAdminApi } from "@/services/campusSuit/panel/apiAdmins";
+import { deleteClient as deleteClientApi } from "@/services/campusSuit/panel/apiClients";
 
-export function useDeleteAdmin() {
+export function useDeleteClient() {
     const queryClient = useQueryClient();
 
     const {
-        mutate: deleteAdmin,
+        mutate: deleteClient,
         isPending: isDeleting,
         error,
     } = useMutation({
-        mutationFn: deleteAdminApi,
+        mutationFn: deleteClientApi,
         onSuccess: () => {
-            toast.success("faculty has deleted successfully");
+            toast.success("Client has deleted successfully");
 
             queryClient.invalidateQueries({
-                queryKey: ["admins"],
+                queryKey: ["clients"],
             });
         },
 
@@ -25,5 +25,5 @@ export function useDeleteAdmin() {
         },
     });
 
-    return { deleteAdmin, isDeleting, error };
+    return { deleteClient, isDeleting, error };
 }

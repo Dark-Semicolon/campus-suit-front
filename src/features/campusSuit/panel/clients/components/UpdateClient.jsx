@@ -5,15 +5,15 @@ import Fileponds from "@/components/Filepond";
 import Button from "@/components/Button";
 import { Spinner } from "@nextui-org/react";
 import { FormControlLabel, Switch } from "@mui/material";
-import { useUpdateAdmin } from "../hooks/useUpdateAdmin";
+import { useUpdateClient } from "../hooks/useUpdateClient";
 import { removeEmptyValues } from "@/utils/helpers";
 
-function UpdateAdmin({ onCloseModal, data }) {
+function UpdateClient({ onCloseModal, data }) {
   const [image, setImage] = useState("");
 
-  const { updateAdmin, isUpdating, error: ApiError } = useUpdateAdmin();
+  const { updateClient, isUpdating, error: ApiError } = useUpdateClient();
 
-  const { id: adminId, name, email, status } = data;
+  const { id: clientId, name, email, status } = data;
 
   const [isVisible, setIsVisible] = useState(status);
 
@@ -31,10 +31,11 @@ function UpdateAdmin({ onCloseModal, data }) {
 
   function onSubmit(data) {
     let updatedData = { ...data, image };
+
     const filteredData = removeEmptyValues(updatedData);
 
-    updateAdmin(
-      { ...filteredData, adminId, status: isVisible },
+    updateClient(
+      { ...filteredData, clientId, status: isVisible },
       {
         onSuccess: () => {
           reset();
@@ -46,13 +47,13 @@ function UpdateAdmin({ onCloseModal, data }) {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
-      <h4 className="py-3 text-blue-color-primary">Update Admin</h4>
+      <h4 className="py-3 text-blue-color-primary">Update Client</h4>
 
       <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
 
       <CustomInput
         type="text"
-        label="Admin Name"
+        label="Client Name"
         size="lg"
         isError={errors?.name || ApiError?.response?.data?.errors?.name?.[0]}
         className="w-4/5 md:w-96 "
@@ -110,7 +111,7 @@ function UpdateAdmin({ onCloseModal, data }) {
         })}
       />
       <div className="w-full">
-        <h4 className="py-3 text-blue-color-primary">Admin Image</h4>
+        <h4 className="py-3 text-blue-color-primary">Client Image</h4>
         <Fileponds imageToken={setImage} gardName='admin' />
       </div>
 
@@ -123,4 +124,4 @@ function UpdateAdmin({ onCloseModal, data }) {
   );
 }
 
-export default UpdateAdmin;
+export default UpdateClient;

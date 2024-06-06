@@ -24,11 +24,13 @@ function DashboardLayout() {
       name: "Clients",
       to: `/admin/clients`,
       icon: <FaUsers className="text-2xl" />,
+      permissions: "view_any_user",
     },
     {
       name: "Admins",
       to: `/admin/admins`,
       icon: <GrUserAdmin className="text-2xl" />,
+      permissions: "view_any_admin",
     },
     {
       name: "Roles",
