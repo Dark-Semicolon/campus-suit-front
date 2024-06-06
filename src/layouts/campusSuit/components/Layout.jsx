@@ -15,7 +15,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { STORAGE_LINK } from "@/utils/constants";
 import { IoLogOut } from "react-icons/io5";
 
-import UserDropdown from "@/components/UserDropdown";
+// import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
 import { useAuth } from "../../../hooks/auth/useAuth";
 import { Skeleton, User } from "@nextui-org/react";
@@ -26,9 +26,11 @@ function Layout({ children, sidebarLinks }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const { useUser } = useAuth({ gardName: "admin" });
+  const { useUser, useLogout } = useAuth({ gardName: "admin" });
 
-  const { isAuthenticated, isPending, user } = useUser();
+  const { isPending, user } = useUser();
+
+  const { logout, isPending: isLoggedOut } = useLogout();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -81,8 +83,8 @@ function Layout({ children, sidebarLinks }) {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between w-11/12 px-8 py-2 bg-white rounded-lg ">
-            <NavLink to={"item.to"} className={({ isActive }) => `${isActive && `font-bold bg-blue-color-light rounded-md text-white`}`} size="sm" color="white" isExternal>
+          <div className="flex items-center justify-between w-11/12 px-8 py-2 text-white rounded-lg ">
+            <NavLink to={"/admin/profile"} className={({ isActive }) => `text-3xl p-2 ${isActive && `font-bold bg-blue-color-light rounded-md text-white`}`} size="sm" color="white" isExternal>
               <User
                 className="font-bold"
                 name={user?.attributes?.name}
@@ -92,7 +94,9 @@ function Layout({ children, sidebarLinks }) {
                 }}
               />
             </NavLink>
-            <IoLogOut className="text-3xl" />
+            <button>
+              <IoLogOut className="text-3xl transition-all duration-300 hover:text-blue-color-light" onClick={() => !isLoggedOut && logout({ gardName: "admin" })} />
+            </button>
           </div>
         )}
       </div>
@@ -116,7 +120,7 @@ function Layout({ children, sidebarLinks }) {
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { md: "none" }, color: "#4E74F9" }}>
             <MenuIcon />
           </IconButton>
-          <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown logoutRedirect="/admin/login" user={user} gardName="admin" admin={true} />}</div>
+          {/* <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown logoutRedirect="/admin/login" user={user} gardName="admin" admin={true} />}</div> */}
         </Toolbar>
       </AppBar>
       <Box component="nav" sx={{ flexShrink: { xs: 1 } }} aria-label="mailbox folders">
