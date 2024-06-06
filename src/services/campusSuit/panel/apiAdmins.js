@@ -5,7 +5,6 @@ import apiOperations from "@/utils/apiOperaions";
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
 //Get All Admins
-
 export async function getAllAdmins({
     filter,
     fields,
@@ -58,6 +57,7 @@ export async function findAdmin({ adminId }) {
     }
 }
 
+// Create New Admin
 export async function createAdmin({ image, name, email, password, passwordConfirmation, status }) {
     await csrf();
 
@@ -76,6 +76,8 @@ export async function createAdmin({ image, name, email, password, passwordConfir
         throw new Error(response.response.data.message);
     }
 }
+
+// Update Admin Data
 export async function UpdateAdmin({
     adminId,
     image,
@@ -104,10 +106,41 @@ export async function UpdateAdmin({
     }
 }
 
+// Delete Admin
 export async function deleteAdmin({ adminId }) {
     await csrf();
 
     const response = await axios.delete(`${API_ADMIN}/admins/${adminId}`);
+
+    if (response.status >= 200 && response.status < 300) {
+        return response.data;
+    } else {
+        throw new Error(response.response.data.message);
+    }
+}
+
+// assign roles for the admin
+export async function assignRoles({ adminId, roles }) {
+    await csrf();
+
+    const response = await axios.put(`${API_ADMIN}/admins/${adminId}/roles`, {
+        roles,
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+        return response.data;
+    } else {
+        throw new Error(response.response.data.message);
+    }
+}
+
+// assign permissions for the admin
+export async function assignPermissions({ adminId, permissions }) {
+    await csrf();
+
+    const response = await axios.put(`${API_ADMIN}/admins/${adminId}/permissions`, {
+        permissions,
+    });
 
     if (response.status >= 200 && response.status < 300) {
         return response.data;

@@ -55,7 +55,11 @@ function useCampusSuitRoutes() {
           }
         />
 
-        <Route path="/admin/permissions" element={<AssignPermissions />} />
+        <Route path="/admin/admins/:id/permissions" element={
+          <ProtectedRoute permissions={["view_any_role", "view_any_permission", 'associateRoles_admin', 'associatePermissions_admin']} allRequired={true}>
+            <AssignPermissions />
+          </ProtectedRoute>
+        } />
 
         <Route
           path="/admin/admins"

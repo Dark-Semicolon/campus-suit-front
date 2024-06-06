@@ -198,7 +198,6 @@ function ClientsTable() {
           setRowsNumber={setPerPage}
           addRow={addRow}
           totalRows={clients?.meta?.total}
-          searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder={"Search with Client email or name..."}
         />

@@ -55,54 +55,57 @@ function PermissionsForm({ isDisabled = false, setSelectedPermissions, selectedP
 
   return (
     <section className="flex flex-col items-center justify-center py-5">
+
+      <Search setSearchValue={setSearchValue} />
+
       {isPending ? (
         <div className='py-5 mx-auto'>
           <Spinner color='primary' />
         </div>
       ) : (
-        <>
-          <Search setSearchValue={setSearchValue} />
-          <section className="w-full pt-10">
-            <Checkbox
-              color="primary"
-              isSelected={selectedPermissions?.length === permissions?.data?.length}
-              onChange={handleSelectAll}
-              isDisabled={isDisabled}
-            >
-              Select All Permissions
-            </Checkbox>
-            <div className="flex flex-wrap justify-around w-full py-10">
-              {Object.keys(groupedPermissions).map(postfix => (
-                <div key={postfix} className="flex flex-col items-start justify-start gap-5 py-5">
-                  <Checkbox
-                    color="primary"
-                    isSelected={groupedPermissions[postfix].every(p => selectedPermissions?.includes(p.id))}
-                    onChange={(e) => handleSelectGroup(postfix, e)}
-                    isDisabled={isDisabled}
-                  >
-                    Select All {postfix} Permissions
-                  </Checkbox>
-                  <CheckboxGroup
-                    className="gap-10"
-                    orientation="vertical"
-                    value={selectedPermissions}
-                    onChange={setSelectedPermissions}
-                  >
-                    {groupedPermissions[postfix].map(permission =>
-                      <Checkbox
-                        key={permission.id}
-                        color="primary"
-                        value={permission.id}
-                        isDisabled={isDisabled}
-                      >
-                        <span>{permission.attributes.name}</span>
-                      </Checkbox>)}
-                  </CheckboxGroup>
-                </div>
-              ))}
-            </div>
-          </section>
-        </>
+        <section className="w-full pt-10">
+          <Checkbox
+            color="primary"
+            isSelected={selectedPermissions?.length === permissions?.data?.length}
+            onChange={handleSelectAll}
+            isDisabled={isDisabled}
+
+
+          >
+            <span className="font-bold text-blue-color-primary">Select All Permissions</span>
+          </Checkbox>
+          <div className="flex flex-wrap w-full gap-12 py-10">
+            {Object.keys(groupedPermissions).map(postfix => (
+              <div key={postfix} className="flex flex-col items-start justify-start gap-5 py-5">
+                <Checkbox
+                  color="primary"
+                  isSelected={groupedPermissions[postfix].every(p => selectedPermissions?.includes(p.id))}
+                  onChange={(e) => handleSelectGroup(postfix, e)}
+                  isDisabled={isDisabled}
+                  className="font-semibold capitaliz"
+                >
+                  Select All {postfix} Permissions
+                </Checkbox>
+                <CheckboxGroup
+                  className="gap-10"
+                  orientation="vertical"
+                  value={selectedPermissions}
+                  onChange={setSelectedPermissions}
+                >
+                  {groupedPermissions[postfix].map(permission =>
+                    <Checkbox
+                      key={permission.id}
+                      color="primary"
+                      value={permission.id}
+                      isDisabled={isDisabled}
+                    >
+                      <span>{permission.attributes.name}</span>
+                    </Checkbox>)}
+                </CheckboxGroup>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
       {(totalPages > 1 && !isPending) && (
         <Pagination total={totalPages} className='mx-auto w-fit' />
