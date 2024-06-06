@@ -194,7 +194,6 @@ function FacultySupervisorTable() {
           setRowsNumber={setPerPage}
           addRow={addRow}
           totalRows={facultySupervisors?.meta?.total}
-          searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder={"Search with fuculty name or id.."}
         />

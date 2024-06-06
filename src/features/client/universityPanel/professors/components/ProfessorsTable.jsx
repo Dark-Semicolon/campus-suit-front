@@ -190,7 +190,6 @@ function ProfessorsTable() {
           setRowsNumber={setPerPage}
           addRow={addRow}
           totalRows={professors?.meta?.total}
-          searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder={"Search with fuculty name or id.."}
         />

@@ -192,7 +192,6 @@ function RolesTable() {
         topContent={
           <HeaderContent
             visibleColumns={visibleColumns}
-            searchValue={searchValue}
             setSearchValue={setSearchValue}
             placeholder="Search with ID or Role name"
             setVisibleColumns={setVisibleColumns}

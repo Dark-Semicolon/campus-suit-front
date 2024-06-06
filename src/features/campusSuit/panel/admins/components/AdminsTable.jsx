@@ -1,17 +1,12 @@
 import React, { useCallback, useState, useMemo } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
-
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { convertURLParams, formatDateTime, parseSearchParams } from "@/utils/helpers";
-
 import { FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
-
+import { MdDelete, MdEdit, MdAdminPanelSettings } from "react-icons/md";
 import Modal from "@/components/Modal";
 import Table from "@/components/Table/Table";
 import HeaderContent from "@/components/Table/components/HeaderContent";
 import FooterContent from "@/components/Table/components/FooterContent";
-
 import { Chip, Image } from "@nextui-org/react";
 import { STORAGE_LINK } from "@/utils/constants";
 import ConfirmDelete from "@/components/ConfirmDelete";
@@ -24,21 +19,27 @@ import usePermission from '@/hooks/usePermission';
 
 function AdminsTable() {
   const { search } = useLocation();
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 
   const [perPage, setPerPage] = useState(5);
   const [searchParams] = useSearchParams();
 
-  const { can, canAll } = usePermission()
+  const { can, canAll } = usePermission();
 
-  const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
+  const page = parseSearchParams(
+    searchParams,
+    "page",
+    (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)),
+    1
+  );
 
   const filterAndSortAndPageQuery = convertURLParams(search);
 
   const include = ["roles", "permissions"];
   const load = ["policies"];
 
-  //Get Users
+  // Get Users
   const { admins, isPending } = useAdmins({
     page,
     perPage,
@@ -48,16 +49,16 @@ function AdminsTable() {
     filterAndSortAndPageQuery,
   });
 
-  //Delete Users
+  // Delete Users
   const { deleteAdmin, isDeleting } = useDeleteAdmin();
 
-  // //Filter Options
+  // Filter Options
   const filterOptions = [
     { name: "Active", field: "status", value: "1" },
     { name: "Disabled", field: "status", value: "0" },
   ];
 
-  //Header Rows
+  // Header Rows
   const headers = [
     { uid: "id", name: "#", sortable: true },
     { uid: "image", name: "Image", sortable: false },
@@ -69,10 +70,10 @@ function AdminsTable() {
     { uid: "actions", name: "actions", sortable: false },
   ];
 
-  //Default Headers
+  // Default Headers
   const INITIAL_VISIBLE_COLUMNS = ["id", "image", "name", "email", "status", "actions"];
 
-  //Actions
+  // Actions
   const actions = useMemo(
     () => [
       {
@@ -80,35 +81,46 @@ function AdminsTable() {
         name: "View",
         icon: <FaEye className="text-lg" />,
         content: (row) => <AdminView data={row} />,
-        permissions: 'view_admin'
+        permissions: "view_admin",
       },
       {
         id: "update",
-        name: "Edite",
+        name: "Edit",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
         content: (row) => <UpdateAdmin data={row} />,
-        permissions: 'update_admin'
+        permissions: "update_admin",
+      },
+      {
+        id: "associatePermissions",
+        name: "associatePermissions",
+        icon: <MdAdminPanelSettings className="text-lg text-blue-color-primary" />,
+        to: (id) => `/admin/admins/${id}/permissions`,
+        permissions: [
+          "associateRoles_admin",
+          "associatePermissions_admin",
+          "view_any_role",
+          "view_any_permission",
+        ],
       },
       {
         id: "delete",
         name: "Delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
-        permissions: 'delete_admin'
+        permissions: "delete_admin",
       },
     ],
     []
   );
 
-  //Add Row
+  // Add Row
   const addRow = {
     row: <CreateAdmin />,
-    permission: can('create_admin'),
+    permission: can("create_admin"),
   };
 
-  //formatting Data
+  // Formatting Data
   const reformattedData = admins?.data?.map((item) => {
     const { id, attributes, policies } = item;
-
     return {
       id,
       ...attributes,
@@ -122,7 +134,13 @@ function AdminsTable() {
 
       switch (columnKey) {
         case "image":
-          return <Image className="w-[50px] h-[50px] rounded-full object-cover" src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`} loading="lazy" />;
+          return (
+            <Image
+              className="w-[50px] h-[50px] rounded-full object-cover"
+              src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`}
+              loading="lazy"
+            />
+          );
 
         case "status":
           return (
@@ -148,29 +166,39 @@ function AdminsTable() {
         case "actions":
           return (
             <div className="relative flex items-center justify-start gap-2">
-              <Modal>
+              <Modal key={`modal_${row.id}`}>
                 {actions?.map((action) => (
-
-                  canAll(action.permissions) &&
-
-                  <React.Fragment key={action.id}>
-                    {row.policies[action.id] && (
-                      <>
-                        <Modal.Open opens={action.id}>
-                          <button>{action.icon}</button>
-                        </Modal.Open>
-                        <Modal.Window name={action.id}>
-                          {action.id === "view" ? (
-                            action.content(row)
-                          ) : action.id === "update" ? (
-                            action.content(row)
-                          ) : action.id === "delete" ? (
-                            <ConfirmDelete rowData={row} onConfirm={() => deleteAdmin({ adminId: row.id })} disabled={isDeleting} resourceName={row?.name} />
-                          ) : null}
-                        </Modal.Window>
-                      </>
-                    )}
-                  </React.Fragment>
+                  canAll(action.permissions) && (
+                    <React.Fragment key={action.id}>
+                      {action.id === "associatePermissions" ? (
+                        canAll(action.permissions) && (
+                          <button
+                            onClick={() => navigate(action.to(row.id))}
+                            key={action.id}
+                          >
+                            {action.icon}
+                          </button>
+                        )
+                      ) : (
+                        row.policies[action.id] && (
+                          <>
+                            <Modal.Open opens={action.id}>
+                              <button>{action.icon}</button>
+                            </Modal.Open>
+                            <Modal.Window name={action.id}>
+                              {action.id === "view" ? (
+                                action.content(row)
+                              ) : action.id === "update" ? (
+                                action.content(row)
+                              ) : action.id === "delete" ? (
+                                <ConfirmDelete rowData={row} onConfirm={() => deleteAdmin({ adminId: row.id })} disabled={isDeleting} resourceName={row?.name} />
+                              ) : null}
+                            </Modal.Window>
+                          </>
+                        )
+                      )}
+                    </React.Fragment>
+                  )
                 ))}
               </Modal>
             </div>
@@ -179,7 +207,7 @@ function AdminsTable() {
           return cellValue;
       }
     },
-    [actions, isDeleting, canAll, deleteAdmin]
+    [actions, isDeleting, canAll, navigate, deleteAdmin]
   );
 
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -203,7 +231,6 @@ function AdminsTable() {
           setRowsNumber={setPerPage}
           addRow={addRow}
           totalRows={admins?.meta?.total}
-          searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder={"Search with admin name or email.."}
         />

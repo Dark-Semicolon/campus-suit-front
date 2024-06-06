@@ -14,7 +14,7 @@ function AdminProfilePage() {
   return (
     <>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <h2 className="w-5/6 py-8 text-center text-white capitalize rounded-lg bg-blue-color-primary">profile data</h2>
+        <h2 className="w-5/6 py-8 text-center text-white capitalize rounded-lg bg-blue-color-primary">My Profile</h2>
 
         <UpdateAdmin user={user} />
 

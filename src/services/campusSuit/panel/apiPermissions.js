@@ -5,7 +5,7 @@ import { API_ADMIN } from "@/utils/constants";
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
 // Get All Permissions
-export async function getPermissions({ page = 1, perPage } = {}) {
+export async function getPermissions({ page = 1, perPage, searchValue } = {}) {
     await csrf();
 
     // Base API Query
@@ -13,6 +13,7 @@ export async function getPermissions({ page = 1, perPage } = {}) {
         queryLink: `${API_ADMIN}/permissions`,
         page,
         perPage,
+        searchValue,
     });
 
     const response = await axios.get(query);

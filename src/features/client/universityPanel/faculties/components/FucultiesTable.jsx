@@ -220,7 +220,6 @@ function FucultiesTable() {
             renderCell={renderCell}
             topContent={
                 <HeaderContent
-                    // filterOptions={filterOptions}
                     visibleColumns={visibleColumns}
                     setVisibleColumns={setVisibleColumns}
                     headers={headers}
@@ -228,7 +227,6 @@ function FucultiesTable() {
                     setRowsNumber={setPerPage}
                     addRow={addRow}
                     totalRows={faculties?.meta?.total}
-                    searchValue={searchValue}
                     setSearchValue={setSearchValue}
                     placeholder={"Search with fuculty name or id.."}
                 />

@@ -6,7 +6,7 @@ import CreateButton from "./CreateButton";
 import ItemPearPage from "./ItemPearPage";
 import Search from "@/components/Search";
 
-function HeaderContent({ filterOptions, visibleColumns, setVisibleColumns, headers, totalRows, rowsNumber, setRowsNumber, addRow, searchValue, setSearchValue, placeholder }) {
+function HeaderContent({ filterOptions, visibleColumns, setVisibleColumns, headers, totalRows, rowsNumber, setRowsNumber, addRow, setSearchValue, placeholder }) {
   const onRowsPerPageChange = useCallback(
     (e) => {
       setRowsNumber(Number(e.target.value));
@@ -17,7 +17,7 @@ function HeaderContent({ filterOptions, visibleColumns, setVisibleColumns, heade
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-end justify-between gap-3 py-5">
-        {setSearchValue ? <Search searchValue={searchValue} setSearchValue={setSearchValue} placeholder={placeholder} /> : null}
+        {setSearchValue ? <Search setSearchValue={setSearchValue} placeholder={placeholder} /> : null}
         <div className="flex flex-row flex-wrap gap-3">
           {addRow && addRow.permission && <CreateButton addRow={addRow} />}
 

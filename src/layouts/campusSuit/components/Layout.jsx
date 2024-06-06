@@ -15,9 +15,8 @@ import Toolbar from "@mui/material/Toolbar";
 import { STORAGE_LINK } from "@/utils/constants";
 import { IoLogOut } from "react-icons/io5";
 
-// import UserDropdown from "@/components/UserDropdown";
 import Logo from "@/components/Logo";
-import { useAuth } from "../../../hooks/auth/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { Skeleton, User } from "@nextui-org/react";
 
 const drawerWidth = 300;
@@ -56,35 +55,42 @@ function Layout({ children, sidebarLinks }) {
           </Link>
 
           <List className="w-full">
-            {sidebarLinks?.map((item, index) => (
-              <ListItem key={index} sx={{ "&.MuiListItem-root": { justifyContent: "center", transition: "all 2s" } }}>
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `flex items-center duration-300 py-4  w-11/12 gap-x-2 pl-6 text-white
+            {isPending ?
+              <div className="flex flex-col items-center w-full gap-10">
+                <Skeleton className="w-[80%] h-4 bg-gray-500 rounded-lg" />
+                <Skeleton className="w-[80%] h-4 bg-gray-500 rounded-lg" />
+                <Skeleton className="w-[80%] h-4 bg-gray-500 rounded-lg" />
+                <Skeleton className="w-[80%] h-4 bg-gray-500 rounded-lg" />
+              </div>
+              : sidebarLinks?.map((item, index) => (
+                <ListItem key={index} sx={{ "&.MuiListItem-root": { justifyContent: "center", transition: "all 2s" } }}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `flex items-center py-3 w-11/12 gap-x-2 pl-6 text-white
                                 ${isActive && `font-bold bg-blue-color-light rounded-md`}`
-                  }
-                >
-                  <span className="duration-300">{item.icon}</span>
-                  <p className="capitalize text-md ">{item.name}</p>
-                </NavLink>
-              </ListItem>
-            ))}
+                    }
+                  >
+                    <span className="duration-300">{item.icon}</span>
+                    <p className="capitalize text-md ">{item.name}</p>
+                  </NavLink>
+                </ListItem>
+              ))}
           </List>
         </div>
         {isPending ? (
           <div className="max-w-[250px] w-full flex justify-center items-center gap-3">
             <div>
-              <Skeleton className="flex w-12 h-12 rounded-full" />
+              <Skeleton className="flex w-12 h-12 bg-gray-500 rounded-full" />
             </div>
             <div className="flex flex-col w-full gap-2">
-              <Skeleton className="w-3/5 h-3 rounded-lg" />
-              <Skeleton className="w-4/5 h-3 rounded-lg" />
+              <Skeleton className="w-3/5 h-3 bg-gray-500 rounded-lg" />
+              <Skeleton className="w-4/5 h-3 bg-gray-500 rounded-lg" />
             </div>
           </div>
         ) : (
           <div className="flex items-center justify-between w-11/12 px-8 py-2 text-white rounded-lg ">
-            <NavLink to={"/admin/profile"} className={({ isActive }) => `text-3xl p-2 ${isActive && `font-bold bg-blue-color-light rounded-md text-white`}`} size="sm" color="white" isExternal>
+            <NavLink to={"/admin/profile"} className={({ isActive }) => `text-3xl p-2 ${isActive && `font-bold  rounded-md text-white`}`} size="sm" color="white">
               <User
                 className="font-bold"
                 name={user?.attributes?.name}
@@ -120,11 +126,11 @@ function Layout({ children, sidebarLinks }) {
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { md: "none" }, color: "#4E74F9" }}>
             <MenuIcon />
           </IconButton>
-          {/* <div className="flex justify-end w-full py-3 ">{isAuthenticated && !isPending && <UserDropdown logoutRedirect="/admin/login" user={user} gardName="admin" admin={true} />}</div> */}
+
         </Toolbar>
       </AppBar>
       <Box component="nav" sx={{ flexShrink: { xs: 1 } }} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+
         <Drawer
           variant="temporary"
           open={mobileOpen}
