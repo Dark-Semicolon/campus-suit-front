@@ -1,4 +1,4 @@
-import StatsCard from "./StatsCard";
+import StatisticsCard from "@/components/StatisticsCard";
 
 function Statistics({ dashboardStats }) {
     const {
@@ -10,30 +10,30 @@ function Statistics({ dashboardStats }) {
     } = dashboardStats;
     return (
         <div className="flex flex-wrap items-center justify-center gap-4 px-5 py-20 md:px-2">
-            <StatsCard
+            <StatisticsCard
                 img={"/images/campusSuit/student.svg"}
                 imgClassName={"bg-gray-200"}
                 title={"Students"}
                 number={studentsCount}
             />
-            <StatsCard
+            <StatisticsCard
                 img={"/images/campusSuit/university.svg"}
                 title={"Universities"}
                 number={universitiesCount}
             />
-            <StatsCard
+            <StatisticsCard
                 img={"/images/campusSuit/professor.svg"}
                 imgClassName={"bg-gray-200"}
                 title={"Professors"}
                 number={professorsCount}
             />
-            <StatsCard
+            <StatisticsCard
                 img={"/images/campusSuit/faculty.svg"}
                 imgClassName={"bg-gray-200"}
                 title={"Faculties"}
                 number={facultiesCount}
             />
-            <StatsCard
+            <StatisticsCard
                 img={"/images/campusSuit/client.svg"}
                 imgClassName={"bg-gray-200"}
                 title={"Clients"}
