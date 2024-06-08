@@ -42,6 +42,20 @@ export async function getFaculties({
     return response;
 }
 
+export async function getFacultyStats({ universityId, facultyId }) {
+    await csrf();
+
+    const response = await axios.get(
+        `${API_WEB}/universities/${universityId}/faculties/${facultyId}/stats`
+    );
+
+    if (response.status >= 200 && response.status < 300) {
+        return response.data;
+    } else {
+        throw new Error(response.response.data.message);
+    }
+}
+
 export async function createFaculty({ logo, name, description, universityId }) {
     await csrf();
 

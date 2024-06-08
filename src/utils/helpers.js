@@ -56,3 +56,29 @@ export function removeEmptyValues(obj) {
         Object.entries(obj).filter(([, value]) => value != null && value !== "")
     );
 }
+
+/**
+ * The function `convertGpaToLetterGrade` takes a GPA as input and returns the corresponding letter
+ * grade based on a predefined scale.
+ * @param gpa - The function `convertGpaToLetterGrade` takes a GPA (Grade Point Average) as input and
+ * converts it to a corresponding letter grade based on the GPA scale. The GPA is the parameter that
+ * you need to provide when calling this function. The function will then return the letter grade
+ * corresponding to the
+ * @returns The function `convertGpaToLetterGrade` takes a GPA value as input and returns the
+ * corresponding letter grade based on the GPA scale.
+ */
+export function convertGpaToLetterGrade(gpa) {
+    if (gpa >= 4.0) return "A+";
+    if (gpa >= 3.7) return "A";
+    if (gpa >= 3.3) return "A-";
+    if (gpa >= 3.0) return "B+";
+    if (gpa >= 2.7) return "B";
+    if (gpa >= 2.3) return "B-";
+    if (gpa >= 2.0) return "C+";
+    if (gpa >= 1.7) return "C";
+    if (gpa >= 1.3) return "C-";
+    if (gpa >= 1.0) return "D+";
+    if (gpa >= 0.7) return "D";
+    if (gpa >= 0.0) return "D-";
+    return "F";
+}

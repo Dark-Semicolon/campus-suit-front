@@ -1,16 +1,24 @@
-import StatsCard from "@/components/StatsCard"
-import { PiUsersThreeFill } from "react-icons/pi";
-import { GiTeacher } from "react-icons/gi";
-import { MdOutlineMenuBook } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
+import { useParams } from "react-router-dom";
+import { useFacultyStats } from "../hooks/useFacultyStats";
+import Numbers from "./Numbers";
+import GradesChart from "./GradesChart";
+import { Spinner } from "@nextui-org/react";
+
 function Stats() {
+    const { universityId, facultyId } = useParams();
+
+    const { facultyStats, isPending } = useFacultyStats({ universityId, facultyId });
     return (
-        <div className="flex justify-around">
-            <StatsCard title='Students number' data='2000 Student' icon={<PiUsersThreeFill className="text-[#836FFF]" />} />
-            <StatsCard title='Departments' data='3 departments' icon={<FcDepartment />} />
-            <StatsCard title='Professors' data='15 Professor' icon={<GiTeacher className="text-[#01204E]" />} />
-            <StatsCard title='Courses' data='30 Courses' icon={<MdOutlineMenuBook className="text-[#028391]" />} />
-        </div>
+        <section className="flex flex-col gap-24">
+            <Numbers />
+            <div>
+                <h2 className="mb-5 text-xl capitalize md:text-3xl text-blue-color-light">
+                    Grades <span className="text-blue-color-primary"> Analysis</span>
+                </h2>
+                <p className="pb-3 ps-5">Average Students Grades For The Last Semester</p>
+                {!isPending ? <GradesChart AvgCourseGradesForPreviousSemester={facultyStats?.AvgCourseGradesForPreviousSemester} /> : <Spinner />}
+            </div>
+        </section>
     )
 }
 
