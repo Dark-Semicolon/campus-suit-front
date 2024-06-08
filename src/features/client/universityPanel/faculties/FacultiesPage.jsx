@@ -1,5 +1,5 @@
 import DashboardHeader from "@/components/DashboardHeader";
-import FucultiesTable from "./components/FucultiesTable";
+import FacultiesTable from "./components/FacultiesTable";
 function FacultiesPage() {
   let pagesLinks = [
     {
@@ -12,7 +12,7 @@ function FacultiesPage() {
   return (
     <div>
       <DashboardHeader pageName="Faculties" pages={pagesLinks} className="text-2xl" />
-      <FucultiesTable />
+      <FacultiesTable />
     </div>
   );
 }

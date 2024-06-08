@@ -1,4 +1,4 @@
-import { Spinner, User } from "@nextui-org/react";
+import { User, Spinner } from "@nextui-org/react";
 import { useUser } from "@/features/client/auth/hooks/useUser";
 import { STORAGE_LINK } from "../../../utils/constants";
 
