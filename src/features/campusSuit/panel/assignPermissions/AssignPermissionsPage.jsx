@@ -3,9 +3,13 @@ import DashboardHeader from '@/components/DashboardHeader';
 import AssignPermissionsForm from "./components/AssignPermissionsForm";
 import AssignRolesForm from "./components/AssignRolesForm";
 import { Tab, Tabs } from "@nextui-org/react";
+import { useAdmin } from "../admins/hooks/useAdmin";
+import LoaderPage from '@/components/LoaderPage';
 
 function AssignPermissionsPage() {
     const { id } = useParams()
+
+    const { admin, isPending } = useAdmin({ adminId: id, include: ['roles', 'permissions'] })
 
     let pagesLinks = [
         {
@@ -22,6 +26,12 @@ function AssignPermissionsPage() {
         },
 
     ];
+
+    if (isPending) return <LoaderPage />
+
+
+    const roles = admin?.data?.relationships?.roles?.map(role => role.id)
+    const permissions = admin?.data?.relationships?.permissions?.map(permission => permission.id)
 
     return (
         <section>
@@ -40,10 +50,10 @@ function AssignPermissionsPage() {
                 >
                     {/* change user info form */}
                     <Tab key="Permissions" title="Permissions" className="bg-white text-white-color ">
-                        <AssignPermissionsForm />
+                        <AssignPermissionsForm userPermissions={permissions} />
                     </Tab>
                     <Tab key="Roles" title="Roles" className="bg-white text-white-color ">
-                        <AssignRolesForm />
+                        <AssignRolesForm userRoles={roles} />
                     </Tab>
                 </Tabs>
             </div>

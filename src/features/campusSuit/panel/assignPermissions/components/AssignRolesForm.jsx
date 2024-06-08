@@ -5,11 +5,11 @@ import Button from '@/components/Button';
 import RolesForm from "./RolesForm";
 
 
-function AssignRolesForm() {
+function AssignRolesForm({ userRoles }) {
 
     const { id } = useParams()
 
-    const [roles, setRoles] = useState([])
+    const [roles, setRoles] = useState(userRoles || [])
 
     const { assignRoles, isLoading } = useAssignRoles()
 

@@ -5,10 +5,9 @@ import PermissionsForm from "../../permissions/PermissionsForm"
 import Button from '@/components/Button';
 import { useAssignPermissions } from "../hooks/useAssignPermissions";
 
-function AssignPermissionsForm() {
-
+function AssignPermissionsForm({ userPermissions }) {
     const { id } = useParams()
-    const [permissions, setPermissions] = useState([])
+    const [permissions, setPermissions] = useState(userPermissions || [])
 
 
     const { assignPermissions, isLoading } = useAssignPermissions()
