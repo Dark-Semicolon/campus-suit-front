@@ -8,7 +8,7 @@ const Pricing = () => {
                 <div className="ps-10 lg:ps-24">
                     <h3 className="text-lg font-bold text-white md:text-4xl">Fell Free to Join our <br /> 15 Days Free Trial</h3>
                     <p className="py-3 text-gray-color-light">Love our Tool?</p>
-                    <Button type='primary' className='bg-black rounded-md'>Start</Button>
+                    <Button type='primary' className='bg-black rounded-md' to='/user/universities'>Start</Button>
                 </div>
                 <div>
                     <img src="images/home/pricing/map.svg" />

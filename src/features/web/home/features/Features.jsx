@@ -57,7 +57,7 @@ function Features() {
                     <p className="w-[80%] lg:w-[500px] text-gray-color-primary mt-4 mx-auto text-lg text-center md:text-left md:m-0">
                         with a team of professionals to support your universities in any time
                     </p>
-                    <Button type="primary" className='rounded-md w-fit'>Start</Button>
+                    <Button type="primary" className='rounded-md w-fit' to='/user/universities'>Start</Button>
                 </div>
             </section>
         </>

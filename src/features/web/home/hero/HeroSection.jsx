@@ -17,7 +17,7 @@ function HeroSection() {
                             Designed to seamlessly connect students, professors, and faculty
                             supervisors.
                         </p>
-                        <Button type='primary' className='z-30 rounded-md'>Start Now</Button>
+                        <Button type='primary' className='z-30 rounded-md' to='/user/universities'>Start Now</Button>
                     </div>
                     <div className='absolute top-[105%] md:top-[90%] lg:top-[75%] w-[270px] md:w-[400px] lg:w-full justify-center flex'>
                         <img src='images/home/hero/App.svg' />
