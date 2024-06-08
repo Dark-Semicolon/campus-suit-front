@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import { API_ADMIN } from "@/utils/constants";
-import apiOperations from "@/utils/apiOperaions";
+import apiOperations from "@/utils/apiOperations";
 
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 
@@ -45,10 +45,11 @@ export async function getAllAdmins({
 }
 
 //Find Admin
-export async function findAdmin({ adminId }) {
+export async function findAdmin({ adminId, include }) {
     await csrf();
 
-    const response = await axios.get(`${API_ADMIN}/admins/${adminId}`);
+    const queryLink = apiOperations({ queryLink: `${API_ADMIN}/admins/${adminId}`, include });
+    const response = await axios.get(queryLink);
 
     if (response.status >= 200 && response.status < 300) {
         return response.data;

@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import { API_ADMIN } from "@/utils/constants";
-import apiOperations from "@/utils/apiOperaions";
+import apiOperations from "@/utils/apiOperations";
 
 const csrf = () => axios.get("/sanctum/csrf-cookie");
 

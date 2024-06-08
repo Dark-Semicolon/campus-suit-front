@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import { API_WEB } from "@/utils/constants";
-import apiOperations from "@/utils/apiOperaions";
+import apiOperations from "@/utils/apiOperations";
 
 // CSRF Token API Function
 const csrf = () => axios.get("/sanctum/csrf-cookie");
