@@ -1,5 +1,5 @@
 
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis, LabelList, ResponsiveContainer, Legend, Brush } from "recharts";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis, LabelList, ResponsiveContainer, Brush } from "recharts";
 import { convertGpaToLetterGrade } from '@/utils/helpers';
 
 

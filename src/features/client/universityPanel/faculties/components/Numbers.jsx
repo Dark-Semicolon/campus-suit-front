@@ -1,19 +1,38 @@
-import StatsCard from "@/components/StatsCard";
-import { PiUsersThreeFill } from "react-icons/pi";
-import { GiTeacher } from "react-icons/gi";
-import { MdOutlineMenuBook } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
+import StatisticsCard from "@/components/StatisticsCard";
 
-function Numbers() {
+function Numbers({ studentsCount, departmentsCount, professorsCount }) {
+
+
+
     return (
-        <div>
-            <div className="flex justify-around">
-                <StatsCard title='Students number' data='2000 Student' icon={<PiUsersThreeFill className="text-[#836FFF]" />} />
-                <StatsCard title='Departments' data='3 departments' icon={<FcDepartment />} />
-                <StatsCard title='Professors' data='15 Professor' icon={<GiTeacher className="text-[#01204E]" />} />
-                <StatsCard title='Courses' data='30 Courses' icon={<MdOutlineMenuBook className="text-[#028391]" />} />
-            </div>
-        </div>
+        <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2 ">
+
+            <StatisticsCard
+                img={"/images/campusSuit/student.svg"}
+                imgClassName={"bg-gray-200"}
+                title={"Students"}
+                number={studentsCount}
+                width={"xl:w-[392px]"}
+            />
+
+            <StatisticsCard
+                img={"/images/campusSuit/faculty.svg"}
+                imgClassName={"bg-gray-200"}
+                title={"Departments"}
+                number={departmentsCount}
+                width={"w- xl:w-[392px]"}
+            />
+
+
+
+            <StatisticsCard
+                img={"/images/campusSuit/professor.svg"}
+                imgClassName={"bg-gray-200"}
+                title={"Professors"}
+                number={professorsCount}
+                width={"xl:w-[392px]"}
+            />
+        </section>
     )
 }
 

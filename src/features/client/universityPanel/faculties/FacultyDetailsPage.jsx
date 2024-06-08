@@ -18,7 +18,7 @@ function FacultyDetailsPage() {
   return (
     <div>
       <DashboardHeader pageName="Faculty Details" pages={pagesLinks} className="text-2xl" />
-      <section className="py-16">
+      <section className="lg:px-16">
         <Stats />
         <h2 className="mt-20 text-xl text-center md:text-3xl text-blue-color-primary">
           Faculty <span className="text-blue-color-light">Settings</span>

@@ -1,3 +1,5 @@
+import { Image } from "@nextui-org/react";
+
 function StatisticsCard({
     img,
     title,
@@ -14,7 +16,7 @@ function StatisticsCard({
                 <div
                     className={`${imgClassName} border-b-2 rounded-full h-fit `}
                 >
-                    <img src={img} className="w-full" alt="" />
+                    <Image src={img} className="w-full" alt={title} />
                 </div>
             </div>
             <div className="w-1/2">
