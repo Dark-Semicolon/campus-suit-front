@@ -43,7 +43,7 @@ function Layout({ children, sidebarLinks }) {
   const drawer = (
     <div className="flex flex-col items-center h-full gap-10 py-6 bg-blue-color-primary">
       <Link to="/">
-        <Logo logo="/images/logo/logoWhite.svg" width="120" />
+        <Logo logo="/images/logo/logo-white.svg" width="120" />
       </Link>
 
       <List className="w-full">

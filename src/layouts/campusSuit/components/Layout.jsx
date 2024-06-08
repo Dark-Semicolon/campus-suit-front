@@ -25,7 +25,7 @@ function Layout({ children, sidebarLinks }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const { useUser, useLogout } = useAuth({ gardName: "admin" });
+  const { useUser, useLogout } = useAuth({ gardName: "admin", logoutRedirect: '/admin/login' });
 
   const { isPending, user } = useUser();
 
@@ -51,7 +51,7 @@ function Layout({ children, sidebarLinks }) {
       <div className="flex flex-col items-center h-full gap-10 py-6 bg-blue-color-primary">
         <div className="flex flex-col items-center w-full h-full gap-10 py-6 bg-blue-color-primary">
           <Link to="/">
-            <Logo logo="/images/logo/logoWhite.svg" width="120" />
+            <Logo logo="/images/logo/logo-white.svg" width="120" />
           </Link>
 
           <List className="w-full">
@@ -92,7 +92,12 @@ function Layout({ children, sidebarLinks }) {
           <div className="flex items-center justify-between w-11/12 px-8 py-2 text-white rounded-lg ">
             <NavLink to={"/admin/profile"} className={({ isActive }) => `text-3xl p-2 ${isActive && `font-bold  rounded-md text-white`}`} size="sm" color="white">
               <User
-                className="font-bold"
+                className="font-bold "
+                classNames={
+                  {
+                    description: ' max-w-24'
+                  }
+                }
                 name={user?.attributes?.name}
                 description={user?.attributes?.email}
                 avatarProps={{
