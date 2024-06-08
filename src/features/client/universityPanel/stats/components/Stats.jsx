@@ -1,78 +1,65 @@
-import StatsCard from "@/components/StatsCard"
-import { PiUsersThreeFill } from "react-icons/pi";
-import { GiTeacher } from "react-icons/gi";
-import { MdOutlineMenuBook } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
-import CustomPieChart from "../../../../../components/CustomPieChart";
+import { useParams } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
 
-const studentsStats = [
-    {
-        name: "Computer Science",
-        data: 50,
-        color: "#01204E",
-    },
-    {
-        name: "business",
-        data: 20,
-        color: "#028391",
-    },
-    {
-        name: "engineering",
-        data: 35,
-        color: "#FEAE6F",
-    },
-];
+import StatisticsCard from "@/components/StatisticsCard";
+import CustomBarChart from "@/components/CustomBarChart";
+import { useUniversityStats } from "../hooks/useUniversityStats";
 
-const professorsStats = [
-    {
-        name: "Computer Science",
-        data: 10,
-        color: "#211951",
-    },
-    {
-        name: "business",
-        data: 5,
-        color: "#836FFF",
-    },
-    {
-        name: "engineering",
-        data: 20,
-        color: "#15F5BA",
-    },
-];
-const departmentsStats = [
-    {
-        name: "Computer Science",
-        data: 10,
-        color: "#387ADF",
-    },
-    {
-        name: "engineering",
-        data: 5,
-        color: "#333A73",
-    },
-    {
-        name: "business",
-        data: 20,
-        color: "#FBA834",
-    },
-];
 function Stats() {
+    const { universityId } = useParams();
+    const { universityStats, isPending } = useUniversityStats({ universityId });
+    if (isPending)
+        return (
+            <Spinner className="flex items-center justify-center h-screen" />
+        );
+
+    const {
+        studentsCount,
+        facultiesCount,
+        professorsCount,
+        departmentsPerFacultyCount,
+    } = universityStats;
+
     return (
         <>
-            <section className="flex justify-around py-16">
-                <StatsCard title='Students number' data='2000 Student' icon={<PiUsersThreeFill className="text-[#01204E]" />} />
-                <StatsCard title='Departments' data='3 departments' icon={<FcDepartment />} />
-                <StatsCard title='Professors' data='15 Professor' icon={<GiTeacher className="text-[#836FFF]" />} />
-                <StatsCard title='Faculties' data='5 Faculty' icon={<MdOutlineMenuBook />} />
+            <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2 ">
+                <StatisticsCard
+                    img={"/images/campusSuit/student.svg"}
+                    imgClassName={"bg-gray-200"}
+                    title={"Students"}
+                    number={studentsCount}
+                    width={"xl:w-[392px]"}
+                />
+
+                <StatisticsCard
+                    img={"/images/campusSuit/faculty.svg"}
+                    imgClassName={"bg-gray-200"}
+                    title={"Faculties"}
+                    number={facultiesCount}
+                    width={"w- xl:w-[392px]"}
+                />
+
+                <StatisticsCard
+                    img={"/images/campusSuit/professor.svg"}
+                    imgClassName={"bg-gray-200"}
+                    title={"Professors"}
+                    number={professorsCount}
+                    width={"xl:w-[392px]"}
+                />
             </section>
-            <section className="flex justify-around pt-16">
-                <CustomPieChart title={'Students'} data={studentsStats} />
-                <CustomPieChart title={'Departments'} data={departmentsStats} />
-                <CustomPieChart title={'Professors'} data={professorsStats} />
+
+            <section className="w-full py-10 m-auto bg-white rounded-lg md:w-10/12 h-96">
+                <CustomBarChart
+                    data={departmentsPerFacultyCount}
+                    xDataKey="name"
+                    barDataKey="departments_count"
+                    xLable={"Departments"}
+                    yLable={"Students Count"}
+                    barColor={"#4E74F9"}
+                />
             </section>
         </>
-    )
+    );
 }
 
-export default Stats
+export default Stats;

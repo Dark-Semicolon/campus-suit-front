@@ -1,6 +1,15 @@
-function StatsCard({ img, title, imgClassName, titleClassName, number }) {
+function StatisticsCard({
+    img,
+    title,
+    imgClassName,
+    titleClassName,
+    number,
+    width = "xl:w-1/3",
+}) {
     return (
-        <div className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-5 bg-white rounded-lg xl:w-1/3">
+        <div
+            className={`flex flex-wrap items-center justify-center w-full gap-8 px-5 py-5 bg-white rounded-lg ${width}`}
+        >
             <div className="w-36">
                 <div
                     className={`${imgClassName} border-b-2 rounded-full h-fit `}
@@ -22,4 +31,4 @@ function StatsCard({ img, title, imgClassName, titleClassName, number }) {
     );
 }
 
-export default StatsCard;
+export default StatisticsCard;

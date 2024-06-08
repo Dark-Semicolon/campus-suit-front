@@ -25,7 +25,10 @@ function Layout({ children, sidebarLinks }) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
-    const { useUser, useLogout } = useAuth({ gardName: "admin", logoutRedirect: '/admin/login' });
+    const { useUser, useLogout } = useAuth({
+        gardName: "admin",
+        logoutRedirect: "/admin/login",
+    });
 
     const { isPending, user, isAuthenticated } = useUser();
 
@@ -77,9 +80,10 @@ function Layout({ children, sidebarLinks }) {
                                         to={item.to}
                                         className={({ isActive }) =>
                                             `flex items-center py-3 w-11/12 gap-x-2 pl-6 text-white
-                                ${isActive &&
-                                            `font-bold bg-blue-color-light rounded-md`
-                                            }`
+                                ${
+                                    isActive &&
+                                    `font-bold bg-blue-color-light rounded-md`
+                                }`
                                         }
                                     >
                                         <span className="duration-300">
@@ -226,7 +230,7 @@ function Layout({ children, sidebarLinks }) {
                 sx={{
                     p: "20px",
                     marginTop: "80px",
-                    width: { md: `calc(100% - ${drawerWidth}px)` },
+                    width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` },
                     minHeight: `calc(100dvh - 80px)`,
                 }}
                 bgcolor="rgba(242, 242, 242, 0.908)"
