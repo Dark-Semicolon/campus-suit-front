@@ -20,6 +20,9 @@ function Stats() {
         departmentsPerFacultyCount,
     } = universityStats;
 
+    const barChartLength = departmentsPerFacultyCount.length;
+    const widthOfBarChart = `w-[${barChartLength * 100}px]`;
+
     return (
         <>
             <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2 ">
@@ -27,7 +30,7 @@ function Stats() {
                     img={"/images/campusSuit/student.svg"}
                     imgClassName={"bg-gray-200"}
                     title={"Students"}
-                    number={studentsCount}
+                    number={studentsCount || 0}
                     width={"xl:w-[392px]"}
                 />
 
@@ -35,7 +38,7 @@ function Stats() {
                     img={"/images/campusSuit/faculty.svg"}
                     imgClassName={"bg-gray-200"}
                     title={"Faculties"}
-                    number={facultiesCount}
+                    number={facultiesCount || 0}
                     width={"w- xl:w-[392px]"}
                 />
 
@@ -43,20 +46,28 @@ function Stats() {
                     img={"/images/campusSuit/professor.svg"}
                     imgClassName={"bg-gray-200"}
                     title={"Professors"}
-                    number={professorsCount}
+                    number={professorsCount || 0}
                     width={"xl:w-[392px]"}
                 />
             </section>
 
-            <section className="w-full py-10 m-auto bg-white rounded-lg md:w-10/12 h-96">
-                <CustomBarChart
-                    data={departmentsPerFacultyCount}
-                    xDataKey="name"
-                    barDataKey="departments_count"
-                    xLable={"Departments"}
-                    yLable={"Students Count"}
-                    barColor={"#4E74F9"}
-                />
+            <section className="w-full h-full py-10 m-auto bg-white rounded-lg md:w-10/12">
+                <div className="overflow-x-scroll">
+                    <div
+                        className={`${
+                            barChartLength < 7 ? "w-full" : widthOfBarChart
+                        }`}
+                    >
+                        <CustomBarChart
+                            data={departmentsPerFacultyCount}
+                            xDataKey="name"
+                            barDataKey="departments_count"
+                            xLable={"Departments"}
+                            yLable={"Students Count"}
+                            barColor={"#4E74F9"}
+                        />
+                    </div>
+                </div>
             </section>
         </>
     );

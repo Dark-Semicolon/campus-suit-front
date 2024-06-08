@@ -12,6 +12,7 @@ function Stats() {
         universityId,
         facultyId,
     });
+
     const colors = [
         "#2f4b7c",
         "#003f5c",
@@ -23,6 +24,11 @@ function Stats() {
         "#ff7c43",
     ];
 
+    if (isPending)
+        return (
+            <Spinner className="flex items-center justify-center h-screen" />
+        );
+
     const PipChartData = facultyStats?.studentsPerGrade.map((ele, index) => {
         return {
             data: ele.student_count,
@@ -30,15 +36,20 @@ function Stats() {
             color: colors[index] || "blue",
         };
     });
+
+    const barChartLength =
+        facultyStats?.AvgCourseGradesForPreviousSemester.length;
+    const widthOfBarChart = `w-[${barChartLength * 100}px]`;
+
     return (
         <section>
             {!isPending ? (
                 <Numbers
-                    studentsCount={facultyStats.studentsCount}
+                    studentsCount={facultyStats?.studentsCount || 0}
                     professorsCount={
-                        facultyStats.professorsForLatestSemesterCount
+                        facultyStats?.professorsForLatestSemesterCount || 0
                     }
-                    departmentsCount={facultyStats.departmentsCount}
+                    departmentsCount={facultyStats?.departmentsCount || 0}
                 />
             ) : (
                 <Spinner />
@@ -59,15 +70,23 @@ function Stats() {
                     <p className="pb-3 ps-5">
                         Average Students Grades For The Last Semester
                     </p>
-                    {!isPending ? (
-                        <GradesChart
-                            AvgCourseGradesForPreviousSemester={
-                                facultyStats?.AvgCourseGradesForPreviousSemester
-                            }
-                        />
-                    ) : (
-                        <Spinner />
-                    )}
+                    <div className="overflow-x-scroll">
+                        <div
+                            className={`${
+                                barChartLength < 7 ? "w-full" : widthOfBarChart
+                            }`}
+                        >
+                            {!isPending ? (
+                                <GradesChart
+                                    AvgCourseGradesForPreviousSemester={
+                                        facultyStats?.AvgCourseGradesForPreviousSemester
+                                    }
+                                />
+                            ) : (
+                                <Spinner />
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

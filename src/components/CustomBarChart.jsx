@@ -1,3 +1,4 @@
+import { Brush } from "@mui/icons-material";
 import {
     BarChart,
     Bar,
@@ -5,30 +6,30 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
+    // Legend,
     ResponsiveContainer,
+    // LabelList,
 } from "recharts";
 
 function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
-    console.log(data);
     return (
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height={500}>
             <BarChart
-                width={500}
-                height={700}
                 data={data}
                 margin={{
                     top: 5,
                     right: 50,
                     left: 50,
-                    bottom: 30,
+                    bottom: 50,
                 }}
-                barSize={15}
+                barSize={50}
+                barGap={10}
             >
                 <XAxis
+                    type="category"
                     dataKey="name"
-                    scale="point"
-                    padding={{ left: 100, right: 100 }}
+                    tickMargin={10}
+                    padding={{ left: 40, right: 40 }}
                     label={{
                         value: xLable,
                         position: "insideBottomRight",
@@ -44,15 +45,16 @@ function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
                     }}
                 />
                 <Tooltip />
-                <Legend />
-                <CartesianGrid strokeDasharray="5 5" />
+                <Brush dataKey="name" height={90} stroke="#4E74F9" y={700} />
+                {/* <Legend /> */}
+                <CartesianGrid strokeDasharray="3 3" />
                 <Bar
                     dataKey={barDataKey}
                     fill={barColor}
-                    // barCategoryGap={30}
-                    // barGap={10}
                     background={{ fill: "#eee" }}
-                />
+                >
+                    {/* <LabelList dataKey="name" position="bottom" /> */}
+                </Bar>
             </BarChart>
         </ResponsiveContainer>
     );
