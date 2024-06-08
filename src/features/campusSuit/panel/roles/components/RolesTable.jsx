@@ -19,7 +19,7 @@ import ViewRole from "./ViewRole";
 import { useRoles } from "../hooks/useRoles";
 import { useDeleteRole } from "../hooks/useDeleteRole";
 import { convertURLParams } from "@/utils/helpers";
-import usePermission from '@/hooks/usePermission';
+import usePermission from "@/hooks/usePermission";
 
 function RolesTable() {
   const [searchValue, setSearchValue] = useState("");
@@ -29,17 +29,11 @@ function RolesTable() {
 
   const navigate = useNavigate();
 
-  const { can, canAll } = usePermission()
+  const { can, canAll } = usePermission();
 
   const { deleteRole, isDeleting } = useDeleteRole();
 
-
-  const page = parseSearchParams(
-    searchParams,
-    "page",
-    (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)),
-    1
-  );
+  const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
 
   const filterAndSortAndPageQuery = convertURLParams(search);
 
@@ -47,7 +41,7 @@ function RolesTable() {
     page,
     perPage,
     searchValue,
-    include: 'permissions',
+    include: "permissions",
     filterAndSortAndPageQuery,
   });
 
@@ -93,7 +87,7 @@ function RolesTable() {
   //addRow
   const addRow = {
     to: `/admin/roles/create`,
-    permission: can('create_role'),
+    permission: can("create_role"),
   };
 
   //formatting Data
@@ -101,7 +95,7 @@ function RolesTable() {
     const {
       id,
       attributes: { name: roleName, updatedAt, createdAt, teamId },
-      relationships: { permissions }
+      relationships: { permissions },
     } = role;
 
     return {
@@ -110,7 +104,7 @@ function RolesTable() {
       updatedAt,
       createdAt,
       teamId,
-      permissions
+      permissions,
     };
   });
 
@@ -140,33 +134,27 @@ function RolesTable() {
               <Modal>
                 {actions?.map((action) =>
                   row?.roleName === "super_admin" ? null : action.id === "edit" ? (
-                    <button
-                      onClick={() => navigate(action.to(row.id), { state: row })}
-                      key={action.id}
-                    >
+                    <button onClick={() => navigate(action.to(row.id), { state: row })} key={action.id}>
                       {action.icon}
                     </button>
-                  ) : canAll(action.permissions) && (
-                    <React.Fragment key={action.id}>
-                      <Modal.Open opens={action.id}>
-                        <button>{action.icon}</button>
-                      </Modal.Open>
+                  ) : (
+                    canAll(action.permissions) && (
+                      <React.Fragment key={action.id}>
+                        <Modal.Open opens={action.id}>
+                          <button>{action.icon}</button>
+                        </Modal.Open>
 
-                      <Modal.Window name={action.id}>
-                        {action.id === "rowDetails" ? (
-                          action.content(row)
-                        ) : action.id === "edit" ? (
-                          action.content(row)
-                        ) : action.id === "delete" ? (
-                          <ConfirmDelete
-                            rowData={row}
-                            onConfirm={() => deleteRole({ roleId: row?.id })}
-                            disabled={isDeleting}
-                            resourceName={row?.roleName}
-                          />
-                        ) : null}
-                      </Modal.Window>
-                    </React.Fragment>
+                        <Modal.Window name={action.id}>
+                          {action.id === "rowDetails" ? (
+                            action.content(row)
+                          ) : action.id === "edit" ? (
+                            action.content(row)
+                          ) : action.id === "delete" ? (
+                            <ConfirmDelete rowData={row} onConfirm={() => deleteRole({ roleId: row?.id })} disabled={isDeleting} resourceName={row?.roleName} />
+                          ) : null}
+                        </Modal.Window>
+                      </React.Fragment>
+                    )
                   )
                 )}
               </Modal>
@@ -186,6 +174,7 @@ function RolesTable() {
   return (
     <>
       <Table
+        columnsToCopy={["roleName"]}
         isloading={isPending}
         rows={reformattedData}
         headers={headers}

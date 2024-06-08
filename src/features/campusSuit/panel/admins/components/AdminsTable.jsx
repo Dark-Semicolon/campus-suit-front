@@ -15,7 +15,7 @@ import CreateAdmin from "./CreateAdmin";
 import UpdateAdmin from "./UpdateAdmin";
 import { useDeleteAdmin } from "../hooks/useDeleteAdmin";
 import AdminView from "./AdminView";
-import usePermission from '@/hooks/usePermission';
+import usePermission from "@/hooks/usePermission";
 
 function AdminsTable() {
   const { search } = useLocation();
@@ -27,12 +27,7 @@ function AdminsTable() {
 
   const { can, canAll } = usePermission();
 
-  const page = parseSearchParams(
-    searchParams,
-    "page",
-    (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)),
-    1
-  );
+  const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
 
   const filterAndSortAndPageQuery = convertURLParams(search);
 
@@ -95,12 +90,7 @@ function AdminsTable() {
         name: "associatePermissions",
         icon: <MdAdminPanelSettings className="text-lg text-blue-color-primary" />,
         to: (id) => `/admin/admins/${id}/permissions`,
-        permissions: [
-          "associateRoles_admin",
-          "associatePermissions_admin",
-          "view_any_role",
-          "view_any_permission",
-        ],
+        permissions: ["associateRoles_admin", "associatePermissions_admin", "view_any_role", "view_any_permission"],
       },
       {
         id: "delete",
@@ -134,13 +124,7 @@ function AdminsTable() {
 
       switch (columnKey) {
         case "image":
-          return (
-            <Image
-              className="w-[50px] h-[50px] rounded-full object-cover"
-              src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`}
-              loading="lazy"
-            />
-          );
+          return <Image className="w-[50px] h-[50px] rounded-full object-cover" src={row?.image === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${cellValue}`} loading="lazy" />;
 
         case "status":
           return (
@@ -167,39 +151,35 @@ function AdminsTable() {
           return (
             <div className="relative flex items-center justify-start gap-2">
               <Modal key={`modal_${row.id}`}>
-                {actions?.map((action) => (
-                  canAll(action.permissions) && (
-                    <React.Fragment key={action.id}>
-                      {action.id === "associatePermissions" ? (
-                        canAll(action.permissions) && (
-                          <button
-                            onClick={() => navigate(action.to(row.id))}
-                            key={action.id}
-                          >
-                            {action.icon}
-                          </button>
-                        )
-                      ) : (
-                        row.policies[action.id] && (
-                          <>
-                            <Modal.Open opens={action.id}>
-                              <button>{action.icon}</button>
-                            </Modal.Open>
-                            <Modal.Window name={action.id}>
-                              {action.id === "view" ? (
-                                action.content(row)
-                              ) : action.id === "update" ? (
-                                action.content(row)
-                              ) : action.id === "delete" ? (
-                                <ConfirmDelete rowData={row} onConfirm={() => deleteAdmin({ adminId: row.id })} disabled={isDeleting} resourceName={row?.name} />
-                              ) : null}
-                            </Modal.Window>
-                          </>
-                        )
-                      )}
-                    </React.Fragment>
-                  )
-                ))}
+                {actions?.map(
+                  (action) =>
+                    canAll(action.permissions) && (
+                      <React.Fragment key={action.id}>
+                        {action.id === "associatePermissions" && row.policies["associatePermissions"] && row.policies["associateRoles"]
+                          ? canAll(action.permissions) && (
+                              <button onClick={() => navigate(action.to(row.id))} key={action.id}>
+                                {action.icon}
+                              </button>
+                            )
+                          : row.policies[action.id] && (
+                              <>
+                                <Modal.Open opens={action.id}>
+                                  <button>{action.icon}</button>
+                                </Modal.Open>
+                                <Modal.Window name={action.id}>
+                                  {action.id === "view" ? (
+                                    action.content(row)
+                                  ) : action.id === "update" ? (
+                                    action.content(row)
+                                  ) : action.id === "delete" ? (
+                                    <ConfirmDelete rowData={row} onConfirm={() => deleteAdmin({ adminId: row.id })} disabled={isDeleting} resourceName={row?.name} />
+                                  ) : null}
+                                </Modal.Window>
+                              </>
+                            )}
+                      </React.Fragment>
+                    )
+                )}
               </Modal>
             </div>
           );
@@ -216,6 +196,7 @@ function AdminsTable() {
 
   return (
     <Table
+      columnsToCopy={["name", "email"]}
       isloading={isPending}
       rows={reformattedData}
       headers={headers}
