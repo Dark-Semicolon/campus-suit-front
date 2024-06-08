@@ -9,19 +9,13 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-function CustomBarChart({
-    data,
-    xDataKey,
-    barDataKey,
-    xLable,
-    yLable,
-    barColor,
-}) {
+function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
+    console.log(data);
     return (
         <ResponsiveContainer width="100%" height="100%">
             <BarChart
                 width={500}
-                height={300}
+                height={700}
                 data={data}
                 margin={{
                     top: 5,
@@ -32,9 +26,9 @@ function CustomBarChart({
                 barSize={15}
             >
                 <XAxis
-                    dataKey={xDataKey}
+                    dataKey="name"
                     scale="point"
-                    padding={{ left: 50, right: 20 }}
+                    padding={{ left: 100, right: 100 }}
                     label={{
                         value: xLable,
                         position: "insideBottomRight",
@@ -51,10 +45,12 @@ function CustomBarChart({
                 />
                 <Tooltip />
                 <Legend />
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="5 5" />
                 <Bar
                     dataKey={barDataKey}
                     fill={barColor}
+                    // barCategoryGap={30}
+                    // barGap={10}
                     background={{ fill: "#eee" }}
                 />
             </BarChart>

@@ -8,7 +8,10 @@ import CustomPieChart from "../../../../../components/CustomPieChart";
 function Stats() {
     const { universityId, facultyId } = useParams();
 
-    const { facultyStats, isPending } = useFacultyStats({ universityId, facultyId });
+    const { facultyStats, isPending } = useFacultyStats({
+        universityId,
+        facultyId,
+    });
     const colors = [
         "#2f4b7c",
         "#003f5c",
@@ -18,31 +21,57 @@ function Stats() {
         "#d45087",
         "#ffa600",
         "#ff7c43",
-    ]
+    ];
 
-    const PipChartData = facultyStats.studentsPerGrade.map((ele, index) => {
+    const PipChartData = facultyStats?.studentsPerGrade.map((ele, index) => {
         return {
-            'data': ele.student_count,
-            'name': `year ${ele.grade}`,
-            'color': colors[index] || 'blue'
-        }
-    })
+            data: ele.student_count,
+            name: `year ${ele.grade}`,
+            color: colors[index] || "blue",
+        };
+    });
     return (
         <section>
-            {!isPending ? <Numbers studentsCount={facultyStats.studentsCount} professorsCount={facultyStats.professorsForLatestSemesterCount} departmentsCount={facultyStats.departmentsCount} /> : <Spinner />}
+            {!isPending ? (
+                <Numbers
+                    studentsCount={facultyStats.studentsCount}
+                    professorsCount={
+                        facultyStats.professorsForLatestSemesterCount
+                    }
+                    departmentsCount={facultyStats.departmentsCount}
+                />
+            ) : (
+                <Spinner />
+            )}
 
-            <div className="flex justify-between">
-                <CustomPieChart title='Students' data={PipChartData} />
-                <div>
+            <div className="flex flex-col flex-wrap items-center justify-around gap-4">
+                <div className="w-full p-10 bg-white rounded-lg">
+                    <CustomPieChart title="Students" data={PipChartData} />
+                </div>
+                <div className="w-full p-10 bg-white rounded-lg">
                     <h2 className="mb-5 text-xl capitalize md:text-3xl text-blue-color-light">
-                        Grades <span className="text-blue-color-primary"> Analysis</span>
+                        Grades{" "}
+                        <span className="text-blue-color-primary">
+                            {" "}
+                            Analysis
+                        </span>
                     </h2>
-                    <p className="pb-3 ps-5">Average Students Grades For The Last Semester</p>
-                    {!isPending ? <GradesChart AvgCourseGradesForPreviousSemester={facultyStats?.AvgCourseGradesForPreviousSemester} /> : <Spinner />}
+                    <p className="pb-3 ps-5">
+                        Average Students Grades For The Last Semester
+                    </p>
+                    {!isPending ? (
+                        <GradesChart
+                            AvgCourseGradesForPreviousSemester={
+                                facultyStats?.AvgCourseGradesForPreviousSemester
+                            }
+                        />
+                    ) : (
+                        <Spinner />
+                    )}
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default Stats
+export default Stats;

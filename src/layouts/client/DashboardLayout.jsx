@@ -1,7 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 import Layout from "./components/Layout";
 
-import { GiTeacher } from "react-icons/gi";
+import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaUniversity } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 
@@ -22,7 +22,7 @@ function DashboardLayout() {
         {
             name: "professors",
             to: `/${universityId}/panel/professors`,
-            icon: <GiTeacher className="text-2xl" />,
+            icon: <FaChalkboardTeacher className="text-2xl" />,
         },
     ];
 
