@@ -32,7 +32,7 @@ function Table({
         if (visibleColumns === "all") return headers;
 
         return headers.filter((column) =>
-            Array.from(visibleColumns).includes(column.uid)
+            Array.from(visibleColumns)?.includes(column.uid)
         );
     }, [visibleColumns, headers]);
 
