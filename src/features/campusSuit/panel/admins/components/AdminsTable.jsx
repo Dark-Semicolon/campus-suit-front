@@ -81,14 +81,14 @@ function AdminsTable() {
         name: "View",
         icon: <FaEye className="text-lg" />,
         content: (row) => <AdminView data={row} />,
-        permissions: "view_admin",
+        permissions: ["view_admin"],
       },
       {
         id: "update",
         name: "Edit",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
         content: (row) => <UpdateAdmin data={row} />,
-        permissions: "update_admin",
+        permissions: ["update_admin"],
       },
       {
         id: "associatePermissions",
@@ -106,7 +106,7 @@ function AdminsTable() {
         id: "delete",
         name: "Delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
-        permissions: "delete_admin",
+        permissions: ["delete_admin"],
       },
     ],
     []
@@ -120,11 +120,13 @@ function AdminsTable() {
 
   // Formatting Data
   const reformattedData = admins?.data?.map((item) => {
-    const { id, attributes, policies } = item;
+    const { id, attributes, relationships, policies } = item;
     return {
       id,
       ...attributes,
       policies,
+      roles: relationships?.roles,
+      permissions: relationships?.permissions
     };
   });
 
@@ -216,7 +218,7 @@ function AdminsTable() {
 
   return (
     <Table
-      isloading={isPending}
+      isLoading={isPending}
       rows={reformattedData}
       headers={headers}
       visibleColumns={visibleColumns}

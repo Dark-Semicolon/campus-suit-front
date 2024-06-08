@@ -38,12 +38,15 @@ function ClientsTable() {
   const filterAndSortAndPageQuery = convertURLParams(search);
 
 
+  // Load the Client stats 
+  const load = 'stats'
 
   //Get Users
   const { clients, isPending } = useClients({
     page,
     perPage,
     searchValue,
+    load,
     filterAndSortAndPageQuery,
   });
 
@@ -63,13 +66,17 @@ function ClientsTable() {
     { uid: "name", name: "Client Name", sortable: true },
     { uid: "email", name: "Email", sortable: true },
     { uid: "status", name: "Status", sortable: true },
+    { uid: "universitiesCount", name: "universities", sortable: true },
+    { uid: "facultiesCount", name: "faculties", sortable: true },
+    { uid: "professorsCount", name: "professors", sortable: true },
+    { uid: "studentsCount", name: "students", sortable: true },
     { uid: "createdAt", name: "Created at", sortable: true },
     { uid: "updatedAt", name: "Updated at", sortable: true },
     { uid: "actions", name: "actions", sortable: false },
   ];
 
   //Default Headers
-  const INITIAL_VISIBLE_COLUMNS = ["id", "image", "name", "email", "status", "actions"];
+  const INITIAL_VISIBLE_COLUMNS = ["id", "image", "name", "email", "status", 'universitiesCount', 'facultiesCount', 'professorsCount', "studentsCount", "actions"];
 
   //Actions
   const actions = useMemo(
@@ -79,20 +86,20 @@ function ClientsTable() {
         name: "View",
         icon: <FaEye className="text-lg" />,
         content: (row) => <ViewClient data={row} />,
-        permissions: 'view_user'
+        permissions: ['view_user']
       },
       {
         id: "update",
-        name: "Edite",
+        name: "update",
         icon: <MdEdit className="text-lg text-blue-color-primary" />,
         content: (row) => <UpdateClient data={row} />,
-        permissions: 'update_user'
+        permissions: ['update_user']
       },
       {
         id: "delete",
         name: "Delete",
         icon: <MdDelete className="text-lg text-red-color-primary" />,
-        permissions: 'delete_user'
+        permissions: ['delete_user']
       },
     ],
     []
@@ -106,11 +113,12 @@ function ClientsTable() {
 
   //formatting Data
   const reformattedData = clients?.data?.map((item) => {
-    const { id, attributes } = item;
+    const { id, attributes, stats } = item;
 
     return {
       id,
       ...attributes,
+      ...stats
     };
   });
 
@@ -183,7 +191,7 @@ function ClientsTable() {
 
   return (
     <Table
-      isloading={isPending}
+      isLoading={isPending}
       rows={reformattedData}
       headers={headers}
       visibleColumns={visibleColumns}

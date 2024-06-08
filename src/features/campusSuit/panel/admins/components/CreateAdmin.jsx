@@ -11,7 +11,7 @@ import { useCreateAdmin } from "../hooks/useCreateAdmin";
 function CreateAdmin({ onCloseModal }) {
   const { universityId } = useParams();
   const [image, setImage] = useState("");
-  const [isVisibile, setIsVisibile] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
   const { createAdmin, isCreating, error: ApiError } = useCreateAdmin();
 
@@ -24,14 +24,14 @@ function CreateAdmin({ onCloseModal }) {
   } = useForm();
 
   const handleChange = (event) => {
-    setIsVisibile(event.target.checked);
+    setIsVisible(event.target.checked);
   };
 
   function onSubmit(data) {
     if (!image) return null;
 
     createAdmin(
-      { ...data, image, universityId, status: isVisibile },
+      { ...data, image, universityId, status: isVisible },
       {
         onSuccess: () => {
           reset();
@@ -45,7 +45,7 @@ function CreateAdmin({ onCloseModal }) {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
       <h4 className="py-3 text-blue-color-primary">Create New Admin</h4>
 
-      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
+      <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
 
       <CustomInput
         type="text"

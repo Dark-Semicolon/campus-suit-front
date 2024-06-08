@@ -17,7 +17,7 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
 
   const { id: professorId, name, email, status } = oldValues;
 
-  const [isVisibile, setIsVisibile] = useState(status);
+  const [isVisible, setIsVisible] = useState(status);
   const {
     register,
     handleSubmit,
@@ -27,7 +27,7 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
   } = useForm();
 
   const handleChange = (event) => {
-    setIsVisibile(event.target.checked);
+    setIsVisible(event.target.checked);
   };
 
   function onSubmit(data) {
@@ -35,7 +35,7 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
     const filteredData = removeEmptyValues(updatedData);
 
     updateProfessor(
-      { ...filteredData, status: isVisibile, universityId, professorId },
+      { ...filteredData, status: isVisible, universityId, professorId },
       {
         onSuccess: () => {
           reset();
@@ -49,7 +49,7 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
       <h4 className="py-3 text-blue-color-primary">Create new Professor</h4>
 
-      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
+      <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
 
       <CustomInput
         type="name"

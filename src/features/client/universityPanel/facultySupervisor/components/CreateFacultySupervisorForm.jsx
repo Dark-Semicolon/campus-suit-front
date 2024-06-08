@@ -40,7 +40,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
 
   const [step, setStep] = useState(false);
   const [stepError, setStepError] = useState(false);
-  const [isVisibile, setIsVisibile] = useState(status || true);
+  const [isVisible, setIsVisible] = useState(status || true);
 
   // API
   const { createFacultySupervisor, isCreating, error: ApiError } = useCreateFacultySupervisor();
@@ -60,7 +60,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
 
   function handleComplete(data) {
     if (!image) setImage("");
-    const supervisorData = { universityId, facultyId, facultySupervisorId: id, ...data, permissions: selectedPermissions, roles: selectedRoles, status: isVisibile, avatar_url: image };
+    const supervisorData = { universityId, facultyId, facultySupervisorId: id, ...data, permissions: selectedPermissions, roles: selectedRoles, status: isVisible, avatar_url: image };
 
     if (Object.keys(facultySupervisorData).length) {
       const filteredData = removeEmptyValues(supervisorData);
@@ -96,7 +96,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
   }
 
   const handleChange = (event) => {
-    setIsVisibile(event.target.checked);
+    setIsVisible(event.target.checked);
   };
 
   const handleStep = () => {
@@ -130,7 +130,7 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
         )}
       >
         <FormWizard.TabContent title="Create Faculty Supervisor" icon="ti-settings">
-          <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
+          <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
 
           <div className="flex flex-col items-center justify-center gap-4">
             <div className="w-1/3">

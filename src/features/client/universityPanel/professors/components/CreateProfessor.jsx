@@ -11,7 +11,7 @@ import { FormControlLabel, Switch } from "@mui/material";
 function CreateProfessor({ onCloseModal }) {
   const { universityId } = useParams();
   const [image, setImage] = useState("");
-  const [isVisibile, setIsVisibile] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
   const { createProfessor, isCreating, error: ApiError } = useCreateProfessor();
 
@@ -24,14 +24,14 @@ function CreateProfessor({ onCloseModal }) {
   } = useForm();
 
   const handleChange = (event) => {
-    setIsVisibile(event.target.checked);
+    setIsVisible(event.target.checked);
   };
 
   function onSubmit(data) {
     if (!image) return null;
 
     createProfessor(
-      { ...data, image, universityId, status: isVisibile },
+      { ...data, image, universityId, status: isVisible },
       {
         onSuccess: () => {
           reset();
@@ -45,7 +45,7 @@ function CreateProfessor({ onCloseModal }) {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
       <h4 className="py-3 text-blue-color-primary">Create new Professor</h4>
 
-      <FormControlLabel control={<Switch checked={isVisibile} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisibile ? "Active" : "Disabled"} />
+      <FormControlLabel control={<Switch checked={isVisible} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />} label={isVisible ? "Active" : "Disabled"} />
 
       <CustomInput
         type="name"

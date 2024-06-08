@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { Table as TableUi, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 
-function Table({ bottomContent, topContent, headers, isloading, rows, visibleColumns, renderCell, selectionMode = "none", onSelectionChange = () => null }) {
+function Table({ bottomContent, topContent, headers, isLoading, rows, visibleColumns, renderCell, selectionMode = "none", onSelectionChange = () => null }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [sortDescriptor, setSortDescriptor] = useState();
 
@@ -52,7 +52,7 @@ function Table({ bottomContent, topContent, headers, isloading, rows, visibleCol
             classNames={{
                 wrapper: "max-h-[700px]",
                 th: " rounded-none",
-                table: `focus-visible:outline-none ${isloading && "h-80"}`,
+                table: `focus-visible:outline-none ${isLoading && "h-80"}`,
                 td: `max-w-72 py-3 ${selectionMode !== "none" && "cursor-pointer"}`,
             }}
             checkboxesProps={{
@@ -72,7 +72,7 @@ function Table({ bottomContent, topContent, headers, isloading, rows, visibleCol
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={isloading ? null : "No Results"} isLoading={isloading} loadingContent={<Spinner color="primary" labelColor="primary" />} items={rows || []}>
+            <TableBody emptyContent={isLoading ? null : "No Results"} isLoading={isLoading} loadingContent={<Spinner color="primary" labelColor="primary" />} items={rows || []}>
                 {(row) => <TableRow key={row?.id}>{(columnKey) => <TableCell>{renderCell(row, columnKey)}</TableCell>}</TableRow>}
             </TableBody>
         </TableUi>
