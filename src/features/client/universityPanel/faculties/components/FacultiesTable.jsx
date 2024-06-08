@@ -28,7 +28,7 @@ import UpdateFaculty from "./UpdateFaculty";
 import { Image } from '@nextui-org/react';
 import { STORAGE_LINK } from '@/utils/constants';
 
-function FucultiesTable() {
+function FacultiesTable() {
 
     const { universityId } = useParams()
 
@@ -66,14 +66,6 @@ function FucultiesTable() {
     const { deleteFaculty, isDeleting } = useDeleteFaculty();
 
 
-    // //Filter Options
-    // const filterOptions = [
-    //     { name: "نشيط", field: "status", value: "1" },
-    //     { name: "محذور", field: "status", value: "0" },
-    //     { name: "ادمن", field: "admin", value: "admin" },
-    //     { name: "طالب", field: "student", value: "student" },
-    // ];
-
     //Header Rows
     const headers = [
         { uid: "id", name: "#", sortable: true },
@@ -107,7 +99,7 @@ function FucultiesTable() {
             },
             {
                 id: "edit",
-                name: "Edite",
+                name: "Edit",
                 icon: <MdEdit className="text-lg text-blue-color-primary" />,
                 content: (row) => <UpdateFaculty data={row} />,
             },
@@ -213,7 +205,7 @@ function FucultiesTable() {
 
     return (
         <Table
-            isloading={isPending}
+            isLoading={isPending}
             rows={reformattedData}
             headers={headers}
             visibleColumns={visibleColumns}
@@ -228,7 +220,7 @@ function FucultiesTable() {
                     addRow={addRow}
                     totalRows={faculties?.meta?.total}
                     setSearchValue={setSearchValue}
-                    placeholder={"Search with fuculty name or id.."}
+                    placeholder={"Search with faculty name or id.."}
                 />
             }
             bottomContent={<FooterContent totalPages={totalPages} />}
@@ -236,4 +228,4 @@ function FucultiesTable() {
     );
 }
 
-export default FucultiesTable;
+export default FacultiesTable;

@@ -1,4 +1,4 @@
-import { Avatar, spinner } from "@nextui-org/react";
+import { Avatar, Spinner } from "@nextui-org/react";
 import { STORAGE_LINK } from "@/utils/constants";
 import { useParams } from "react-router-dom";
 import { useUniversity } from "../features/client/universityPanel/university/hooks/useUniversity";
@@ -8,8 +8,7 @@ function UniversityAccount() {
 
   const { university, isPending } = useUniversity({ universityId });
 
-  console.log(university);
-  if (isPending) return spinner;
+  if (isPending) return <Spinner />;
 
   return (
     <div className="flex items-center justify-start w-30">

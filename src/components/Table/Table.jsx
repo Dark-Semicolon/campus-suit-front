@@ -12,7 +12,7 @@ function Table({ bottomContent, topContent, headers, isLoading, rows, visibleCol
   const headerColumns = useMemo(() => {
     if (visibleColumns === "all") return headers;
 
-    return headers.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return headers.filter((column) => Array.from(visibleColumns)?.includes(column.uid));
   }, [visibleColumns, headers]);
 
   // handel Sorting Function
@@ -91,7 +91,7 @@ function Table({ bottomContent, topContent, headers, isLoading, rows, visibleCol
           <TableRow key={row?.id}>
             {(columnKey) => (
               <TableCell key={columnKey}>
-                {columnsToCopy.includes(columnKey) ? (
+                {columnsToCopy?.includes(columnKey) ? (
                   <Tooltip message="Copy">
                     <span onClick={() => copyRowContents(row, columnKey)} style={{ cursor: "pointer" }}>
                       {renderCell(row, columnKey)}

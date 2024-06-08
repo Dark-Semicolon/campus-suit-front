@@ -1,11 +1,11 @@
-import { User, spinner } from "@nextui-org/react";
+import { User, Spinner } from "@nextui-org/react";
 import { useUser } from "@/features/client/auth/hooks/useUser";
 import { STORAGE_LINK } from "../../../utils/constants";
 
 function AdminAccount() {
   const { user, isPending } = useUser();
 
-  if (isPending) return spinner;
+  if (isPending) return <Spinner />;
 
   return (
     (
