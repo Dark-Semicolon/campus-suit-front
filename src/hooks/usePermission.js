@@ -3,14 +3,21 @@ import { useAuth } from "@/hooks/auth/useAuth";
 const usePermission = () => {
     const { useUser } = useAuth({ gardName: "admin" });
 
-    const include = ["permissions", "permissionsCount", "permissionsExists", "roles"];
+    const include = [
+        "permissions",
+        "permissionsCount",
+        "permissionsExists",
+        "roles",
+    ];
 
     const { user, isPending, isAuthenticated, isSuccess } = useUser(include);
 
     const permissions = user?.relationships?.permissions?.map(
         (permission) => permission.attributes.name
     );
-    const roles = user?.relationships?.roles?.map((role) => role.attributes.name);
+    const roles = user?.relationships?.roles?.map(
+        (role) => role.attributes.name
+    );
     const isSuperAdmin = roles?.includes("super_admin");
 
     // Function to check if the current user has any of the specified permissions
@@ -18,13 +25,18 @@ const usePermission = () => {
         return (
             isAuthenticated &&
             (isSuperAdmin ||
-                permissionsToCheck.some((permission) => permissions.includes(permission)))
+                permissionsToCheck?.some((permission) =>
+                    permissions?.includes(permission)
+                ))
         );
     };
 
     // Function to check if the current user has a specific permission
     const can = (permissionToCheck) => {
-        return isAuthenticated && (isSuperAdmin || permissions.includes(permissionToCheck));
+        return (
+            isAuthenticated &&
+            (isSuperAdmin || permissions?.includes(permissionToCheck))
+        );
     };
 
     // Function to check if the current user has all of the specified permissions
@@ -32,7 +44,9 @@ const usePermission = () => {
         return (
             isAuthenticated &&
             (isSuperAdmin ||
-                permissionsToCheck.every((permission) => permissions.includes(permission)))
+                permissionsToCheck?.every((permission) =>
+                    permissions?.includes(permission)
+                ))
         );
     };
 
@@ -41,7 +55,9 @@ const usePermission = () => {
         return (
             isAuthenticated &&
             !isSuperAdmin &&
-            !permissionsToCheck.some((permission) => permissions.includes(permission))
+            !permissionsToCheck?.some((permission) =>
+                permissions?.includes(permission)
+            )
         );
     };
 
@@ -51,11 +67,17 @@ const usePermission = () => {
     };
 
     const isAny = (rolesToCheck) => {
-        return isAuthenticated && rolesToCheck.some((role) => roles?.includes(role));
+        return (
+            isAuthenticated &&
+            rolesToCheck?.some((role) => roles?.includes(role))
+        );
     };
 
     const isAll = (rolesToCheck) => {
-        return isAuthenticated && rolesToCheck.every((role) => roles?.includes(role));
+        return (
+            isAuthenticated &&
+            rolesToCheck?.every((role) => roles?.includes(role))
+        );
     };
 
     return {

@@ -21,17 +21,16 @@ import UpdateClient from "./UpdateClient";
 import ViewClient from "./ViewClient";
 
 import { useDeleteClient } from "../hooks/useDeleteClient";
-import usePermission from '@/hooks/usePermission';
+import usePermission from "@/hooks/usePermission";
 
 function ClientsTable() {
-
   const { search } = useLocation();
   const [searchValue, setSearchValue] = useState("");
 
   const [perPage, setPerPage] = useState(5);
   const [searchParams] = useSearchParams();
 
-  const { canAll, can } = usePermission()
+  const { canAll, can } = usePermission();
 
   const page = parseSearchParams(searchParams, "page", (value) => (parseInt(value, 10) < 1 ? 1 : parseInt(value, 10)), 1);
 
@@ -108,7 +107,7 @@ function ClientsTable() {
   //Add Row
   const addRow = {
     row: <CreateClient />,
-    permission: can('create_user'),
+    permission: can("create_user"),
   };
 
   //formatting Data
@@ -155,26 +154,27 @@ function ClientsTable() {
           return (
             <div className="relative flex items-center justify-start gap-2">
               <Modal>
-                {actions?.map((action) => (
-                  canAll(action.permissions) && (
-                    <React.Fragment key={action.id}>
-
-                      <>
-                        <Modal.Open opens={action.id}>
-                          <button>{action.icon}</button>
-                        </Modal.Open>
-                        <Modal.Window name={action.id}>
-                          {action.id === "view" ? (
-                            action.content(row)
-                          ) : action.id === "update" ? (
-                            action.content(row)
-                          ) : action.id === "delete" ? (
-                            <ConfirmDelete rowData={row} onConfirm={() => deleteClient({ clientId: row.id })} disabled={isDeleting} resourceName={row?.name} />
-                          ) : null}
-                        </Modal.Window>
-                      </>
-                    </React.Fragment>)
-                ))}
+                {actions?.map(
+                  (action) =>
+                    canAll(action.permissions) && (
+                      <React.Fragment key={action.id}>
+                        <>
+                          <Modal.Open opens={action.id}>
+                            <button>{action.icon}</button>
+                          </Modal.Open>
+                          <Modal.Window name={action.id}>
+                            {action.id === "view" ? (
+                              action.content(row)
+                            ) : action.id === "update" ? (
+                              action.content(row)
+                            ) : action.id === "delete" ? (
+                              <ConfirmDelete rowData={row} onConfirm={() => deleteClient({ clientId: row.id })} disabled={isDeleting} resourceName={row?.name} />
+                            ) : null}
+                          </Modal.Window>
+                        </>
+                      </React.Fragment>
+                    )
+                )}
               </Modal>
             </div>
           );
@@ -192,6 +192,7 @@ function ClientsTable() {
   return (
     <Table
       isLoading={isPending}
+      columnsToCopy={["name", "email"]}
       rows={reformattedData}
       headers={headers}
       visibleColumns={visibleColumns}
