@@ -1,24 +1,6 @@
 import Button from "@/components/Button";
 import PricingCard from "./PricingCard";
 
-// const packages = [
-//     {
-//         name: 'Silver Package',
-//         price: '$40/mo',
-//         features: ['100 + Free Template', '10 Team Members', 'Priority Support', 'Premium Features', '50 Integrations'],
-//     },
-//     {
-//         name: 'Golden Package',
-//         price: '$70/mo',
-//         features: ['100 + Free Template', '10 Team Members', 'Priority Support', 'Premium Features', '50 Integrations'],
-//     },
-//     {
-//         name: 'Premium Package',
-//         price: '$120/mo',
-//         features: ['100 + Free Template', '10 Team Members', 'Priority Support', 'Premium Features', '50 Integrations'],
-//     },
-// ];
-
 const Pricing = () => {
     return (
         <section>

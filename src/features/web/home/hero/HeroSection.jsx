@@ -14,7 +14,8 @@ function HeroSection() {
                     <div className="flex flex-col items-center gap-5">
                         <h2 className="text-lg lg:text-3xl text-center text-blue-color-primary lg:w-[500px]">Your Complete Campus Management Solution</h2>
                         <p className="w-[80%] md:w-[70%] text-center text-gray-color-primary">
-                            A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem
+                            Designed to seamlessly connect students, professors, and faculty
+                            supervisors.
                         </p>
                         <Button type='primary' className='z-30 rounded-md'>Start Now</Button>
                     </div>

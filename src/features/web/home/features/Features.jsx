@@ -1,11 +1,25 @@
 import Button from '@/components/Button';
+import { GiTeacher } from 'react-icons/gi';
+import { GrUserAdmin } from 'react-icons/gr';
+import { LiaUniversitySolid } from 'react-icons/lia';
+import { PiStudentFill } from 'react-icons/pi';
 function Features() {
 
     const features = [
-        { id: 1, icon: '🛠️', title: 'Fully Customizable', description: 'A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem' },
-        { id: 2, icon: '📦', title: 'Fully Customizable', description: 'A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem' },
-        { id: 3, icon: '🔍', title: 'Fully Customizable', description: 'A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem' },
-        { id: 4, icon: '🔧', title: 'Fully Customizable', description: 'A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem' },
+        {
+            id: 1, icon: <LiaUniversitySolid className='text-4xl text-white' />, title: 'University',
+            description: ' Can register and manage universities, faculties, and faculty roles, ensuring comprehensive oversight and effective role assignment.'
+        },
+        {
+            id: 2, icon: <GrUserAdmin className='text-4xl text-white' />, title: 'Faculty supervisors',
+            description: 'Manage the faculty student data, and courses, and handle the academic calendar, course instances, student grades, and course selections.'
+        },
+        {
+            id: 3, icon: <GiTeacher className='text-4xl text-white' />, title: 'Professors', description: 'Are provided with tools to manage course instances, access student lists, and review and manage course assignments.'
+        },
+        {
+            id: 4, icon: <PiStudentFill className='text-4xl text-white' />, title: 'students', description: 'The system allows the viewing of grades, registration for courses, and the submission and review of course assignments'
+        },
     ];
 
     return (
@@ -15,17 +29,19 @@ function Features() {
                     <div className="w-fit">
                         <h3 className="text-4xl font-bold text-blue-color-primary">Feature Boxes</h3>
                         <p className="md:w-[500px] text-gray-color-primary mt-4">
-                            A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem
+                            CampusSuit aims to streamline university operations, enhance
+                            communication, and improve the overall educational experience for all
+                            stakeholders with this main features.
                         </p>
                     </div>
-                    <div className="flex flex-wrap gap-10 mt-10 w-fit">
+                    <div className="flex flex-wrap items-center justify-center w-full gap-10 mt-10">
                         {features.map(feature => (
-                            <div key={feature.id} className="flex flex-col justify-center gap-8 items-center p-6 text-white bg-[#1E2336] rounded-xl shadow-md h-[370px] w-[250px] md:w-[320px]">
+                            <div key={feature.id} className="flex flex-col justify-center gap-8 items-center p-6 text-white bg-[#1E2336] rounded-xl shadow-md h-[400px] w-[250px] md:w-[320px]">
                                 <div className="p-6 rounded-3xl text-4xl bg-[#162255] ">
                                     <span className="text-white">{feature.icon}</span>
                                 </div>
                                 <h3 className="text-xl font-semibold">{feature.title}</h3>
-                                <p className="text-center text-gray-color-light w-[80%]">{feature.description}</p>
+                                <p className="text-center text-gray-color-light w-[95%]">{feature.description}</p>
                             </div>
                         ))}
                     </div>
@@ -39,7 +55,7 @@ function Features() {
                         We are here to guide and help you at all times
                     </h3>
                     <p className="w-[80%] lg:w-[500px] text-gray-color-primary mt-4 mx-auto text-lg text-center md:text-left md:m-0">
-                        A good design is not only aesthetically pleasing, but also functional. It should be able to solve the problem
+                        with a team of professionals to support your universities in any time
                     </p>
                     <Button type="primary" className='rounded-md w-fit'>Start</Button>
                 </div>
