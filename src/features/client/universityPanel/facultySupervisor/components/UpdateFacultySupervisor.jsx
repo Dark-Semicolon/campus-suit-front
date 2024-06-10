@@ -8,29 +8,61 @@ import { useFindFacultySupervisor } from "../hooks/useFindFacultySupervisor";
 import { useFacultySupervisorPermissions } from "../hooks/useFacultySupervisorPermissions";
 
 function UpdateFacultySupervisor() {
-  const { universityId, facultyId, facultySupervisorId } = useParams();
+    const { universityId, facultyId, facultySupervisorId } = useParams();
 
-  const { facultySupervisor, isPending: facultySupervisorLoading } = useFindFacultySupervisor({ universityId, facultyId, facultySupervisorId });
+    const { facultySupervisor, isPending: facultySupervisorLoading } =
+        useFindFacultySupervisor({
+            universityId,
+            facultyId,
+            facultySupervisorId,
+        });
 
-  const { facultySupervisorRoles, isPending: facultySupervisorRolesLoading } = useFacultySupervisorRoles({ universityId, facultyId, facultySupervisorId });
+    const { facultySupervisorRoles, isPending: facultySupervisorRolesLoading } =
+        useFacultySupervisorRoles({
+            universityId,
+            facultyId,
+            facultySupervisorId,
+        });
 
-  const { facultySupervisorPermissions, isPending: facultySupervisorPermissionsLoading } = useFacultySupervisorPermissions({ universityId, facultyId, facultySupervisorId });
+    const {
+        facultySupervisorPermissions,
+        isPending: facultySupervisorPermissionsLoading,
+    } = useFacultySupervisorPermissions({
+        universityId,
+        facultyId,
+        facultySupervisorId,
+    });
 
-  if (facultySupervisorLoading || facultySupervisorRolesLoading || facultySupervisorPermissionsLoading) return <Spinner className="flex items-center justify-center h-screen" />;
+    if (
+        facultySupervisorLoading ||
+        facultySupervisorRolesLoading ||
+        facultySupervisorPermissionsLoading
+    )
+        return (
+            <Spinner className="flex items-center justify-center h-screen" />
+        );
 
-  const facultySupervisorData = { facultySupervisor, facultySupervisorPermissions, facultySupervisorRoles };
+    const facultySupervisorData = {
+        facultySupervisor,
+        facultySupervisorPermissions,
+        facultySupervisorRoles,
+    };
 
-  // console.log(facultySupervisorData);
+    // console.log(facultySupervisorData);
 
-  return <CreateFacultySupervisorForm facultySupervisorData={facultySupervisorData} />;
+    return (
+        <CreateFacultySupervisorForm
+            facultySupervisorData={facultySupervisorData}
+        />
+    );
 
-  // console.log("data", facultySupervisor);
+    // console.log("data", facultySupervisor);
 
-  // console.log("roles", facultySupervisorRoles);
+    // console.log("roles", facultySupervisorRoles);
 
-  // console.log("permissions", facultySupervisorPermissions);
+    // console.log("permissions", facultySupervisorPermissions);
 
-  // const {} = use;
+    // const {} = use;
 }
 
 export default UpdateFacultySupervisor;
