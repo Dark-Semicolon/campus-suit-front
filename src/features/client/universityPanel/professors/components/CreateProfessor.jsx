@@ -31,7 +31,7 @@ function CreateProfessor({ onCloseModal }) {
     if (!image) return null;
 
     createProfessor(
-      { ...data, image, universityId, status: isVisible },
+      { ...data, image, universityId, status: Boolean(isVisible) },
       {
         onSuccess: () => {
           reset();

@@ -1,13 +1,13 @@
 import { Spinner } from "@nextui-org/react";
-import Fileponds from "../../../../../components/Filepond";
-import Button from "../../../../../components/Button";
-import CustomInput from "../../../../../components/CustomInput";
+import Fileponds from "@/components/Filepond";
+import Button from "@/components/Button";
+import CustomInput from "@/components/CustomInput";
 import { FormControlLabel, Switch } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import useUpdateProfessor from "../hooks/useUpdateProfesssor";
-import { removeEmptyValues } from "../../../../../utils/helpers";
+import useUpdateProfessor from "../hooks/useUpdateProfessor";
+import { removeEmptyValues } from "@/utils/helpers";
 
 function UpdateProfessor({ onCloseModal, oldValues }) {
   const { universityId } = useParams();
@@ -35,7 +35,7 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
     const filteredData = removeEmptyValues(updatedData);
 
     updateProfessor(
-      { ...filteredData, status: isVisible, universityId, professorId },
+      { ...filteredData, status: Boolean(isVisible), universityId, professorId },
       {
         onSuccess: () => {
           reset();

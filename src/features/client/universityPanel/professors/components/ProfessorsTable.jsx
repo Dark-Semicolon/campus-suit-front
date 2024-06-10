@@ -175,7 +175,7 @@ function ProfessorsTable() {
 
   return (
     <Table
-      isloading={isPending}
+      isLoading={isPending}
       rows={reformattedData}
       headers={headers}
       visibleColumns={visibleColumns}

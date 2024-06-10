@@ -7,7 +7,7 @@ function Operations() {
   const { universityId, facultyId } = useParams();
 
   return (
-    <div className="flex justify-center gap-16 pt-16 ">
+    <div className="flex flex-wrap justify-center gap-16 pt-16">
       <Link to={`/${universityId}/panel/faculties/${facultyId}/roles`} className="">
         <StatsCard
           title="Faculty Roles"

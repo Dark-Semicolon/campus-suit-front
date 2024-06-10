@@ -8,6 +8,7 @@ import { useUniversityStats } from "../hooks/useUniversityStats";
 function Stats() {
     const { universityId } = useParams();
     const { universityStats, isPending } = useUniversityStats({ universityId });
+
     if (isPending)
         return (
             <Spinner className="flex items-center justify-center h-screen" />
@@ -25,7 +26,7 @@ function Stats() {
 
     return (
         <>
-            <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2 ">
+            <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2">
                 <StatisticsCard
                     img={"/images/campusSuit/student.svg"}
                     imgClassName={"bg-gray-200"}
@@ -54,16 +55,15 @@ function Stats() {
             <section className="w-full h-full py-10 m-auto bg-white rounded-lg md:w-10/12">
                 <div className="overflow-x-scroll">
                     <div
-                        className={`${
-                            barChartLength < 7 ? "w-full" : widthOfBarChart
-                        }`}
+                        className={`${barChartLength < 7 ? "w-full" : widthOfBarChart
+                            }`}
                     >
                         <CustomBarChart
                             data={departmentsPerFacultyCount}
                             xDataKey="name"
                             barDataKey="departments_count"
-                            xLable={"Departments"}
-                            yLable={"Students Count"}
+                            xLabel={"Departments"}
+                            yLabel={"Students Count"}
                             barColor={"#4E74F9"}
                         />
                     </div>

@@ -17,7 +17,7 @@ function UniversityAccount() {
                 color="default"
                 src={
                     university?.data?.attributes?.logo === null
-                        ? "/images/userPlaceholder.png"
+                        ? "/images/universityPlaceholder.jpg"
                         : `${STORAGE_LINK}/${university?.data?.attributes?.logo}`
                 }
                 classNames={{ base: "w-12 h-12 ", img: "object-contain" }}

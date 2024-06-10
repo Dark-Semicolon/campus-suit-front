@@ -6,12 +6,10 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    // Legend,
     ResponsiveContainer,
-    // LabelList,
 } from "recharts";
 
-function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
+function CustomBarChart({ data, barDataKey, xLabel, yLabel, barColor }) {
     return (
         <ResponsiveContainer width="100%" height={500}>
             <BarChart
@@ -31,7 +29,7 @@ function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
                     tickMargin={10}
                     padding={{ left: 40, right: 40 }}
                     label={{
-                        value: xLable,
+                        value: xLabel,
                         position: "insideBottomRight",
                         offset: -30,
                     }}
@@ -39,7 +37,7 @@ function CustomBarChart({ data, barDataKey, xLable, yLable, barColor }) {
                 />
                 <YAxis
                     label={{
-                        value: yLable,
+                        value: yLabel,
                         angle: -90,
                         position: "insideLeft",
                     }}

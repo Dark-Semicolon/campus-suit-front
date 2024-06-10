@@ -9,41 +9,38 @@ import {
     ResponsiveContainer,
     Brush,
 } from "recharts";
-import { convertGpaToLetterGrade } from "@/utils/helpers";
 
-const grades = [
-    "F ",
-    "D-",
-    "D ",
-    "D+",
-    "C-",
-    "C ",
-    "C+",
-    "B-",
-    "B ",
-    "B+",
-    "A-",
-    "A ",
-    "A+",
-    "",
+const gradeMap = [
+    "F",  // F
+    "D-", // DM
+    "D",  // D
+    "D+", // DP
+    "C-", // CM
+    "C",  // C
+    "C+", // CP
+    "B-", // BM
+    "B",  // B
+    "B+", // BP
+    "A-", // AM
+    "A",  // A
+    "A+"  // AP
 ];
+
 
 function GradesChart({ AvgCourseGradesForPreviousSemester }) {
     const data =
         AvgCourseGradesForPreviousSemester?.map((ele) => ({
-            average_GPA: convertGpaToLetterGrade(
-                ele.student_grades_avg_course_grade
-            ),
+            average_GPA: Math.round(ele.student_grades_avg_course_grade), // Numeric value
             GPA: ele.student_grades_avg_course_grade,
             courseName: ele.course.name,
         })) || [];
 
     return (
-        <ResponsiveContainer width="100%" height={600}>
+        <ResponsiveContainer width="100%" height={620}>
             <BarChart
                 data={data}
                 margin={{
-                    top: 5,
+                    top: 20,
                     right: 30,
                     left: 20,
                     bottom: 100,
@@ -55,16 +52,25 @@ function GradesChart({ AvgCourseGradesForPreviousSemester }) {
                     tickMargin={10}
                     type="category"
                     dataKey="courseName"
+                    label={{
+                        value: 'Course Name',
+                        position: "insideBottomLeft",
+                        offset: -70,
+                    }}
                     padding={{ left: 40, right: 40 }}
                 />
                 <YAxis
                     tickMargin={15}
-                    type="category"
-                    dataKey="average_GPA"
-                    domain={grades}
+                    type="number"
+                    domain={[0, gradeMap.length - 1]}
                     interval={0}
-                    tickFormatter={(tick) => tick}
-                    ticks={grades}
+                    tickFormatter={(tick) => gradeMap[tick]}
+                    label={{
+                        value: 'GPA',
+                        position: "insideTopLeft",
+                        offset: -20,
+                    }}
+                    ticks={Array.from({ length: gradeMap.length }, (_, i) => i)}
                     tick={({ x, y, payload }) => (
                         <text
                             x={x}
@@ -74,20 +80,27 @@ function GradesChart({ AvgCourseGradesForPreviousSemester }) {
                             dy={0}
                             dx={-10}
                         >
-                            {payload.value}
+                            {gradeMap[payload.value]}
                         </text>
                     )}
                 />
-                <Tooltip />
-                <Brush dataKey="name" height={20} stroke="#4E74F9" y={520} />
-                {/* <Legend verticalAlign="bottom" height={36} /> */}
+                <Tooltip
+                    formatter={(value) => gradeMap[value]}
+                    labelFormatter={(label) => `Course: ${label}`}
+                />
+                <Brush dataKey="courseName" height={20} stroke="#4E74F9" y={520} />
+
                 <CartesianGrid strokeDasharray="3 3" />
                 <Bar
                     dataKey="average_GPA"
                     fill="#4E74F9"
                     background={{ fill: "#eee" }}
                 >
-                    <LabelList dataKey="average_GPA" position="top" />
+                    <LabelList
+                        dataKey="average_GPA"
+                        position="top"
+                        formatter={(value) => gradeMap[value]}
+                    />
                 </Bar>
             </BarChart>
         </ResponsiveContainer>

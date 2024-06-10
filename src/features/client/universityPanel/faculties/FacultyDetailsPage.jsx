@@ -23,6 +23,9 @@ function FacultyDetailsPage() {
                 className="text-2xl"
             />
             <section className="lg:px-16">
+
+
+                {/* Stats And Data visualization component  */}
                 <Stats />
 
                 <h2 className="mt-20 text-xl text-center md:text-3xl text-blue-color-primary">
