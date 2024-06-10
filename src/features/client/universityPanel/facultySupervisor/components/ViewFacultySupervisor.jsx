@@ -1,34 +1,77 @@
 import { useParams } from "react-router-dom";
 
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image, Spinner } from "@nextui-org/react";
 
 import { STORAGE_LINK } from "@/utils/constants";
 
 import Button from "@/components/Button";
+import ProfileHeader from "../../../../../components/ProfileHeader";
+import { useFacultySupervisorPermissions } from "../hooks/useFacultySupervisorPermissions";
+import { useFacultySupervisorRoles } from "../hooks/useFacultySupervisorRole";
 
 function ViewFacultySupervisor({ data }) {
-  const { universityId, facultyId } = useParams();
-  const { id, avatarUrl, name, email } = data;
+    const { universityId, facultyId } = useParams();
 
-  return (
-    <Card className="pt-4 border-0 shadow-none min-w-96">
-      <CardBody className="py-5 ">
-        <div className="flex flex-wrap items-center gap-5">
-          <Image alt="Card background" className="object-cover rounded-full h-[100px] w-[100px]" src={avatarUrl === null ? "/images/userPlaceholder.png" : `${STORAGE_LINK}/${avatarUrl}`} />
+    const { avatarUrl, name, description, id, status } = data;
 
-          <div>
-            <p className="text-xl font-bold text-blue-color-primary ">{name}</p>
-            <p className="py-3 text-default-500">{email}</p>
-          </div>
+    console.log(data);
+    const { facultySupervisorPermissions, isPending: loadingPermissions } =
+        useFacultySupervisorPermissions({
+            universityId,
+            facultyId,
+            facultySupervisorId: id,
+        });
+
+    //FacultySupervisor Permoissions
+    const { facultySupervisorRoles, isPending: loadingRoles } =
+        useFacultySupervisorRoles({
+            universityId,
+            facultyId,
+            facultySupervisorId: id,
+        });
+
+    if (loadingPermissions || loadingRoles) {
+        return <Spinner className="flex items-center justify-center" />;
+    }
+    console.log(facultySupervisorPermissions);
+    console.log(facultySupervisorRoles);
+    return (
+        // <Card className="pt-4 border-0 shadow-none min-w-96">
+        //     <CardBody className="py-5 ">
+        //         <div className="flex flex-wrap items-center gap-5">
+        //             <Image
+        //                 alt="Card background"
+        //                 className="object-cover rounded-full h-[100px] w-[100px]"
+        //                 src={
+        //                     avatarUrl === null
+        //                         ? "/images/userPlaceholder.webp"
+        //                         : `${STORAGE_LINK}/${avatarUrl}`
+        //                 }
+        //             />
+
+        //             <div>
+        //                 <p className="text-xl font-bold text-blue-color-primary ">
+        //                     {name}
+        //                 </p>
+        //                 <p className="py-3 text-default-500">{email}</p>
+        //             </div>
+        //         </div>
+        //     </CardBody>
+        //     <CardFooter>
+        //     </CardFooter>
+        // </Card>
+        <div className="space-y-8">
+            <ProfileHeader
+                image={avatarUrl}
+                name={name}
+                email={description}
+                id={id}
+                status={status}
+                permissions={facultySupervisorPermissions}
+                roles={facultySupervisorRoles}
+            />
         </div>
-      </CardBody>
-      <CardFooter>
-        <Button type="primary" to={`/${universityId}/panel/faculties/${facultyId}/facultySupervisors/${id}/update`} className="w-full text-center">
-          Edit
-        </Button>
-      </CardFooter>
-    </Card>
-  );
+    );
 }
 
 export default ViewFacultySupervisor;
