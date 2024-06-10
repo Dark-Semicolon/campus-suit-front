@@ -17,7 +17,7 @@ import { TbLogout2 } from "react-icons/tb";
 import Logo from "@/components/Logo";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Skeleton } from "@nextui-org/react";
-import UserDropdown from "../../../components/UserDropdown";
+import UserDropdown from "@/components/UserDropdown";
 
 const drawerWidth = 300;
 
@@ -80,10 +80,9 @@ function Layout({ children, sidebarLinks }) {
                                         to={item.to}
                                         className={({ isActive }) =>
                                             `flex items-center py-3 w-11/12 gap-x-2 pl-6 text-white
-                                ${
-                                    isActive &&
-                                    `font-bold bg-blue-color-light rounded-md`
-                                }`
+                                ${isActive &&
+                                            `font-bold bg-blue-color-light rounded-md`
+                                            }`
                                         }
                                     >
                                         <span className="duration-300">
@@ -110,29 +109,7 @@ function Layout({ children, sidebarLinks }) {
                     </div>
                 ) : (
                     <div className="flex items-center justify-between w-11/12 px-8 py-2 text-white rounded-lg ">
-                        {/* <NavLink
-                            to={"/admin/profile"}
-                            className={({ isActive }) =>
-                                `text-3xl p-2 ${
-                                    isActive &&
-                                    `font-bold  rounded-md text-white`
-                                }`
-                            }
-                            size="sm"
-                            color="white"
-                        >
-                            <User
-                                className="font-bold"
-                                name={user?.attributes?.name}
-                                description={user?.attributes?.email}
-                                avatarProps={{
-                                    src:
-                                        user?.attributes?.image === null
-                                            ? "/images/userPlaceholder.webp"
-                                            : `${STORAGE_LINK}/${user?.attributes?.image}`,
-                                }}
-                            /> 
-                        </NavLink>*/}
+
                         <button className="flex items-center justify-center gap-4 font-bold text-[#EE4E4E]">
                             <TbLogout2
                                 className="text-lg"

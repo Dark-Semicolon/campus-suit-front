@@ -8,7 +8,7 @@ import { useFacultySupervisorRoles } from "../hooks/useFacultySupervisorRole";
 function ViewFacultySupervisor({ data }) {
     const { universityId, facultyId } = useParams();
 
-    const { avatarUrl, name, description, id, status } = data;
+    const { avatarUrl, name, email, id, status } = data;
 
     const { facultySupervisorPermissions, isPending: loadingPermissions } =
         useFacultySupervisorPermissions({
@@ -34,7 +34,7 @@ function ViewFacultySupervisor({ data }) {
             <ProfileHeader
                 image={avatarUrl}
                 name={name}
-                email={description}
+                email={email}
                 id={id}
                 status={status}
                 permissions={facultySupervisorPermissions}

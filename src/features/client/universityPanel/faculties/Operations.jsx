@@ -1,30 +1,57 @@
-import StatsCard from "@/components/StatsCard";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
 import { Link, useParams } from "react-router-dom";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Button } from "@nextui-org/react";
+import { FaGear } from "react-icons/fa6";
 
 function Operations() {
   const { universityId, facultyId } = useParams();
 
+  const items = [
+    {
+      textValue: 'Faculty Supervisors',
+      link: `/${universityId}/panel/faculties/${facultyId}/facultySupervisors`,
+      title: 'Faculty Supervisors',
+      icon: <GrUserAdmin />
+    },
+    {
+      textValue: 'Faculty Roles',
+      link: `/${universityId}/panel/faculties/${facultyId}/roles`,
+      title: 'Faculty Roles',
+      icon: <MdAdminPanelSettings />
+    }
+  ]
+
   return (
-    <div className="flex flex-wrap justify-center gap-16 pt-16">
-      <Link to={`/${universityId}/panel/faculties/${facultyId}/roles`} className="">
-        <StatsCard
-          title="Faculty Roles"
-          data="3 Roles"
-          icon={<MdAdminPanelSettings className="text-[#FEAE6F]" />}
-          className="duration-300 hover:shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
-        />
-      </Link>
-      <Link to={`/${universityId}/panel/faculties/${facultyId}/facultySupervisors`}>
-        <StatsCard
-          title="Faculty Supervisors"
-          data="supervisors"
-          icon={<GrUserAdmin className="text-[#387ADF]" />}
-          className="duration-300 hover:shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
-        />
-      </Link>
-    </div>
+    <Dropdown backdrop="blur">
+      {/* Dropdown button and the user Avatar   */}
+      <DropdownTrigger>
+        <Button
+          variant="flat"
+          className="flex gap-3 text-white bg-blue-color-primary"
+        >
+          <FaGear className="text-2xl text-white" />
+          <span>Faculty Settings</span>
+        </Button>
+      </DropdownTrigger>
+      {/* Dropdown Menu  */}
+      <DropdownMenu variant="faded" aria-label="user Actions">
+        {items.map((item, index) => {
+          return (
+            <DropdownItem key={index} textValue={item.textValue}>
+              <Link
+                to={item.link}
+                className="flex items-center w-full gap-2 font-semibold text-medium text-blue-color-primary"
+              >
+                {item.icon}
+                <span>{item.title}</span>
+              </Link>
+            </DropdownItem>
+          );
+        })}
+
+      </DropdownMenu>
+    </Dropdown>
   );
 }
 

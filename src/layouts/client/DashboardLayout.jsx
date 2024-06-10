@@ -27,9 +27,12 @@ function DashboardLayout() {
     ];
 
     return (
-        <Layout sidebarLinks={sidebarLinks}>
-            <Outlet />
-        </Layout>
+        <div className="bg-blue-color-primary">
+
+            <Layout sidebarLinks={sidebarLinks}>
+                <Outlet />
+            </Layout>
+        </div>
     );
 }
 

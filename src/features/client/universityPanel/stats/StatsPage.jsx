@@ -7,7 +7,7 @@ function StatsPage() {
 
         { name: "University Stats", link: `/user/universities` },
 
-        { name: "Home Page", link: `/` },
+        { name: "My Universities", link: `/user/universities` },
     ];
 
     return (

@@ -16,25 +16,25 @@ function FacultyDetailsPage() {
     ];
 
     return (
-        <div>
-            <DashboardHeader
-                pageName="Faculty Details"
-                pages={pagesLinks}
-                className="text-2xl"
-            />
+        <section>
+            <div className="flex items-center justify-between">
+
+                <DashboardHeader
+                    pageName="Faculty Details"
+                    pages={pagesLinks}
+                    className="text-2xl"
+                />
+
+                <Operations />
+            </div>
+
+            {/* Stats And Data visualization component  */}
             <section className="lg:px-16">
 
-
-                {/* Stats And Data visualization component  */}
                 <Stats />
 
-                <h2 className="mt-20 text-xl text-center md:text-3xl text-blue-color-primary">
-                    Faculty{" "}
-                    <span className="text-blue-color-light">Settings</span>
-                </h2>
-                <Operations />
             </section>
-        </div>
+        </section>
     );
 }
 

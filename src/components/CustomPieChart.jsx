@@ -7,7 +7,7 @@ function CustomPieChart({ data = [], title }) {
                 {title}
             </h2>
 
-            <div className="flex justify-center items-center flex-col border-3 rounded-xl w-full max-w-[400px]">
+            <div className="flex justify-center items-center flex-col rounded-xl w-full max-w-[400px]">
                 <ResponsiveContainer width='100%' className='px-5' height={280} >
 
                     <PieChart>

@@ -18,6 +18,7 @@ import Logo from "@/components/Logo";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Skeleton } from "@nextui-org/react";
 import UserDropdown from "../../../components/UserDropdown";
+import UniversityAccount from './../../../components/UniversityAccount';
 
 const drawerWidth = 300;
 
@@ -26,8 +27,8 @@ function Layout({ children, sidebarLinks }) {
     const [isClosing, setIsClosing] = useState(false);
 
     const { useUser, useLogout } = useAuth({
-        gardName: "admin",
-        logoutRedirect: "/admin/login",
+        gardName: "client",
+        logoutRedirect: "/login",
     });
 
     const { isPending, user, isAuthenticated } = useUser();
@@ -80,10 +81,9 @@ function Layout({ children, sidebarLinks }) {
                                         to={item.to}
                                         className={({ isActive }) =>
                                             `flex items-center py-3 w-11/12 gap-x-2 pl-6 text-white
-                                ${
-                                    isActive &&
-                                    `font-bold bg-blue-color-light rounded-md`
-                                }`
+                                ${isActive &&
+                                            `font-bold bg-blue-color-light rounded-md`
+                                            }`
                                         }
                                     >
                                         <span className="duration-300">
@@ -110,35 +110,13 @@ function Layout({ children, sidebarLinks }) {
                     </div>
                 ) : (
                     <div className="flex items-center justify-between w-11/12 px-8 py-2 text-white rounded-lg ">
-                        {/* <NavLink
-                            to={"/admin/profile"}
-                            className={({ isActive }) =>
-                                `text-3xl p-2 ${
-                                    isActive &&
-                                    `font-bold  rounded-md text-white`
-                                }`
-                            }
-                            size="sm"
-                            color="white"
-                        >
-                            <User
-                                className="font-bold"
-                                name={user?.attributes?.name}
-                                description={user?.attributes?.email}
-                                avatarProps={{
-                                    src:
-                                        user?.attributes?.image === null
-                                            ? "/images/userPlaceholder.webp"
-                                            : `${STORAGE_LINK}/${user?.attributes?.image}`,
-                                }}
-                            /> 
-                        </NavLink>*/}
+
                         <button className="flex items-center justify-center gap-4 font-bold text-[#EE4E4E]">
                             <TbLogout2
                                 className="text-lg"
                                 onClick={() =>
                                     !isLoggedOut &&
-                                    logout({ gardName: "admin" })
+                                    logout({ gardName: "client" })
                                 }
                             />
                             Logout Account
@@ -177,17 +155,21 @@ function Layout({ children, sidebarLinks }) {
                         <MenuIcon />
                     </IconButton>
 
-                    <div className="flex justify-end w-full py-3 ">
+                    <div className="flex justify-between w-full py-3 ">
+
+                        <UniversityAccount />
+
                         {isAuthenticated && !isPending && (
                             <UserDropdown
                                 admin={true}
                                 user={user}
-                                gardName={"admin"}
+                                gardName={"client"}
                             />
                         )}
                     </div>
                 </Toolbar>
             </AppBar>
+
             <Box
                 component="nav"
                 sx={{ flexShrink: { xs: 1 } }}

@@ -15,11 +15,10 @@ function ProfileHeader({ image, name, email, id, status, permissions, roles }) {
                         }
                         className="object-cover w-40 h-40 rounded-full"
                     />
-                    <span
-                        className={`w-5 h-5 rounded-full absolute top-32 left-36 z-10 ${
-                            status ? " bg-green-500" : "bg-yellow-500"
-                        }`}
-                    ></span>
+                    {email && <span
+                        className={`w-5 h-5 rounded-full absolute top-32 left-36 z-10 ${status ? " bg-green-500" : "bg-yellow-500"
+                            }`}
+                    ></span>}
                 </div>
             </div>
             <p className="font-bold text-blue-color-primary">
