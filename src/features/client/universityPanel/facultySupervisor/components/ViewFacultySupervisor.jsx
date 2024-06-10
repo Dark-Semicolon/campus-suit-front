@@ -1,11 +1,7 @@
 import { useParams } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
 
-import { Card, CardBody, CardFooter, Image, Spinner } from "@nextui-org/react";
-
-import { STORAGE_LINK } from "@/utils/constants";
-
-import Button from "@/components/Button";
-import ProfileHeader from "../../../../../components/ProfileHeader";
+import ProfileHeader from "@/components/ProfileHeader";
 import { useFacultySupervisorPermissions } from "../hooks/useFacultySupervisorPermissions";
 import { useFacultySupervisorRoles } from "../hooks/useFacultySupervisorRole";
 
