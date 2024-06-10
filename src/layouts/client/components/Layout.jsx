@@ -128,7 +128,7 @@ function Layout({ children, sidebarLinks }) {
                                 avatarProps={{
                                     src:
                                         user?.attributes?.image === null
-                                            ? "/images/userPlaceholder.png"
+                                            ? "/images/userPlaceholder.webp"
                                             : `${STORAGE_LINK}/${user?.attributes?.image}`,
                                 }}
                             /> 

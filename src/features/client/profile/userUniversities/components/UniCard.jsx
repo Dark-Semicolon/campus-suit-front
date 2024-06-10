@@ -22,9 +22,6 @@ function UniCard({ university }) {
     const { id } = university;
     const { logo, name, description } = university.attributes;
 
-    console.log("Description length:", description.length);
-    console.log("Uni description:", UNI_DESCRIPTION);
-    console.log(`${description.split(" ").splice(0, 10).join("")}`);
     const { deleteUniversity, isDeleting } = useDeleteUniversity();
 
     return (

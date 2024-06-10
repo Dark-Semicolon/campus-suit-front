@@ -44,7 +44,11 @@ export async function getFacultySupervisors({
 }
 
 //Find Faculty Supervisor
-export async function findFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
+export async function findFacultySupervisor({
+    universityId,
+    facultyId,
+    facultySupervisorId,
+}) {
     await csrf();
 
     const response = await axios.get(
@@ -124,7 +128,11 @@ export async function updateFacultySupervisor({
 }
 
 // delete FacultySupervisor
-export async function deleteFacultySupervisor({ universityId, facultyId, facultySupervisorId }) {
+export async function deleteFacultySupervisor({
+    universityId,
+    facultyId,
+    facultySupervisorId,
+}) {
     await csrf();
 
     const response = await axios.delete(
@@ -185,7 +193,11 @@ export async function updateFacultySupervisorPermissions({
 }
 
 // get FacultySupervisorRole
-export async function getFacultySupervisorRoles({ universityId, facultyId, facultySupervisorId }) {
+export async function getFacultySupervisorRoles({
+    universityId,
+    facultyId,
+    facultySupervisorId,
+}) {
     const response = await axios.get(
         `${API_WEB}/universities/${universityId}/faculties/${facultyId}/faculty-supervisors/${facultySupervisorId}/roles`
     );

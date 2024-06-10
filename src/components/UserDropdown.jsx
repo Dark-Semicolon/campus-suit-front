@@ -51,7 +51,7 @@ function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
                             size: "md",
                             src:
                                 user?.attributes?.image === null
-                                    ? "/images/userPlaceholder.png"
+                                    ? "/images/userPlaceholder.webp"
                                     : `${STORAGE_LINK}/${user?.attributes?.image}`,
                         }}
                         classNames={{

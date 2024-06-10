@@ -53,7 +53,7 @@ function Stats() {
 
     const barChartLength =
         facultyStats?.AvgCourseGradesForPreviousSemester.length;
-    const widthOfBarChart = `w-[${barChartLength * 100}px]`;
+    const widthOfBarChart = `${barChartLength * 250}px`;
 
     return (
         <section>
@@ -89,8 +89,12 @@ function Stats() {
                     </p>
                     <div className="overflow-x-scroll">
                         <div
-                            className={`${barChartLength < 7 ? "w-full" : widthOfBarChart
-                                }`}
+                            style={{
+                                width:
+                                    barChartLength < 7
+                                        ? "100%"
+                                        : widthOfBarChart,
+                            }}
                         >
                             {!isPending ? (
                                 <GradesChart

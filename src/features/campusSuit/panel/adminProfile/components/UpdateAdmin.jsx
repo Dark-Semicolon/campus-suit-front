@@ -82,7 +82,7 @@ function UpdateAdmin({ user }) {
                             radius="lg"
                             src={
                                 user?.attributes?.image === null
-                                    ? "/images/userPlaceholder.png"
+                                    ? "/images/userPlaceholder.webp"
                                     : `${STORAGE_LINK}/${user?.attributes?.image}`
                             }
                             className="mt-3"

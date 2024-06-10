@@ -21,6 +21,8 @@ import { STORAGE_LINK } from "@/utils/constants";
 import CreateFacultySupervisorPage from "../CreateFacultySupervisorPage";
 import { useDeleteFacultySupervisor } from "../hooks/useDeleteFacultySupervisor";
 import ViewFacultySupervisor from "./ViewFacultySupervisor";
+import { FaEye } from "react-icons/fa";
+import UpdateViewFacultySupervisor from "./UpdateViewFacultySupervisor";
 
 function FacultySupervisorTable() {
     const { universityId, facultyId } = useParams();
@@ -88,10 +90,16 @@ function FacultySupervisorTable() {
     const actions = useMemo(
         () => [
             {
+                id: "view",
+                name: "View",
+                icon: <FaEye className="text-lg" />,
+                content: (row) => <ViewFacultySupervisor data={row} />,
+            },
+            {
                 id: "edit",
                 name: "Edit",
                 icon: <MdEdit className="text-lg text-blue-color-primary" />,
-                content: (row) => <ViewFacultySupervisor data={row} />,
+                content: (row) => <UpdateViewFacultySupervisor data={row} />,
             },
             {
                 id: "delete",
@@ -129,7 +137,7 @@ function FacultySupervisorTable() {
                             className="w-[50px] h-[50px] rounded-full object-cover"
                             src={
                                 row?.avatarUrl === null
-                                    ? "/images/userPlaceholder.png"
+                                    ? "/images/userPlaceholder.webp"
                                     : `${STORAGE_LINK}/${cellValue}`
                             }
                             loading="lazy"
@@ -182,7 +190,7 @@ function FacultySupervisorTable() {
                                         </Modal.Open>
 
                                         <Modal.Window name={action.id}>
-                                            {action.id === "rowDetails" ? (
+                                            {action.id === "view" ? (
                                                 action.content(row)
                                             ) : action.id === "edit" ? (
                                                 action.content(row)
