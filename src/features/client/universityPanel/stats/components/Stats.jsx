@@ -21,11 +21,11 @@ function Stats() {
     } = universityStats;
 
     const barChartLength = departmentsPerFacultyCount.length;
-    const widthOfBarChart = `w-[${barChartLength * 100}px]`;
+    const widthOfBarChart = `${barChartLength * 300}px`;
 
     return (
-        <>
-            <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 py-20 md:px-2 ">
+        <div className="py-8">
+            <section className="flex flex-wrap items-center justify-center w-full gap-8 px-5 pb-20 md:px-2 ">
                 <StatisticsCard
                     img={"/images/campusSuit/student.svg"}
                     imgClassName={"bg-gray-200"}
@@ -51,25 +51,38 @@ function Stats() {
                 />
             </section>
 
-            <section className="w-full h-full py-10 m-auto bg-white rounded-lg md:w-10/12">
+            <section className="w-full h-full py-10 m-auto bg-white rounded-lg md:w-9/12">
+                <div className="p-5">
+                    <h2 className="mb-5 text-xl capitalize md:text-3xl text-blue-color-light">
+                        Faculty{" "}
+                        <span className="text-blue-color-primary">
+                            Analysis
+                        </span>
+                    </h2>
+                    <p className="pb-3 ps-5">
+                        Average Students Number Per Faculty
+                    </p>
+                </div>
                 <div className="overflow-x-scroll">
                     <div
-                        className={`${
-                            barChartLength < 7 ? "w-full" : widthOfBarChart
-                        }`}
+                        className="m-auto"
+                        style={{
+                            width:
+                                barChartLength < 7 ? "100%" : widthOfBarChart,
+                        }}
                     >
                         <CustomBarChart
                             data={departmentsPerFacultyCount}
                             xDataKey="name"
                             barDataKey="departments_count"
-                            xLable={"Departments"}
+                            xLable={"Faculties"}
                             yLable={"Students Count"}
                             barColor={"#4E74F9"}
                         />
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 
