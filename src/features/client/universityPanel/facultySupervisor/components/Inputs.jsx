@@ -11,8 +11,6 @@ function Inputs({
     email,
     name,
 }) {
-    console.log(Object.keys(facultySupervisorData).length);
-
     return (
         <>
             <CustomInput
