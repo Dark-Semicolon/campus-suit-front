@@ -14,7 +14,6 @@ function ViewFacultySupervisor({ data }) {
 
     const { avatarUrl, name, description, id, status } = data;
 
-    console.log(data);
     const { facultySupervisorPermissions, isPending: loadingPermissions } =
         useFacultySupervisorPermissions({
             universityId,
@@ -33,8 +32,7 @@ function ViewFacultySupervisor({ data }) {
     if (loadingPermissions || loadingRoles) {
         return <Spinner className="flex items-center justify-center" />;
     }
-    console.log(facultySupervisorPermissions);
-    console.log(facultySupervisorRoles);
+
     return (
         // <Card className="pt-4 border-0 shadow-none min-w-96">
         //     <CardBody className="py-5 ">
