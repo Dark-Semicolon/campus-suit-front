@@ -230,6 +230,7 @@ function ProfessorsTable() {
     return (
         <Table
             isloading={isPending}
+            columnsToCopy={["name", "email"]}
             rows={reformattedData}
             headers={headers}
             visibleColumns={visibleColumns}
