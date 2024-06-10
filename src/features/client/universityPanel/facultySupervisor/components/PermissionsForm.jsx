@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { parseSearchParams } from "@/utils/helpers";
-
 import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
+
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
 import { usePermissions } from "../../roles/hooks/usePermissions";

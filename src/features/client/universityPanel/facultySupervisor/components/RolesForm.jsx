@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
+import { FaCrown } from "react-icons/fa";
 
 import { parseSearchParams } from "@/utils/helpers";
-import { useState } from "react";
-import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
 import { useRoles } from "../../roles/hooks/useRoles";
-import { FaCrown } from "react-icons/fa";
 
 function RolesForm({ setSelectedRoles, selectedRoles, isDisabled }) {
     const { universityId, facultyId } = useParams();

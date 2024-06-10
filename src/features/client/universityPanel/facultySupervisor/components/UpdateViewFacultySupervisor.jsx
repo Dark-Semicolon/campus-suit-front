@@ -1,7 +1,8 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import Button from "../../../../../components/Button";
-import { STORAGE_LINK } from "@/utils/constants";
 import { useParams } from "react-router-dom";
+
+import Button from "@/components/Button";
+import { STORAGE_LINK } from "@/utils/constants";
 
 function UpdateViewFacultySupervisor({ data }) {
     const { universityId, facultyId } = useParams();
