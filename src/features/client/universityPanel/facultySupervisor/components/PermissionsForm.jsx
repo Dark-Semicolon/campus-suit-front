@@ -5,7 +5,7 @@ import { parseSearchParams } from "@/utils/helpers";
 import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
-import { usePermissions } from "../hooks/usePermissions";
+import { usePermissions } from "../../roles/hooks/usePermissions";
 
 function PermissionsForm({
     setSelectedPermissions,

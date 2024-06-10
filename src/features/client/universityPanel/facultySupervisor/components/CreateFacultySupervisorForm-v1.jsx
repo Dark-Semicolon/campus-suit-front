@@ -82,15 +82,6 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
         },
     });
 
-    // useEffect(() => {
-    //     if (facultySupervisorData?.facultySupervisor?.data?.attributes) {
-    //         const { name, email } =
-    //             facultySupervisorData.facultySupervisor.data.attributes;
-    //         setValue("name", name);
-    //         setValue("email", email);
-    //     }
-    // }, [facultySupervisorData, setValue]);
-
     function handleComplete(data) {
         if (!image) setImage("");
         // console.log("s", data);

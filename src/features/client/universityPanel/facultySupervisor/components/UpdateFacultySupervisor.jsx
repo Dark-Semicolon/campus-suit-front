@@ -48,21 +48,11 @@ function UpdateFacultySupervisor() {
         facultySupervisorRoles,
     };
 
-    // console.log(facultySupervisorData);
-
     return (
         <CreateFacultySupervisorForm
             facultySupervisorData={facultySupervisorData}
         />
     );
-
-    // console.log("data", facultySupervisor);
-
-    // console.log("roles", facultySupervisorRoles);
-
-    // console.log("permissions", facultySupervisorPermissions);
-
-    // const {} = use;
 }
 
 export default UpdateFacultySupervisor;

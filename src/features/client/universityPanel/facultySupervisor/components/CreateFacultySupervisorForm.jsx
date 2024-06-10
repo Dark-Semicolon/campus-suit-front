@@ -148,8 +148,6 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
         setIsVisible(event.target.checked);
     };
 
-    console.log(Object.keys(facultySupervisorData).length);
-
     return (
         <div className="lg:w-[90%] mx-auto py-10">
             <div className="flex items-center gap-4 py-10 mx-auto bg-white rounded-lg justify-evenly">
