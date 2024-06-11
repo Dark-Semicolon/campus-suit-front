@@ -72,7 +72,7 @@ function Stats() {
             <div className="flex flex-col flex-wrap items-center justify-around gap-4">
 
                 <div className="flex flex-wrap justify-around w-full p-10 bg-white rounded-lg">
-                    <CustomPieChart title="Students per Grades " data={studentsPerGradeData} key={1} />
+                    <CustomPieChart title="Students per Years " data={studentsPerGradeData} key={1} />
                     <CustomPieChart title="Students per Departments" data={studentsPerDepartmentData} key={2} />
                 </div>
 

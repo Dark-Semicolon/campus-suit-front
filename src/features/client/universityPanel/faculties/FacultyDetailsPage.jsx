@@ -17,7 +17,7 @@ function FacultyDetailsPage() {
 
     return (
         <section>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-3">
 
                 <DashboardHeader
                     pageName="Faculty Details"
