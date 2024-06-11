@@ -34,7 +34,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <NextUIProvider>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           <BrowserRouter>
             <Suspense fallback={<LoaderPage />}>
               <Routes>{routes}</Routes>

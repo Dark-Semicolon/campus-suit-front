@@ -17,7 +17,7 @@ function useClientAuthRoutes() {
             {/* Auth Routes and layout  */}
             <Route
                 element={
-                    <Guest gardName='client' redirect='/admin/dashboard'>
+                    <Guest gardName='client' redirect='/user/profile'>
                         <GuestLayout />
                     </Guest>
                 }

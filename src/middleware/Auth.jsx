@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-// import LoaderPage from '@/components/LoaderPage';
 
 import { useAuth } from "@/hooks/auth/useAuth";
 
@@ -19,7 +18,6 @@ function Auth({ children, redirect, gardName }) {
     [isAuthenticated, redirect, isPending, isActive, navigate,]
   );
 
-  // if (isPending) return <LoaderPage />;
 
   return children;
 }

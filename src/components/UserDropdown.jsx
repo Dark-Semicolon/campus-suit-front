@@ -12,16 +12,16 @@ import {
 
 import { useAuth } from "@/hooks/auth/useAuth";
 
-function UserDropdown({ admin = false, user, gardName, logoutRedirect }) {
+function UserDropdown({ admin = false, user, gardName = 'client', logoutRedirect }) {
+
     const { useLogout } = useAuth({ gardName, logoutRedirect });
 
     const { logout, isPending } = useLogout();
 
     const items = [
         {
-            link: `${
-                gardName === "client" ? "/user/profile" : "/admin/profile"
-            }`,
+            link: `${gardName === "client" ? "/user/profile" : "/admin/profile"
+                }`,
             title: "Profile",
             textValue: "profile page",
             key: "profile",

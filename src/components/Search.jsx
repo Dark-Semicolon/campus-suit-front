@@ -22,7 +22,7 @@ function Search({ placeholder, setSearchValue }) {
         <Input
             isClearable
             classNames={{
-                base: "w-full sm:max-w-[44%] text-black",
+                base: "w-full sm:max-w-[44%] text-black bg-white rounded-lg",
                 inputWrapper: "border-1",
             }}
             placeholder={placeholder || "Search"}

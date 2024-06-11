@@ -61,7 +61,7 @@ function Stats() {
                         </span>
                     </h2>
                     <p className="pb-3 ps-5">
-                        Average Students Number Per Faculty
+                        Number Students Per Faculty
                     </p>
                 </div>
                 <div className="overflow-x-scroll">
