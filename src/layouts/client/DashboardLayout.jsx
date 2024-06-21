@@ -15,14 +15,14 @@ function DashboardLayout() {
             icon: <RxDashboard className="text-2xl" />,
         },
         {
-            name: "faculties",
-            to: `/${universityId}/panel/faculties`,
-            icon: <FaUniversity className="text-2xl" />,
-        },
-        {
             name: "professors",
             to: `/${universityId}/panel/professors`,
             icon: <FaChalkboardTeacher className="text-2xl" />,
+        },
+        {
+            name: "faculties",
+            to: `/${universityId}/panel/faculties`,
+            icon: <FaUniversity className="text-2xl" />,
         },
     ];
 

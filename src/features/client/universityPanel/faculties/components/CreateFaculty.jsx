@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 
 import CustomInput from "@/components/CustomInput";
 import Button from "@/components/Button";
 import Fileponds from "@/components/Filepond";
 import { useCreateFaculty } from "../hooks/useCreateFaculty";
-import { useParams } from "react-router-dom";
 
 function CreateFaculty({ onCloseModal }) {
     const { universityId } = useParams();

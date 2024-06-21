@@ -38,7 +38,7 @@ function UpdateFaculty({ onCloseModal, data }) {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-full gap-4 ">
-            <h4 className="py-3 text-blue-color-primary">Create new Faculty</h4>
+            <h4 className="py-3 text-blue-color-primary">Update new Faculty</h4>
 
             <CustomInput
                 type="name"
