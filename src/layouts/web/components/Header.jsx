@@ -33,9 +33,9 @@ function Header({ className }) {
       )}
       {!isAuthenticated && !isPending && (
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-          <Button to="/signup" type="primary" className="rounded-md md:leading-7">
+          {/* <Button to="/signup" type="primary" className="rounded-md md:leading-7">
             Sign Up
-          </Button>
+          </Button> */}
 
           <Button
             to="/login"

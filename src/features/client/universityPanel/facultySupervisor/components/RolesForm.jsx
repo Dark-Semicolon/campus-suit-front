@@ -50,7 +50,7 @@ function RolesForm({ setSelectedRoles, selectedRoles, isDisabled }) {
                             color="primary"
                             value={role.id}
                             isDisabled={isDisabled}
-                            className="px-4 py-2 font-bold border-2 me-4 rounded-xl bg-yellow-color-light"
+                            className="px-4 py-2 m-4 font-bold border-2 rounded-xl bg-yellow-color-light"
                             key={index}
                         >
                             <div className="flex gap-2">

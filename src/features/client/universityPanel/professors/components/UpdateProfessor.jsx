@@ -108,13 +108,13 @@ function UpdateProfessor({ onCloseModal, oldValues }) {
       />
 
       <div className="w-full">
-        <h4 className="py-3 text-blue-color-primary">Professor Image *</h4>
-        <Fileponds imageToken={setImage} />
+        <h4 className="py-3 text-blue-color-primary">Professor Image</h4>
+        <Fileponds required={false} imageToken={setImage} />
       </div>
 
       <div>
         <Button type="primary" className="md:w-96">
-          {isUpdating ? <Spinner color="white" /> : "Create"}
+          {isUpdating ? <Spinner color="white" /> : "Update"}
         </Button>
       </div>
     </form>

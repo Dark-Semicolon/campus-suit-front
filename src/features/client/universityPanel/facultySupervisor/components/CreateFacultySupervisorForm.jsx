@@ -21,14 +21,14 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
     // get old data
     const oldRoles = facultySupervisorData
         ? facultySupervisorData?.facultySupervisorRoles?.data?.map(
-              (ele) => ele.id
-          )
+            (ele) => ele.id
+        )
         : null;
 
     const oldPermissions = facultySupervisorData
         ? facultySupervisorData?.facultySupervisorPermissions?.data?.map(
-              (ele) => ele.id
-          )
+            (ele) => ele.id
+        )
         : null;
 
     const { name, email, status } =
@@ -150,8 +150,8 @@ function CreateFacultySupervisorForm({ facultySupervisorData = {} }) {
 
     return (
         <div className="lg:w-[90%] mx-auto py-10">
-            <div className="flex items-center gap-4 py-10 mx-auto bg-white rounded-lg justify-evenly">
-                <div className="flex flex-col w-1/3">
+            <div className="flex flex-wrap items-center gap-4 py-10 mx-auto bg-white rounded-lg justify-evenly">
+                <div className="flex flex-col lg:w-1/3">
                     <div className="flex items-center justify-start gap-10">
                         <h4 className="py-3 text-gray-600 h-100 text-start">
                             Status :

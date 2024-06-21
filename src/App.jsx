@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider } from "@emotion/react";

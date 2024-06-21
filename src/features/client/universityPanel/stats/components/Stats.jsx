@@ -18,10 +18,10 @@ function Stats() {
         studentsCount,
         facultiesCount,
         professorsCount,
-        departmentsPerFacultyCount,
+        studentsPerFacultyCount,
     } = universityStats;
 
-    const barChartLength = departmentsPerFacultyCount.length;
+    const barChartLength = studentsPerFacultyCount.length;
     const widthOfBarChart = `${barChartLength * 300}px`;
 
     return (
@@ -61,7 +61,7 @@ function Stats() {
                         </span>
                     </h2>
                     <p className="pb-3 ps-5">
-                        Number Students Per Faculty
+                        Number of Students Per Faculty
                     </p>
                 </div>
                 <div className="overflow-x-scroll">
@@ -73,9 +73,9 @@ function Stats() {
                         }}
                     >
                         <CustomBarChart
-                            data={departmentsPerFacultyCount}
+                            data={studentsPerFacultyCount}
                             xDataKey="name"
-                            barDataKey="departments_count"
+                            barDataKey="students_count"
                             xLabel={"Faculties"}
                             yLabel={"Students Count"}
                             barColor={"#4E74F9"}
