@@ -7,14 +7,15 @@ function CustomPieChart({ data = [], title }) {
                 {title}
             </h2>
 
-            <div className="flex justify-center items-center flex-col rounded-xl w-full max-w-[400px]">
-                <ResponsiveContainer width='100%' className='px-5' height={280} >
+            <div className="flex flex-col items-center justify-center w-full rounded-xl ">
+                <ResponsiveContainer width='100%' height={350} >
 
                     <PieChart>
                         <Pie
                             data={data}
                             nameKey='name'
                             dataKey='data'
+                            cy={'55%'}
                             outerRadius={83}
                         >
                             {data.map((entry, index) => (

@@ -68,17 +68,17 @@ function ClientsTable() {
 
     //Header Rows
     const headers = [
-        { uid: "id", name: "#", sortable: true },
+        { uid: "id", name: "#", sortable: false },
         { uid: "image", name: "Image", sortable: false },
-        { uid: "name", name: "Client Name", sortable: true },
-        { uid: "email", name: "Email", sortable: true },
-        { uid: "status", name: "Status", sortable: true },
-        { uid: "universitiesCount", name: "universities", sortable: true },
-        { uid: "facultiesCount", name: "faculties", sortable: true },
-        { uid: "professorsCount", name: "professors", sortable: true },
-        { uid: "studentsCount", name: "students", sortable: true },
-        { uid: "createdAt", name: "Created at", sortable: true },
-        { uid: "updatedAt", name: "Updated at", sortable: true },
+        { uid: "name", name: "Client Name", sortable: false },
+        { uid: "email", name: "Email", sortable: false },
+        { uid: "status", name: "Status", sortable: false },
+        { uid: "universitiesCount", name: "universities", sortable: false },
+        { uid: "facultiesCount", name: "faculties", sortable: false },
+        { uid: "professorsCount", name: "professors", sortable: false },
+        { uid: "studentsCount", name: "students", sortable: false },
+        { uid: "createdAt", name: "Created at", sortable: false },
+        { uid: "updatedAt", name: "Updated at", sortable: false },
         { uid: "actions", name: "actions", sortable: false },
     ];
 
@@ -212,13 +212,13 @@ function ClientsTable() {
                                                         name={action.id}
                                                     >
                                                         {action.id ===
-                                                        "view" ? (
+                                                            "view" ? (
                                                             action.content(row)
                                                         ) : action.id ===
-                                                          "update" ? (
+                                                            "update" ? (
                                                             action.content(row)
                                                         ) : action.id ===
-                                                          "delete" ? (
+                                                            "delete" ? (
                                                             <ConfirmDelete
                                                                 rowData={row}
                                                                 onConfirm={() =>
