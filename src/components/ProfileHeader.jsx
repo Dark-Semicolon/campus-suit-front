@@ -13,12 +13,15 @@ function ProfileHeader({ image, name, email, id, status, permissions, roles }) {
                                 ? "/images/userPlaceholder.webp"
                                 : `${STORAGE_LINK}/${image}`
                         }
-                        className="object-cover w-40 h-40 rounded-full"
+                        className="object-contain w-40 h-40 rounded-full"
                     />
-                    {email && <span
-                        className={`w-5 h-5 rounded-full absolute top-32 left-36 z-10 ${status ? " bg-green-500" : "bg-yellow-500"
+                    {email && (
+                        <span
+                            className={`w-5 h-5 rounded-full absolute top-32 left-36 z-10 ${
+                                status ? " bg-green-500" : "bg-yellow-500"
                             }`}
-                    ></span>}
+                        ></span>
+                    )}
                 </div>
             </div>
             <p className="font-bold text-blue-color-primary">
